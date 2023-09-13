@@ -1,0 +1,17 @@
+.hiddenScrollBar::-webkit-scrollbar {
+  display: none;
+}
+@font-face {
+  font-family: "Poppins-Meduim";
+   src: url("./assets/Poppins/Poppins-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins-Regular";
+   src: url("./assets/Poppins/Poppins-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
