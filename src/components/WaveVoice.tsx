@@ -9,7 +9,6 @@ const WaveVoice = () => {
   const [palse3 , setPalse3]= useState(true);  
   useEffect(() => {
     setTimeout(() => {
-      console.log(waveHeight)
       if(palse1) {
         setWaveHeight(waveHeight+5)
       }else{
