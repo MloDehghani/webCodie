@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useConstructor } from "../help";
@@ -8,12 +9,11 @@ import TikIcon from '../assets/Tik.svg';
 import { MoonLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 
-const Planing = (props: any) => {
+const Planing = () => {
     const navigate = useNavigate();    
     const [isLoading, setIsLoading] = useState(true);
     const [selectedBox, setSelectedBox] = useState(0);        
     const [bots, setBots] = useState<Array<any>>([]);    
-    const [stepNumber, setStepNumber] = useState(0);
     const [localApikey, setLocalApikey] = useState('');
     const getBotsControled = () => {
         Bots.getBots(

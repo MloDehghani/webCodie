@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from "react";
 import {WaveVoice,ImageSpinner, Sugesstions} from "../components"
@@ -16,7 +17,6 @@ const Chat = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [useApikey, setApiKey] = useState('');
     const {
-        error,
         interimResult,
         isRecording,
         results,
@@ -101,7 +101,7 @@ const Chat = () => {
     const navigate = useNavigate();    
     const pageScroll = () => {
         document.getElementById('chatMessageScrool1')?.scrollBy(0,1);
-        const scrolldelay = setTimeout(pageScroll,300);
+        setTimeout(pageScroll,300);
     }     
     const _handleOfferClick = (offer: string) => {
       // console.log(offer.substring(0, 6));
