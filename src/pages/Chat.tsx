@@ -11,6 +11,8 @@ import { BeatLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 
 const Chat = () => {
+    const [boxWidth,setBoxWidth] = useState(window.innerWidth);
+    const [boxHeight,setBoxHeight] = useState(window.innerHeight);
     const [audioUrl, setAudioUrl] = useState<string>('');
     const audioRef = useRef<any>()      
     const [isTalking, setIsTalking] = useState(false);    
@@ -181,6 +183,15 @@ const Chat = () => {
           }, 5000);   
       }              
     })
+    const handleResize =() => {
+      setBoxWidth(window.innerWidth)
+      setBoxHeight(window.innerHeight)
+    }
+    useEffect(() => {
+      setBoxWidth(window.innerWidth)
+      setBoxHeight(window.innerHeight)
+      window.addEventListener("resize", handleResize, false);
+    }, []);    
     useConstructor(() => {
       if(!localStorage.getItem('accessToken')){
         setTimeout(() => {
@@ -201,7 +212,7 @@ const Chat = () => {
     })
     return (
         <>
-         <div className="hiddenScrollBar" style={{backgroundColor:'#121212',position:'relative',width:window.innerWidth,height:window.innerHeight,overflowY:'scroll'}}>
+         <div className="hiddenScrollBar" style={{backgroundColor:'#121212',position:'relative',width:boxWidth,height:boxHeight,overflowY:'scroll'}}>
             <div style={{marginTop: 50,maxHeight:80,minHeight:80,display:'flex',justifyContent:'center',alignItems:'center'}}>
                 {isRecording ? 
                     <WaveVoice />
