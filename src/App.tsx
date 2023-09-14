@@ -4,6 +4,7 @@ import {
 } from "react-router-dom";
 import { Planing, Login, Chat, JustGoogleLogin } from './pages';
 import './App.css';
+import Register from "./pages/Register";
 
 function App() {
   const router = createBrowserRouter([
@@ -14,6 +15,10 @@ function App() {
     {
       path: "/login",
       element: <Login />,
+    },
+    {
+      path: "/register",
+      element: <Register/>
     },    
     {
       path: "/chat",
