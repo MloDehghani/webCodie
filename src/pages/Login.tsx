@@ -277,11 +277,11 @@ const Login = () => {
                 onSuccess={(credentialResponse) => {
                   //   setcertificate(credentialResponse);
                   console.log(credentialResponse);
-                  const prof: any = jwt_decode(
-                    credentialResponse.credential
-                      ? credentialResponse?.credential
-                      : ""
-                  );
+                  // const prof: any = jwt_decode(
+                  //   credentialResponse.credential
+                  //     ? credentialResponse?.credential
+                  //     : ""
+                  // );
 
                   console.log(
                     jwt_decode(
