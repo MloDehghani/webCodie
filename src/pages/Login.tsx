@@ -101,23 +101,33 @@ const Login = () => {
           </label>
           <input
             {...formik.getFieldProps("email")}
-            style={{
+            // style={{
+            //   padding: "12px 16px",
+            //   backgroundColor: "#1F1F1F",
+            //   border: "none",
+            //   borderRadius: "4px",
+            // }}
+          
+            style={(formik.errors.email && formik.touched.email) ? {
               padding: "12px 16px",
               backgroundColor: "#1F1F1F",
-              border: "none",
+              border: "1px solid red",
               borderRadius: "4px",
-            }}
+            } : { padding: "12px 16px",
+            backgroundColor: "#1F1F1F",
+            border: "none",
+            borderRadius: "4px",}}
             type="text"
             placeholder="Enter your email..."
           />
-          {formik.errors.email && formik.touched.email && (
+          {/* {formik.errors.email && formik.touched.email && (
             <p
               style={{ color: "red", fontSize: "12px", marginTop: "3px" }}
            
             >
               {formik.errors.email}
             </p>
-          )}
+          )} */}
         </div>
         <div
           style={{
@@ -142,20 +152,23 @@ const Login = () => {
           </label>
           <input
             {...formik.getFieldProps("password")}
-            style={{
+            style={(formik.touched.password && formik.errors.password) ? {
               padding: "12px 16px",
               backgroundColor: "#1F1F1F",
-              border: "none",
+              border: "1px solid red",
               borderRadius: "4px",
-            }}
+            } : { padding: "12px 16px",
+            backgroundColor: "#1F1F1F",
+            border: "none",
+            borderRadius: "4px",}}
             type="text"
             placeholder="Enter your password..."
           />
-            {formik.errors.password && formik.touched.password && (
+            {/* {formik.errors.password && formik.touched.password && (
                       <p  style={{ color: "red", fontSize: "12px", marginTop: "3px" }}>
                         {formik.errors.password}
                       </p>
-                    )}
+                    )} */}
         </div>
         <div
           style={{
