@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useConstructor } from "../help";
@@ -6,12 +7,13 @@ import calageIcon from '../assets/calage.svg';
 import calageIconNon from '../assets/calageUnselect.svg';
 import TikIcon from '../assets/Tik.svg';
 import { MoonLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
 
-const Planing = (props: any) => {
+const Planing = () => {
+    const navigate = useNavigate();    
     const [isLoading, setIsLoading] = useState(true);
     const [selectedBox, setSelectedBox] = useState(0);        
     const [bots, setBots] = useState<Array<any>>([]);    
-    const [stepNumber, setStepNumber] = useState(0);
     const [localApikey, setLocalApikey] = useState('');
     const getBotsControled = () => {
         Bots.getBots(
@@ -72,7 +74,7 @@ const Planing = (props: any) => {
                                 <div
                                 onClick={() => {
                                     // props.setPlan('As a technician');
-
+                                    setLocalApikey(item.apikey)
                                     setSelectedBox(index+ 1);
                                 }}
                                 style={{marginTop: 8}}>
@@ -139,9 +141,11 @@ const Planing = (props: any) => {
                     <button
                         disabled={selectedBox === 0}
                         onClick={() => {
-                        // console.log(localApikey);
+                        console.log(localApikey);
                         if (localApikey.length > 1) {
-                            props.setApikey(localApikey);
+                            // props.setApikey(localApikey);
+                            localStorage.setItem('ApiKey',localApikey)
+                            navigate('/googleLogin')
                             // checkBotId(localApikey).then(a => {
                             // console.log(a);
                             // setTimeout(() => {
