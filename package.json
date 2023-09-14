@@ -11,12 +11,14 @@
   },
   "dependencies": {
     "@react-oauth/google": "^0.11.1",
+    "formik": "^2.4.4",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-speech-to-text": "^0.8.0",
     "react-router-dom": "^6.15.0",
-    "react-spinners": "^0.13.8"
+    "react-spinners": "^0.13.8",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
