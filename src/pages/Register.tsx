@@ -441,7 +441,7 @@ const Register = () => {
             marginTop: "20px",
             marginRight: "auto",
             color: "#ffffff",
-            fontSize: "16px",
+            fontSize: "14px",
             fontWeight: "500",
             paddingRight: "24px",
             paddingLeft: "24px",
