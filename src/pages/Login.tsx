@@ -36,7 +36,8 @@ const Login = () => {
         // overflowY: "scroll",
         display: "flex",
         flexDirection: "column",
-        fontFamily: "Poppins",
+       
+        // fontFamily: "Poppins-Medium",
         // paddingLeft:'20px',
         // paddingRight:'20px'
       }}
@@ -47,11 +48,11 @@ const Login = () => {
       <div style={{ marginTop: "-10px" }}>
         <p
           style={{
-            color: "#FFFFFFDE",
+          color:'#ffffff',
             // width: 152,
             whiteSpace: "pre-line",
             paddingLeft: "24px",
-            lineHeight: "30px",
+            lineHeight: "32px",
             fontSize: "28px",
             fontWeight: "600",
           }}
@@ -90,6 +91,7 @@ const Login = () => {
         >
           <label
             style={{
+              color:'#ffffff',
               fontWeight: "500",
               lineHeight: "24px",
               fontSize: "16px",
@@ -100,6 +102,7 @@ const Login = () => {
             Your Email
           </label>
           <input
+          autoComplete="off"
             {...formik.getFieldProps("email")}
             // style={{
             //   padding: "12px 16px",
@@ -112,6 +115,8 @@ const Login = () => {
               formik.errors.email && formik.touched.email
                 ? {
                     padding: "12px 16px",
+                    color:'#ffffff',
+                    
                     backgroundColor: "#1F1F1F",
                     border: "1px solid red",
                     borderRadius: "4px",
@@ -119,6 +124,7 @@ const Login = () => {
                   }
                 : {
                     padding: "12px 16px",
+                    color:'#ffffff',
                     backgroundColor: "#1F1F1F",
                     border: "none",
                     borderRadius: "4px",
@@ -149,6 +155,7 @@ const Login = () => {
         >
           <label
             style={{
+              color:'#ffffff',
               fontWeight: "500",
               lineHeight: "24px",
               fontSize: "16px",
@@ -159,11 +166,13 @@ const Login = () => {
             Password
           </label>
           <input
+           autoComplete="off"
             {...formik.getFieldProps("password")}
             style={
               formik.touched.password && formik.errors.password
                 ? {
                     padding: "12px 16px",
+                    color:'#ffffff',
                     backgroundColor: "#1F1F1F",
                     border: "1px solid red",
                     borderRadius: "4px",
@@ -171,6 +180,7 @@ const Login = () => {
                   }
                 : {
                     padding: "12px 16px",
+                    color:'#ffffff',
                     backgroundColor: "#1F1F1F",
                     border: "none",
                     borderRadius: "4px",
@@ -220,6 +230,7 @@ const Login = () => {
           <button
             disabled={submitDisabled}
             style={{
+              color:"white",
               marginBottom: "20px",
               width: "100%",
               backgroundColor: "#007BFF",
@@ -241,7 +252,7 @@ const Login = () => {
               width: "90%",
               marginLeft: "auto",
               marginRight: "auto",
-              marginBottom: "25px",
+              marginBottom: "24px",
             }}
           >
             {/* left line */}
@@ -285,7 +296,7 @@ const Login = () => {
             ></div>
              </div>
           {/* <div style={{ padding: "16px 30px", width: "100%" }}> */}
-          <button
+          <div
             style={{
               width: "100%",
               display: "flex",
@@ -333,7 +344,7 @@ const Login = () => {
                 }}
               />
             </GoogleOAuthProvider>
-          </button>
+          </div>
         </div>
         <div
           style={{

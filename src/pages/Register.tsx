@@ -46,7 +46,8 @@ const Register = () => {
         // overflowY: "scroll",
         display: "flex",
         flexDirection: "column",
-        fontFamily: "Poppins",
+        color:'#ffffff',
+        // fontFamily: "Poppins",
         // paddingLeft:'20px',
         // paddingRight:'20px'
       }}
@@ -57,11 +58,11 @@ const Register = () => {
       <div style={{ marginTop: "-10px" }}>
         <p
           style={{
-            color: "#FFFFFFDE",
+            color:'#ffffff',
             // width: 152,
             whiteSpace: "pre-line",
             paddingLeft: "24px",
-            lineHeight: "30px",
+            lineHeight: "32px",
             fontSize: "28px",
             fontWeight: "600",
           
@@ -101,6 +102,7 @@ const Register = () => {
         >
           <label
             style={{
+              color:'#ffffff',
               fontWeight: "500",
               lineHeight: "24px",
               fontSize: "16px",
@@ -111,11 +113,13 @@ const Register = () => {
             Full Name
           </label>
           <input
+           autoComplete="off"
             {...formik.getFieldProps("username")}
             style={
               formik.errors.username && formik.touched.username
                 ? {
                     padding: "12px 16px",
+                    color:'#ffffff',
                     backgroundColor: "#1F1F1F",
                     border: "1px solid red",
                     borderRadius: "4px",
@@ -123,6 +127,7 @@ const Register = () => {
                   }
                 : {
                     padding: "12px 16px",
+                    color:'#ffffff',
                     backgroundColor: "#1F1F1F",
                     border: "none",
                     borderRadius: "4px",
@@ -154,6 +159,7 @@ const Register = () => {
           <label
             style={{
               fontWeight: "500",
+              color:'#ffffff',
               lineHeight: "24px",
               fontSize: "16px",
               marginBottom: "7px",
@@ -163,6 +169,7 @@ const Register = () => {
             Your Email
           </label>
           <input
+           autoComplete="off"
             {...formik.getFieldProps("email")}
             // style={{
             //   padding: "12px 16px",
@@ -176,12 +183,14 @@ const Register = () => {
                 ? {
                     padding: "12px 16px",
                     backgroundColor: "#1F1F1F",
+                    color:'#ffffff',
                     border: "1px solid red",
                     borderRadius: "4px",
                     marginTop: "-5px",
                   }
                 : {
                     padding: "12px 16px",
+                    color:'#ffffff',
                     backgroundColor: "#1F1F1F",
                     border: "none",
                     borderRadius: "4px",
@@ -213,6 +222,7 @@ const Register = () => {
           <label
             style={{
               fontWeight: "500",
+              color:'#ffffff',
               lineHeight: "24px",
               fontSize: "16px",
               marginBottom: "7px",
@@ -222,11 +232,13 @@ const Register = () => {
             Password
           </label>
           <input
+           autoComplete="off"
             {...formik.getFieldProps("password")}
             style={
               formik.touched.password && formik.errors.password
                 ? {
                     padding: "12px 16px",
+                    color:'#ffffff',
                     backgroundColor: "#1F1F1F",
                     border: "1px solid red",
                     borderRadius: "4px",
@@ -234,6 +246,7 @@ const Register = () => {
                   }
                 : {
                     padding: "12px 16px",
+                    color:'#ffffff',
                     backgroundColor: "#1F1F1F",
                     border: "none",
                     borderRadius: "4px",
@@ -308,6 +321,7 @@ const Register = () => {
             disabled={submitDisabled}
             style={{
               marginBottom: "20px",
+              color:'#ffffff',
               width: "100%",
               backgroundColor: "#007BFF",
               height: "50px",
@@ -372,7 +386,7 @@ const Register = () => {
             ></div>
           </div>
           {/* <div style={{ padding: "16px 30px", width: "100%" }}> */}
-          <button
+          <div
             style={{
               width: "100%",
               display: "flex",
@@ -420,7 +434,7 @@ const Register = () => {
                 }}
               />
             </GoogleOAuthProvider>
-          </button>
+          </div>
         </div>
         <div
           style={{
