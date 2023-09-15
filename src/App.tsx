@@ -1,13 +1,16 @@
 import {
-  createBrowserRouter,
+  createHashRouter,
   RouterProvider,
 } from "react-router-dom";
 import { Planing, Login, Chat, JustGoogleLogin } from './pages';
 import './App.css';
 import Register from "./pages/Register";
+import { useEffect, useState } from "react";
 
 function App() {
-  const router = createBrowserRouter([
+  const [boxWidth,setBoxWidth] = useState(window.innerWidth);
+  const [boxHeight,setBoxHeight] = useState(window.innerHeight);  
+  const router = createHashRouter([
     {
       path: "/",
       element: <Planing />,
@@ -29,9 +32,18 @@ function App() {
       element: <JustGoogleLogin />,
     },          
   ]);  
+  const handleResize =() => {
+    setBoxWidth(window.innerWidth)
+    setBoxHeight(window.innerHeight)
+  }
+  useEffect(() => {
+    setBoxWidth(window.innerWidth)
+    setBoxHeight(window.innerHeight)
+    window.addEventListener("resize", handleResize, false);
+  }, []);     
   return (
-    <div style={{backgroundColor:'#121212',width:'100%',height:'100vh',display:'flex',justifyContent:'center',alignItems:'center'}}>
-      <RouterProvider router={router} />
+    <div style={{backgroundColor:'#121212',marginTop:boxWidth < 600?'-95px':'0px',overflow:'hidden',width:boxWidth,height:boxHeight,display:'flex',justifyContent:'center',alignItems:'center'}}>
+      <RouterProvider  router={router}/>
     </div>
   )
 }
