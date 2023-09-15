@@ -23,7 +23,7 @@ const Login = () => {
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-        console.log(values);
+      console.log(values);
     },
   });
   const submitDisabled = Object.keys(formik.errors).length > 0 || !formik.dirty;
@@ -41,17 +41,17 @@ const Login = () => {
         // paddingRight:'20px'
       }}
     >
-      <div style={{ paddingLeft: "18px", marginTop: "40px" }}>
-        <img src="/icons/leftVector.svg" alt="leftArrow" />
+      <div style={{ paddingLeft: "18px", marginTop: "40px" ,  }}>
+        <img src="/icons/leftVector.svg" alt="leftArrow" style={{cursor:'pointer'}} />
       </div>
-      <div style={{ marginTop: "-15px" }}>
+      <div style={{ marginTop: "-10px" }}>
         <p
           style={{
             color: "#FFFFFFDE",
             // width: 152,
             whiteSpace: "pre-line",
             paddingLeft: "24px",
-            lineHeight: "40px",
+            lineHeight: "30px",
             fontSize: "28px",
             fontWeight: "600",
           }}
@@ -107,16 +107,24 @@ const Login = () => {
             //   border: "none",
             //   borderRadius: "4px",
             // }}
-          
-            style={(formik.errors.email && formik.touched.email) ? {
-              padding: "12px 16px",
-              backgroundColor: "#1F1F1F",
-              border: "1px solid red",
-              borderRadius: "4px",
-            } : { padding: "12px 16px",
-            backgroundColor: "#1F1F1F",
-            border: "none",
-            borderRadius: "4px",}}
+
+            style={
+              formik.errors.email && formik.touched.email
+                ? {
+                    padding: "12px 16px",
+                    backgroundColor: "#1F1F1F",
+                    border: "1px solid red",
+                    borderRadius: "4px",
+                    marginTop:'-5px'
+                  }
+                : {
+                    padding: "12px 16px",
+                    backgroundColor: "#1F1F1F",
+                    border: "none",
+                    borderRadius: "4px",
+                    marginTop:'-5px'
+                  }
+            }
             type="text"
             placeholder="Enter your email..."
           />
@@ -152,19 +160,27 @@ const Login = () => {
           </label>
           <input
             {...formik.getFieldProps("password")}
-            style={(formik.touched.password && formik.errors.password) ? {
-              padding: "12px 16px",
-              backgroundColor: "#1F1F1F",
-              border: "1px solid red",
-              borderRadius: "4px",
-            } : { padding: "12px 16px",
-            backgroundColor: "#1F1F1F",
-            border: "none",
-            borderRadius: "4px",}}
-            type="text"
+            style={
+              formik.touched.password && formik.errors.password
+                ? {
+                    padding: "12px 16px",
+                    backgroundColor: "#1F1F1F",
+                    border: "1px solid red",
+                    borderRadius: "4px",
+                    marginTop:'-5px'
+                  }
+                : {
+                    padding: "12px 16px",
+                    backgroundColor: "#1F1F1F",
+                    border: "none",
+                    borderRadius: "4px",
+                    marginTop:'-5px'
+                  }
+            }
+            type="password"
             placeholder="Enter your password..."
           />
-            {/* {formik.errors.password && formik.touched.password && (
+          {/* {formik.errors.password && formik.touched.password && (
                       <p  style={{ color: "red", fontSize: "12px", marginTop: "3px" }}>
                         {formik.errors.password}
                       </p>
@@ -172,7 +188,7 @@ const Login = () => {
         </div>
         <div
           style={{
-            paddingRight: "23px",
+            paddingRight: "24px",
             // paddingLeft: "24px",
             width: " -webkit-fill-available",
             textAlign: "right",
@@ -202,7 +218,7 @@ const Login = () => {
           }}
         >
           <button
-          disabled={submitDisabled}
+            disabled={submitDisabled}
             style={{
               marginBottom: "20px",
               width: "100%",
@@ -222,21 +238,21 @@ const Login = () => {
               alignItems: "center",
               justifyContent: "center",
               margin: "8px 0",
-              width: "80%",
+              width: "90%",
               marginLeft: "auto",
               marginRight: "auto",
               marginBottom: "25px",
             }}
           >
+            {/* left line */}
             <div
               style={{
-                backgroundColor: "#8C8A93",
-                opacity: ".87",
+                background: `linear-gradient(to left, rgba(140, 138, 147, 1), rgba(140, 138, 147, 0))`,
                 height: "1px",
                 width: "100%",
               }}
-            ></div>{" "}
-            {/* left line */}
+            ></div>
+            {/* or text */}
             <div
               style={{
                 color: "#FFFFFF",
@@ -252,16 +268,22 @@ const Login = () => {
             >
               or
             </div>{" "}
-            {/* or text */}
-            <div
+            {/* <div
               style={{
                 backgroundColor: "#8C8A93",
                 height: "1px",
                 width: "100%",
               }}
-            ></div>{" "}
+            ></div>{" "} */}
             {/* right line */}
-          </div>
+            <div
+              style={{
+                background: `linear-gradient(to right, rgba(140, 138, 147, 1), rgba(140, 138, 147, 0))`,
+                height: "1px",
+                width: "100%",
+              }}
+            ></div>
+             </div>
           {/* <div style={{ padding: "16px 30px", width: "100%" }}> */}
           <button
             style={{
@@ -328,9 +350,6 @@ const Login = () => {
         >
           Don&apos;t have an acoount?{" "}
           <a style={{ color: "#007BFF", cursor: "pointer" }}>Sign up</a>
-          {/* <a className="text-primary dark:text-slate-200" href="">
-                    Privacy Policy
-                  </a> */}
         </div>
       </div>
       {/* </div> */}
