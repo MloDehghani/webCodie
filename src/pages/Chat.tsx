@@ -195,9 +195,9 @@ const Chat = () => {
       setBoxHeight(window.innerHeight)
       window.addEventListener("resize", handleResize, false);
     }, []);    
-    const _test = () => {
-      localStorage.setItem('accessToken','eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlODkwOTgxZjg4IiwiaWF0IjoxNjk0NzY5MTU3LCJuYmYiOjE2OTQ3NjkxNTcsImp0aSI6ImYxN2ExMGFlLWM3OTMtNDMzNi05YjVlLWRlM2UyMTZjOTUyYyIsImV4cCI6MTY5NTM3Mzk1NywidHlwZSI6ImFjY2VzcyIsImZyZXNoIjpmYWxzZX0.Pop49RJ02EkXd1PchcQaoGJC02r-wM69cHZCIsbRP1s')
-    }
+    // const _test = () => {
+    //   localStorage.setItem('accessToken','eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlODkwOTgxZjg4IiwiaWF0IjoxNjk0NzY5MTU3LCJuYmYiOjE2OTQ3NjkxNTcsImp0aSI6ImYxN2ExMGFlLWM3OTMtNDMzNi05YjVlLWRlM2UyMTZjOTUyYyIsImV4cCI6MTY5NTM3Mzk1NywidHlwZSI6ImFjY2VzcyIsImZyZXNoIjpmYWxzZX0.Pop49RJ02EkXd1PchcQaoGJC02r-wM69cHZCIsbRP1s')
+    // }
     const [suglist,setSuglist] = useState<Array<any>>([]);
     useConstructor(() => {
       // _test()
