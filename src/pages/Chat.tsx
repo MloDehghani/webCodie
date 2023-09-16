@@ -10,6 +10,11 @@ import Flow from "../api/Flow";
 import { BeatLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { checkBotId } from "../api/botId";
+import keybordIcon from '../assets/keyboard.svg';
+import SettingIcon from '../assets/setting.svg';
+import SendIcon from '../assets/Send.svg';
+import translateIcon from '../assets/translate.svg';
+import LogOutIcom from '../assets/logOut.svg';
 
 const Chat = () => {
     const [boxWidth,setBoxWidth] = useState(window.innerWidth);
@@ -19,6 +24,9 @@ const Chat = () => {
     const [isTalking, setIsTalking] = useState(false);    
     const [isLoading, setIsLoading] = useState(false);
     const [useApikey, setApiKey] = useState('');
+    const [showTextBox,setShowTextBox] = useState(false);
+    const [text,setText] = useState('');
+    const [showSetting,setShowSetting] = useState(false);
     const {
         interimResult,
         isRecording,
@@ -199,6 +207,16 @@ const Chat = () => {
     //   localStorage.setItem('accessToken','eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlODkwOTgxZjg4IiwiaWF0IjoxNjk0NzY5MTU3LCJuYmYiOjE2OTQ3NjkxNTcsImp0aSI6ImYxN2ExMGFlLWM3OTMtNDMzNi05YjVlLWRlM2UyMTZjOTUyYyIsImV4cCI6MTY5NTM3Mzk1NywidHlwZSI6ImFjY2VzcyIsImZyZXNoIjpmYWxzZX0.Pop49RJ02EkXd1PchcQaoGJC02r-wM69cHZCIsbRP1s')
     // }
     const [suglist,setSuglist] = useState<Array<any>>([]);
+    const closeFilter = (event:any) => {
+        console.log(event.composedPath()[0].id)
+        let paths = []
+        paths = event.composedPath().map((item:HTMLElement) => item.id)
+        console.log(paths)
+        if(!paths.includes('boxInput') && !paths.includes('boxInput-button')){
+            setShowTextBox(false);
+            document.removeEventListener('click',closeFilter);
+        }
+    }    
     useConstructor(() => {
       // _test()
 
@@ -317,64 +335,6 @@ const Chat = () => {
                                   }}>
                                   {item.message}
                                 </div>
-                                <div
-                                  style={{
-                                    marginTop: 11,
-                                    width: '100%',
-                                    display: 'flex',
-                                    justifyContent: 'flex-end',
-                                    flexDirection: 'row',
-                                  }}>
-                                    <>
-                                      <div>
-                                        {/* <Svg
-                                          width="16"
-                                          height="16"
-                                          viewBox="0 0 16 16"
-                                          fill={
-                                            liked.includes(index)
-                                              ? 'white'
-                                              : 'none'
-                                          }>
-                                          <Path
-                                            d="M4.8906 7.28433L7.69058 0.984375C8.24754 0.984375 8.78168 1.20562 9.1755 1.59945C9.56932 1.99327 9.79057 2.52741 9.79057 3.08436V5.88434H13.7525C13.9555 5.88205 14.1565 5.9239 14.3416 6.007C14.5268 6.09009 14.6917 6.21246 14.8248 6.3656C14.958 6.51875 15.0563 6.69901 15.1129 6.89391C15.1695 7.08881 15.183 7.29368 15.1525 7.49433L14.1865 13.7943C14.1359 14.1281 13.9663 14.4324 13.7091 14.6511C13.4518 14.8698 13.1242 14.9881 12.7866 14.9843H4.8906M4.8906 7.28433V14.9843M4.8906 7.28433H2.79062C2.41932 7.28433 2.06322 7.43183 1.80067 7.69438C1.53812 7.95693 1.39062 8.31302 1.39062 8.68433V13.5843C1.39063 13.9556 1.53812 14.3117 1.80067 14.5742C2.06322 14.8368 2.41932 14.9843 2.79062 14.9843H4.8906"
-                                            stroke={
-                                              liked.includes(index)
-                                                ? '#FFFFFF99'
-                                                : 'white'
-                                            }
-                                            stroke-opacity="0.6"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                          />
-                                        </Svg> */}
-                                      </div>
-                                      <div
-                                        style={{marginLeft: 12}}>
-                                        {/* <Svg
-                                          width="16"
-                                          height="16"
-                                          viewBox="0 0 16 16"
-                                          fill={
-                                            disliked.includes(index)
-                                              ? 'white'
-                                              : 'none'
-                                          }>
-                                          <Path
-                                            d="M11.4456 8.68449L8.64569 14.9844C8.08874 14.9844 7.55461 14.7631 7.16079 14.3693C6.76697 13.9755 6.54572 13.4414 6.54572 12.8844V10.0845H2.5838C2.38086 10.0868 2.17986 10.0449 1.99471 9.96181C1.80955 9.87871 1.64468 9.75635 1.51151 9.60321C1.37835 9.45007 1.28007 9.2698 1.22348 9.07491C1.1669 8.88001 1.15337 8.67514 1.18382 8.47449L2.1498 2.17461C2.20043 1.84078 2.37 1.53649 2.62726 1.31782C2.88453 1.09914 3.21216 0.980811 3.54978 0.984628H11.4456M11.4456 8.68449V0.984628M11.4456 8.68449H13.3146C13.7108 8.69149 14.0957 8.5528 14.3964 8.29472C14.697 8.03665 14.8925 7.67717 14.9456 7.28451V2.3846C14.8925 1.99195 14.697 1.63247 14.3964 1.37439C14.0957 1.11632 13.7108 0.977622 13.3146 0.984628H11.4456"
-                                            stroke={
-                                              disliked.includes(index)
-                                                ? '#FFFFFF99'
-                                                : 'white'
-                                            }
-                                            stroke-opacity="0.6"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                          />
-                                        </Svg> */}
-                                      </div>
-                                    </>
-                                </div>
                               </div>
                             </div>                        
                           </>}                  
@@ -462,19 +422,56 @@ const Chat = () => {
               }
                 
             </div>
-
-            <div style={{position:'absolute',width:'100%',bottom:24 ,height: 50,display:'flex',justifyContent:'center',alignItems:'center'}}>
-                <button disabled={isLoading} onClick={isRecording?() => {
-                  stopSpeechToText()
-                  setAudioUrl('');
-                  setIsTalking(false)
-                  sendToApi()   
-                }:() => {
-                  startSpeechToText()
-                }} style={{width:isRecording? 66: 56,height:isRecording? 66: 56,backgroundColor:'#007BFF',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
-                    <img style={{width:isRecording? 35: 30}} src={micIcon} />
-                </button>
-            </div>
+            {showTextBox ? 
+              <div id="boxInput" style={{position:'absolute',padding:'0px 16px',width:'-webkit-fill-available',bottom:24 ,height: 50,display:'flex',justifyContent:'center',alignItems:'center'}}>
+                <input value={text} onChange={(event) => setText(event.target.value)} style={{width:'100%',height:37,borderRadius:8,backgroundColor:'#2D2D2D',padding:'0px 12px',paddingRight:40,color:'white',fontFamily:'poppins-Regular'}} />
+                <img onClick={() => {
+                  setShowTextBox(false);
+                  if(text.length > 0){
+                    _handleOfferClick(text)
+                  }
+                  setText('')
+                }} style={{position:'absolute',zIndex:20,right:32}} src={SendIcon} />
+              </div>
+            :
+              <div style={{position:'absolute',padding:'0px 16px',width:'-webkit-fill-available',bottom:24 ,height: 50,display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                  <button onClick={() => {
+                    setShowSetting(!showSetting)
+                  }} style={{width:56,height: 56,backgroundColor:'#121212',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
+                    <img src={SettingIcon} />
+                  </button>
+                  {showSetting ?
+                    <div style={{backgroundColor:'#353535',padding:'12px 16px',position:'absolute',top:-90,borderRadius:5}}>
+                      <div style={{display:'flex'}}>
+                        <img style={{marginRight:8}} src={translateIcon} />
+                        <div style={{color:'#FFFFFFDE',cursor:'pointer'}}>Language</div>
+                      </div>
+                      <div style={{height:'0.5px',margin:'8px 0px' ,width:'100%',backgroundColor:'white'}} />
+                      <div style={{display:'flex',marginTop:8,width:'100%'}}>
+                        <img style={{marginRight:8}} src={LogOutIcom} />
+                        <div style={{color:'#FFFFFFDE',cursor:'pointer'}}>Log out</div>
+                      </div>                      
+                    </div>
+                   :undefined}
+                  <button disabled={isLoading} onClick={isRecording?() => {
+                    stopSpeechToText()
+                    setAudioUrl('');
+                    setIsTalking(false)
+                    sendToApi()   
+                  }:() => {
+                    startSpeechToText()
+                  }} style={{width:isRecording? 66: 56,height:isRecording? 66: 56,backgroundColor:'#007BFF',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
+                      <img style={{width:isRecording? 35: 30}} src={micIcon} />
+                  </button>
+                  <button id="boxInput-button" onClick={() => {
+                    setShowTextBox(true);
+                    setAudioUrl('');
+                    document.addEventListener('click',closeFilter)
+                  }} style={{width:56,height: 56,backgroundColor:'#121212',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
+                    <img src={keybordIcon} />
+                  </button>
+              </div>
+            }
          </div>
           <div style={{visibility:'hidden',top:0,left:0,position:'absolute',width:'0px',height:'0px'}}>
               <div style={{position:'absolute',zIndex:300}}>
