@@ -68,13 +68,11 @@ button:focus-visible {
   }
 } */
 
-
 /* button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
  
 } */
-
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -104,10 +102,10 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
-body, html {
-  font-family: 'Poppins', sans-serif;
+body,
+html {
+  font-family: "Poppins", sans-serif;
   margin: 0;
- 
 }
 /* body{
   display: flex;
@@ -131,63 +129,107 @@ button {
   /* transition: border-color 0.25s; */
 }
 input::placeholder {
-  font-weight: '300';
+  font-weight: "300";
   opacity: 0.6;
-  line-height: '27.25px';
-  font-size: '16px';
+  line-height: "27.25px";
+  font-size: "16px";
   color: #ffffff;
-  
-
 }
 
-button:disabled{
+button:disabled {
   cursor: not-allowed;
-
- 
 }
 
-input[type=checkbox] {
-  accent-color: #007BFF;
+input[type="checkbox"] {
+  accent-color: #007bff;
 }
 
 @media only screen and (max-width: 768px) {
-  .container{
-    display: flex;
-    flex-direction: column;
+  .container {
+    display: flex !important;
+    flex-direction: column !important;
+    padding-left: 16px !important;
   }
-  .macbook-container{
+  .macbook-container {
     position: relative;
   }
-  .logo{
-    max-width: 110px;
-    max-height: 65px;
+  .logo-container {
+    padding-left: 16px !important;
   }
-
-   .canterbury {
-    font-size: 10px;
-   }
+  .logo {
+    max-width: 110px !important;
+    max-height: 65px !important;
+  }
+  /* .div-container{
+    margin-top: -150px !important;
+  } */
+  /* .welcomeday{
+  
+} */
+  .canterbury {
+    font-size: 24px !important;
+    line-height: 36px !important;
+  }
+  .leftContainer {
+    position: absolute !important;
+    top: 150px !important;
+  }
 
   /* p  {
     font-size: 10px;
   } */
   .gplay-image {
-    max-width: 100px;
-    max-height: 240px;
+    max-width: 100px !important;
+    max-height: 240px !important;
   }
   .chromeWeb-image {
-    max-width: 100px;
-    max-height: 240px;
+    max-width: 100px !important;
+    max-height: 240px !important;
   }
-  .macbook-image{
-    max-width: 380px;
-    max-height: 250px;
+  .macbook-image {
+    max-width: 380px !important;
+    max-height: 250px !important;
   }
- 
+  .welcomeday {
+    line-height: 30px !important;
+    font-size: 20px !important;
+    font-weight: 400 !important;
+    padding-top: 16px !important;
+    padding-bottom: 10px !important;
+  }
+  .under-image {
+    width: 160px !important;
+    padding-top: 2px !important;
+  }
+  .communicate {
+    line-height: 24px !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    padding-top: 30px;
+  }
+  .gplay-image,
+  .chromeWeb-image {
+    max-width: 160px !important;
+  }
+  .image-container {
+    margin-left: 1px !important;
+  }
 }
 
-/* @media screen and (max-width: 1144px) {
-  .container{
-    display: flex;
-    flex-direction: column;
+@media only screen and (max-width: 400px) {
+  .macbook-image {
+    max-width: 250px !important;
+  
   }
-} */
+  .gplay-image,
+  .chromeWeb-image {
+    max-width: 110px !important;
+  }
+}
+@media only screen and (max-width: 280px) {
+  .macbook-image {
+    max-width: 200px !important;
+  
+  }
+
+}
