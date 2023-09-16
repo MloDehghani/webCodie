@@ -13,7 +13,7 @@ const Welcome = () => {
         position: "relative",
       }}
     >
-      <div
+      <div className="logo-container"
         style={{
           marginTop: "25px",
           width: " -webkit-fill-available",
@@ -38,7 +38,7 @@ const Welcome = () => {
           paddingLeft: "119px",
         }}
       >
-        <div style={{marginTop:'-60px'}}>
+        <div className="leftContainer"  style={{marginTop:'-60px'}}>
           <div id="div-container">
             <p
               className="canterbury"
@@ -62,8 +62,8 @@ const Welcome = () => {
             >
               Welcoming Day
             </p>
-            <div style={{ marginTop: "-40px" }}>
-              <img
+            <div className="under-image" style={{ marginTop: "-40px" }}>
+              <img className="under-image"
                 src="/images/under_blue.svg"
                 alt=""
                 style={{ marginTop: "-50px" }}
@@ -77,7 +77,7 @@ const Welcome = () => {
               How would you prefer to communicate {"\n"} with us?{" "}
             </p>
           </div>
-          <div
+          <div className="image-container"
             style={{
               display: "flex",
               justifyContent: "center",
