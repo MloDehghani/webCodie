@@ -49,7 +49,7 @@ function App() {
     window.addEventListener("resize", handleResize, false);
   }, []);     
   return (
-    <div style={{backgroundColor:'#121212',marginTop:boxWidth < 600?'-95px':'0px',overflow:'hidden',width:boxWidth,height:boxHeight,display:'flex',justifyContent:'center',alignItems:'center'}}>
+    <div style={{backgroundColor:'#121212',marginTop:'0px',overflow:'hidden',width:boxWidth,height:boxHeight,display:'flex',justifyContent:'center',alignItems:'center'}}>
       <RouterProvider  router={router}/>
     </div>
   )
