@@ -36,7 +36,8 @@ const Login = () => {
         // overflowY: "scroll",
         display: "flex",
         flexDirection: "column",
-        fontFamily: "Poppins",
+        fontFamily: "Poppins-Meduim",
+        fontWeight: 500,
         // paddingLeft:'20px',
         // paddingRight:'20px'
       }}
@@ -49,11 +50,13 @@ const Login = () => {
           style={{
             color: "#FFFFFFDE",
             // width: 152,
+            fontFamily:'Poppins-Meduim',
+
             whiteSpace: "pre-line",
             paddingLeft: "24px",
             lineHeight: "30px",
             fontSize: "28px",
-            fontWeight: "600",
+            fontWeight: "500",
           }}
         >
           Welcome {"\n"} Back!
@@ -92,6 +95,8 @@ const Login = () => {
             style={{
               fontWeight: "500",
               lineHeight: "24px",
+              color:'white',
+              fontFamily:'Poppins-Meduim',
               fontSize: "16px",
               marginBottom: "7px",
             }}
@@ -115,12 +120,16 @@ const Login = () => {
                     backgroundColor: "#1F1F1F",
                     border: "1px solid red",
                     borderRadius: "4px",
-                    marginTop:'-5px'
+                    fontFamily:'Poppins-Regular',
+                    marginTop:'-5px',
+                    color:'white',
                   }
                 : {
                     padding: "12px 16px",
                     backgroundColor: "#1F1F1F",
                     border: "none",
+                    fontFamily:'Poppins-Regular',
+                    color:'white',
                     borderRadius: "4px",
                     marginTop:'-5px'
                   }
@@ -152,6 +161,8 @@ const Login = () => {
               fontWeight: "500",
               lineHeight: "24px",
               fontSize: "16px",
+              fontFamily:'Poppins-Meduim',
+              color:'white',
               marginBottom: "7px",
             }}
             htmlFor="email"
@@ -167,12 +178,16 @@ const Login = () => {
                     backgroundColor: "#1F1F1F",
                     border: "1px solid red",
                     borderRadius: "4px",
-                    marginTop:'-5px'
+                    marginTop:'-5px',
+                    fontFamily:'Poppins-Regular',
+                    color:'white',
                   }
                 : {
                     padding: "12px 16px",
                     backgroundColor: "#1F1F1F",
                     border: "none",
+                    fontFamily:'Poppins-Regular',
+                    color:'white',
                     borderRadius: "4px",
                     marginTop:'-5px'
                   }
@@ -196,7 +211,7 @@ const Login = () => {
             marginBottom: "32px",
           }}
         >
-          <div
+          {/* <div
             style={{
               backgroundColor: "#121212",
               lineHeight: "21.07px",
@@ -208,7 +223,7 @@ const Login = () => {
             }}
           >
             Forget Password?
-          </div>
+          </div> */}
         </div>
         <div
           style={{
@@ -224,8 +239,10 @@ const Login = () => {
               width: "100%",
               backgroundColor: "#007BFF",
               height: "50px",
+              opacity:submitDisabled? '0.5':'1',
               borderRadius: "5px",
               lineHeight: "25.6px",
+              color:'white',
               fontSize: "16px",
               fontWeight: "500",
             }}
@@ -285,7 +302,7 @@ const Login = () => {
             ></div>
              </div>
           {/* <div style={{ padding: "16px 30px", width: "100%" }}> */}
-          <button
+          {/* <button
             style={{
               width: "100%",
               display: "flex",
@@ -293,7 +310,7 @@ const Login = () => {
               alignItems: "center",
               height: "50px",
             }}
-          >
+          > */}
             <GoogleOAuthProvider clientId="750278697489-u68emmire3d35234obo1mne9v0eobmsu.apps.googleusercontent.com">
               <GoogleLogin
                 onSuccess={(credentialResponse) => {
@@ -333,7 +350,7 @@ const Login = () => {
                 }}
               />
             </GoogleOAuthProvider>
-          </button>
+          {/* </button> */}
         </div>
         <div
           style={{

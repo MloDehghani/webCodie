@@ -13,7 +13,7 @@ import { checkBotId } from "../api/botId";
 import keybordIcon from '../assets/keyboard.svg';
 import SettingIcon from '../assets/setting.svg';
 import SendIcon from '../assets/Send.svg';
-import translateIcon from '../assets/translate.svg';
+// import translateIcon from '../assets/translate.svg';
 import LogOutIcom from '../assets/logOut.svg';
 
 const Chat = () => {
@@ -212,8 +212,9 @@ const Chat = () => {
         let paths = []
         paths = event.composedPath().map((item:HTMLElement) => item.id)
         console.log(paths)
-        if(!paths.includes('boxInput') && !paths.includes('boxInput-button')){
+        if(!paths.includes('boxInput') && !paths.includes('boxInput-button') && !paths.includes('settingButton') && !paths.includes('setting')){
             setShowTextBox(false);
+            setShowSetting(false)
             document.removeEventListener('click',closeFilter);
         }
     }    
@@ -435,19 +436,27 @@ const Chat = () => {
               </div>
             :
               <div style={{position:'absolute',padding:'0px 16px',width:'-webkit-fill-available',bottom:24 ,height: 50,display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                  <button onClick={() => {
+                  <button id="settingButton" onClick={() => {
                     setShowSetting(!showSetting)
+                     document.addEventListener('click',closeFilter)
+                    setAudioUrl('')
                   }} style={{width:56,height: 56,backgroundColor:'#121212',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
                     <img src={SettingIcon} />
                   </button>
                   {showSetting ?
-                    <div style={{backgroundColor:'#353535',padding:'12px 16px',position:'absolute',top:-90,borderRadius:5}}>
-                      <div style={{display:'flex'}}>
+                    <div id="setting" style={{backgroundColor:'#353535',padding:'12px 16px',position:'absolute',top:-60,borderRadius:5}}>
+                      {/* <div style={{display:'flex'}}>
                         <img style={{marginRight:8}} src={translateIcon} />
                         <div style={{color:'#FFFFFFDE',cursor:'pointer'}}>Language</div>
                       </div>
-                      <div style={{height:'0.5px',margin:'8px 0px' ,width:'100%',backgroundColor:'white'}} />
-                      <div style={{display:'flex',marginTop:8,width:'100%'}}>
+                      <div style={{height:'0.5px',margin:'8px 0px' ,width:'100%',backgroundColor:'white'}} /> */}
+                      <div onClick={() => {
+                        const logoutConfirm = confirm('Do you want to exit ?')
+                        if(logoutConfirm){
+                          localStorage.clear()
+                          navigate('/')
+                        }
+                      }} style={{display:'flex',width:'100%'}}>
                         <img style={{marginRight:8}} src={LogOutIcom} />
                         <div style={{color:'#FFFFFFDE',cursor:'pointer'}}>Log out</div>
                       </div>                      
