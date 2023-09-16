@@ -7,6 +7,9 @@ import './App.css';
 import Register from "./pages/Register";
 import { useEffect, useState } from "react";
 
+import Welcome from "./pages/Welcome";
+
+
 function App() {
   const [boxWidth,setBoxWidth] = useState(window.innerWidth);
   const [boxHeight,setBoxHeight] = useState(window.innerHeight);  
@@ -14,6 +17,10 @@ function App() {
     {
       path: "/",
       element: <Planing />,
+    },
+    {
+      path: "/welcome",
+      element: <Welcome/> ,
     },
     {
       path: "/login",
