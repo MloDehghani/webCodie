@@ -16,11 +16,11 @@ function App() {
   const router = createHashRouter([
     {
       path: "/",
-      element: <Planing />,
+      element: <Welcome />,
     },
     {
-      path: "/welcome",
-      element: <Welcome/> ,
+      path: "/plan",
+      element: <Planing/> ,
     },
     {
       path: "/login",

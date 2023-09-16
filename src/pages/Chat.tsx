@@ -223,12 +223,12 @@ const Chat = () => {
 
       if(!localStorage.getItem('accessToken')){
         setTimeout(() => {
-          navigate('/');
+          navigate('/plan');
         }, 200);
       }
       if(!localStorage.getItem('ApiKey')){
         setTimeout(() => {
-          navigate('/');
+          navigate('/plan');
         }, 200);
       }      
       setTimeout(() => {
@@ -454,7 +454,7 @@ const Chat = () => {
                         const logoutConfirm = confirm('Do you want to exit ?')
                         if(logoutConfirm){
                           localStorage.clear()
-                          navigate('/')
+                          navigate('/plan')
                         }
                       }} style={{display:'flex',width:'100%'}}>
                         <img style={{marginRight:8}} src={LogOutIcom} />

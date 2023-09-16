@@ -1,6 +1,9 @@
 // import '../welcome.css'
 
+import { useNavigate } from "react-router-dom";
+
 const Welcome = () => {
+  const navigate = useNavigate();     
   return (
     <div
       style={{
@@ -38,7 +41,7 @@ const Welcome = () => {
           paddingLeft: "119px",
         }}
       >
-        <div className="leftContainer"  style={{marginTop:'-60px'}}>
+        <div className="leftContainer"  style={{marginTop:'-60px',position:'relative',zIndex:20}}>
           <div id="div-container">
             <p
               className="canterbury"
@@ -80,33 +83,45 @@ const Welcome = () => {
           <div className="image-container"
             style={{
               display: "flex",
-              justifyContent: "center",
+              justifyContent: "start",
               alignItems: "center",
-              marginLeft: "-90px",
+              marginLeft: "0px",
             }}
           >
-            <img
-              className="gplay-image"
-              src="/images/google-play.svg"
-              alt="google play"
-              style={{ width: "260px", height: "auto", cursor: "pointer" }}
-            />
-            <img
-              className="chromeWeb-image"
-              src="/images/chrome-web.svg"
-              alt="chrome web"
-              style={{
-                width: "250px",
-                height: "auto",
-                cursor: "pointer",
-                marginLeft: "16px",
+            <div>
+              <img
+                onClick={() => {
+                  window.open('https://play.google.com/store/apps/details?id=com.sellguru.Codie')
+                }}
+                className="gplay-image"
+                src="/images/google-play.svg"
+                alt="google play"
+                style={{ width: "260px", height: "80px", cursor: "pointer" }}
+              />
+            </div>
+            <div>
+              <img
+              onClick={() => {
+                navigate('/plan')
               }}
-            />
+                className="chromeWeb-image"
+                src="/images/chrome-web.svg"
+                alt="chrome web"
+                style={{
+                  width: "250px",
+                  height: "80px",
+                  cursor: "pointer",
+                  marginLeft: "16px",
+                }}
+              />
+
+            </div>
           </div>
         </div>
         {/* style={{display:'flex',alignItems:'flex-end', height:'100%'}} */}
         <div
           className="macbook-container"
+
           style={{
             // position: "absolute", // Added position property
             // bottom: "0", // Positioned at the bottom

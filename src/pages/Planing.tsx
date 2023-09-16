@@ -145,7 +145,7 @@ const Planing = () => {
                         if (localApikey.length > 1) {
                             // props.setApikey(localApikey);
                             localStorage.setItem('ApiKey',localApikey)
-                            navigate('/googleLogin')
+                            navigate('/login')
                             // checkBotId(localApikey).then(a => {
                             // console.log(a);
                             // setTimeout(() => {

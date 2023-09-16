@@ -2,7 +2,8 @@ import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Auth from "../api/Auth";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("Required"),
@@ -28,6 +29,7 @@ const initialValues = {
 
 const Register = () => {
   // Form Validation
+  const navigate = useNavigate();   
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -46,12 +48,12 @@ const Register = () => {
         // overflowY: "scroll",
         display: "flex",
         flexDirection: "column",
-        fontFamily: "Poppins",
+        fontFamily: "Poppins-Meduim",
         // paddingLeft:'20px',
         // paddingRight:'20px'
       }}
     >
-      <div style={{ paddingLeft: "18px", marginTop: "25px",  }}>
+      <div onClick={() => navigate('/login')} style={{ paddingLeft: "18px", marginTop: "25px",  }}>
         <img src="/icons/leftVector.svg" alt="leftArrow" style={{cursor:'pointer'}} />
       </div>
       <div style={{ marginTop: "-10px" }}>
@@ -104,6 +106,7 @@ const Register = () => {
               fontWeight: "500",
               lineHeight: "24px",
               fontSize: "16px",
+              color:'white',
               marginBottom: "7px",
             }}
             htmlFor="username"
@@ -120,11 +123,13 @@ const Register = () => {
                     border: "1px solid red",
                     borderRadius: "4px",
                     marginTop: "-5px",
+                    color:'white'
                   }
                 : {
                     padding: "12px 16px",
                     backgroundColor: "#1F1F1F",
                     border: "none",
+                    color:'white',
                     borderRadius: "4px",
                     marginTop: "-5px",
                   }
@@ -148,6 +153,7 @@ const Register = () => {
             width: " -webkit-fill-available",
             paddingRight: "24px",
             paddingLeft: "24px",
+            color:'white',
             marginTop: "18px",
           }}
         >
@@ -156,6 +162,7 @@ const Register = () => {
               fontWeight: "500",
               lineHeight: "24px",
               fontSize: "16px",
+              color:'white',
               marginBottom: "7px",
             }}
             htmlFor="email"
@@ -179,6 +186,7 @@ const Register = () => {
                     border: "1px solid red",
                     borderRadius: "4px",
                     marginTop: "-5px",
+                    color:'white',
                   }
                 : {
                     padding: "12px 16px",
@@ -186,6 +194,7 @@ const Register = () => {
                     border: "none",
                     borderRadius: "4px",
                     marginTop: "-5px",
+                    color:'white',                    
                   }
             }
             type="text"
@@ -214,6 +223,7 @@ const Register = () => {
             style={{
               fontWeight: "500",
               lineHeight: "24px",
+              color:'white',
               fontSize: "16px",
               marginBottom: "7px",
             }}
@@ -231,6 +241,7 @@ const Register = () => {
                     border: "1px solid red",
                     borderRadius: "4px",
                     marginTop: "-5px",
+                    color:'white',          
                   }
                 : {
                     padding: "12px 16px",
@@ -238,6 +249,7 @@ const Register = () => {
                     border: "none",
                     borderRadius: "4px",
                     marginTop: "-5px",
+                    color:'white',          
                   }
             }
             type="password"
@@ -262,6 +274,7 @@ const Register = () => {
             fontWeight: "400",
             display: "flex",
             alignItems: "center",
+            color:'white',
           }}
           className="flex  mt-[10.5px] text-xs intro-x text-slate-600 dark:text-slate-500 sm:text-sm"
         >
@@ -281,14 +294,14 @@ const Register = () => {
             I agree to the{" "}
             <Link
               target="_blank"
-              to={"/terms-conditions"}
+              to={"https://codie.ai/terms-conditions/"}
               style={{ color: "#007BFF" }}
             >
               Terms & Conditions
             </Link>{" "}
             <span>&nbsp;and</span>
             <Link
-              to={"/privacy-policy"}
+              to={"https://codie.ai/privacypolicy/"}
               target="_blank"
               style={{ color: "#007BFF" }}
             >
@@ -306,11 +319,28 @@ const Register = () => {
         >
           <button
             disabled={submitDisabled}
+            onClick={() => {
+              Auth.register(
+                {
+                  full_name: formik.values.username,
+                  email: formik.values.email,
+                  password:formik.values.password,
+                },
+                res => {
+                  if (res.access_token) {
+                    localStorage.setItem('accessToken', res.access_token);
+                    navigate('/chat')
+                  }
+                },
+              );              
+            }}
             style={{
               marginBottom: "20px",
               width: "100%",
+              opacity:submitDisabled ? 0.5 : 1,
               backgroundColor: "#007BFF",
               height: "50px",
+              color:'white',
               borderRadius: "5px",
               lineHeight: "25.6px",
               fontSize: "16px",
@@ -372,7 +402,7 @@ const Register = () => {
             ></div>
           </div>
           {/* <div style={{ padding: "16px 30px", width: "100%" }}> */}
-          <button
+          {/* <button
             style={{
               width: "100%",
               display: "flex",
@@ -380,7 +410,8 @@ const Register = () => {
               alignItems: "center",
               height: "50px",
             }}
-          >
+          > */}
+          <div style={{display:'flex',justifyContent:'center'}}>
             <GoogleOAuthProvider clientId="750278697489-u68emmire3d35234obo1mne9v0eobmsu.apps.googleusercontent.com">
               <GoogleLogin
                 onSuccess={(credentialResponse) => {
@@ -420,7 +451,8 @@ const Register = () => {
                 }}
               />
             </GoogleOAuthProvider>
-          </button>
+          </div>
+          {/* </button> */}
         </div>
         <div
           style={{
@@ -436,7 +468,7 @@ const Register = () => {
           }}
         >
           Already have an acoount?{" "}
-          <a style={{ color: "#007BFF", cursor: "pointer" }}>Sign in</a>
+          <a onClick={() => navigate('/login')} style={{ color: "#007BFF", cursor: "pointer" }}>Sign in</a>
           {/* <a className="text-primary dark:text-slate-200" href="">
                         Privacy Policy
                       </a> */}

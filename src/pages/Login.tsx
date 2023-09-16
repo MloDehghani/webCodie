@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Auth from "../api/Auth";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Please enter a valid email").required("Required"),
@@ -19,6 +22,7 @@ const initialValues = {
 
 const Login = () => {
   // Form Validation
+  const navigate = useNavigate();    
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -42,7 +46,7 @@ const Login = () => {
         // paddingRight:'20px'
       }}
     >
-      <div style={{ paddingLeft: "18px", marginTop: "40px" ,  }}>
+      <div onClick={() => navigate('/plan')} style={{ paddingLeft: "18px", marginTop: "40px" ,  }}>
         <img src="/icons/leftVector.svg" alt="leftArrow" style={{cursor:'pointer'}} />
       </div>
       <div style={{ marginTop: "-10px" }}>
@@ -233,6 +237,17 @@ const Login = () => {
           }}
         >
           <button
+            onClick={() => {
+              Auth.login({
+                email:formik.values.email,
+                password: formik.values.password
+              },(res) => {
+                if(res.access_token){
+                    localStorage.setItem('accessToken',res.access_token)
+                    navigate('/chat');
+                }   
+              })
+            }}
             disabled={submitDisabled}
             style={{
               marginBottom: "20px",
@@ -311,45 +326,48 @@ const Login = () => {
               height: "50px",
             }}
           > */}
+          <div style={{display:'flex',justifyContent:'center'}}>
             <GoogleOAuthProvider clientId="750278697489-u68emmire3d35234obo1mne9v0eobmsu.apps.googleusercontent.com">
               <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  //   setcertificate(credentialResponse);
-                  console.log(credentialResponse);
-                  // const prof: any = jwt_decode(
-                  //   credentialResponse.credential
-                  //     ? credentialResponse?.credential
-                  //     : ""
-                  // );
-
-                  console.log(
-                    jwt_decode(
+                  onSuccess={(credentialResponse) => {
+                    //   setcertificate(credentialResponse);
+                    console.log(credentialResponse);
+                    const prof: any = jwt_decode(
                       credentialResponse.credential
                         ? credentialResponse?.credential
                         : ""
-                    )
-                  );
-                  //   authentication.register(
-                  //     {
-                  //       google_json:prof
-                  //     },
-                  //     (res) => {
-                  //       if (res.status == 200 && res.data.access_token) {
-                  //         storeTokenInLocalStorage(res.data.access_token);
-                  //         navigate(APP_ROUTES.DASHBOARD);
-                  //       } else {
-                  //         setAlertmassage(res.data);
-                  //         // alert.current?.showToast();
-                  //         toast.error('Invalid email or password')
-                  //       }
-                  //     }
-                  //   );
-                }}
-                onError={() => {
-                  console.log("Login Failed");
-                }}
+                    );
+                
+                    Auth.login({
+                      google_json:prof
+                    },(res) => {
+                      if(res.access_token){
+                          localStorage.setItem('accessToken',res.access_token)
+                          navigate('/chat');
+                      }                        
+                    })
+                    //   authentication.register(
+                    //     {
+                    //       google_json:prof
+                    //     },
+                    //     (res) => {
+                    //       if (res.status == 200 && res.data.access_token) {
+                    //         storeTokenInLocalStorage(res.data.access_token);
+                    //         navigate(APP_ROUTES.DASHBOARD);
+                    //       } else {
+                    //         setAlertmassage(res.data);
+                    //         // alert.current?.showToast();
+                    //         toast.error('Invalid email or password')
+                    //       }
+                    //     }
+                    //   );
+                  }}
+                  onError={() => {
+                    console.log("Login Failed");
+                  }}
               />
             </GoogleOAuthProvider>
+          </div>          
           {/* </button> */}
         </div>
         <div
@@ -366,7 +384,9 @@ const Login = () => {
           }}
         >
           Don&apos;t have an acoount?{" "}
-          <a style={{ color: "#007BFF", cursor: "pointer" }}>Sign up</a>
+          <a onClick={() => {
+            navigate('/register')
+          }} style={{ color: "#007BFF", cursor: "pointer" }}>Sign up</a>
         </div>
       </div>
       {/* </div> */}

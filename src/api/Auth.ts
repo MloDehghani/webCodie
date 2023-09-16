@@ -8,5 +8,10 @@ class Auth extends Api {
             submit(res);
         })
     }
+    static register(data: any,submit:(res:any) => void) {
+        this.post('/register',data).then(res => {
+            submit(res);
+        })
+    }
 }
 export default Auth
