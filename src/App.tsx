@@ -5,12 +5,17 @@ import {
 import { Planing, Login, Chat, JustGoogleLogin } from './pages';
 import './App.css';
 import Register from "./pages/Register";
+import Welcome from "./pages/Welcome";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Planing />,
+    },
+    {
+      path: "/welcome",
+      element: <Welcome/> ,
     },
     {
       path: "/login",

@@ -74,10 +74,47 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
  
 } */
+
+
+/* :root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+} */
+
+/* @media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+} */
 body, html {
   font-family: 'Poppins', sans-serif;
   margin: 0;
+ 
 }
+/* body{
+  display: flex;
+  place-items: center;
+  min-width: 100vw;
+  min-height: 100vh;
+} */
 
 /* input:focus,input:focus-visible{
   background-color: #1F1F1F;
@@ -112,3 +149,45 @@ button:disabled{
 input[type=checkbox] {
   accent-color: #007BFF;
 }
+
+@media only screen and (max-width: 768px) {
+  .container{
+    display: flex;
+    flex-direction: column;
+  }
+  .macbook-container{
+    position: relative;
+  }
+  .logo{
+    max-width: 110px;
+    max-height: 65px;
+  }
+
+   .canterbury {
+    font-size: 10px;
+   }
+
+  /* p  {
+    font-size: 10px;
+  } */
+  .gplay-image {
+    max-width: 100px;
+    max-height: 240px;
+  }
+  .chromeWeb-image {
+    max-width: 100px;
+    max-height: 240px;
+  }
+  .macbook-image{
+    max-width: 380px;
+    max-height: 250px;
+  }
+ 
+}
+
+/* @media screen and (max-width: 1144px) {
+  .container{
+    display: flex;
+    flex-direction: column;
+  }
+} */
