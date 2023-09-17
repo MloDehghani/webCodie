@@ -144,6 +144,13 @@ input[type="checkbox"] {
   accent-color: #007bff;
 }
 
+.loginPass,.registerPass {
+  border: none;
+}
+.loginPass:focus,.loginEmail:focus,.registerName:focus,.registerEmail:focus,.registerPass:focus {
+  border: none;
+  outline: none;
+}
 @media only screen and (max-width: 768px) {
   .container {
     display: flex !important;
@@ -219,7 +226,6 @@ input[type="checkbox"] {
 @media only screen and (max-width: 400px) {
   .macbook-image {
     max-width: 250px !important;
-  
   }
   .gplay-image,
   .chromeWeb-image {
@@ -229,7 +235,5 @@ input[type="checkbox"] {
 @media only screen and (max-width: 280px) {
   .macbook-image {
     max-width: 200px !important;
-  
   }
-
 }

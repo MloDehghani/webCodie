@@ -4,6 +4,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import Auth from "../api/Auth";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { AiOutlineEye } from "react-icons/ai";
+import { useState ,useEffect,useCallback} from "react";
+
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("Required"),
@@ -28,6 +32,7 @@ const initialValues = {
 };
 
 const Register = () => {
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   // Form Validation
   const navigate = useNavigate();   
   const formik = useFormik({
@@ -38,7 +43,21 @@ const Register = () => {
     },
   });
   const submitDisabled = Object.keys(formik.errors).length > 0 || !formik.dirty;
-
+  const [registerWidth, setRegisteWidth] = useState<number>();
+  const handleResize = useCallback(() => {
+    if (document.getElementById("authButton")) {
+      setTimeout(() => {
+        const width: number = document.getElementById("authButton")
+          ?.offsetWidth as number;
+        console.log(width);
+        setRegisteWidth(width);
+      }, 200);
+    }
+  }, [registerWidth]);
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize, false);
+  }, []);
   return (
     <div
       style={{
@@ -65,8 +84,8 @@ const Register = () => {
             paddingLeft: "24px",
             lineHeight: "30px",
             fontSize: "28px",
-            fontWeight: "600",
-          
+            fontWeight: "500",
+            fontFamily: "Poppins-Meduim",
           }}
         >
           Create {"\n"} Account
@@ -114,7 +133,7 @@ const Register = () => {
           >
             Full Name
           </label>
-          <input
+          <input className="registerName"
             {...formik.getFieldProps("username")}
             style={
               formik.errors.username && formik.touched.username
@@ -171,7 +190,7 @@ const Register = () => {
           >
             Your Email
           </label>
-          <input
+          <input className="registerEmail"
             {...formik.getFieldProps("email")}
             // style={{
             //   padding: "12px 16px",
@@ -233,8 +252,71 @@ const Register = () => {
             htmlFor="email"
           >
             Password
-          </label>
-          <input
+          </label> 
+          <div   style={
+                formik.touched.password && formik.errors.password
+                  ? {
+                      padding: "10px 16px",
+                      backgroundColor: "#1F1F1F",
+                      border: "1px solid red",
+                      borderRadius: "4px",
+                    display:'flex',
+                    alignItems:'center',
+
+                      fontFamily: "Poppins-Regular",
+                      color: "white",
+                   
+                    }
+                  : {
+                    display:'flex',
+                    alignItems:'center',
+                      padding: "10px 16px",
+                      backgroundColor: "#1F1F1F",
+                      border: "none",
+                      fontFamily: "Poppins-Regular",
+                      color: "white",
+                      borderRadius: "4px",
+                   
+                    }
+              }>
+            <input className="registerPass"
+              {...formik.getFieldProps("password")}
+            style={{ backgroundColor: "#1F1F1F", width:'100%',color:'white'}}
+              type={passwordVisible ? "text" : "password"}
+              placeholder="Enter your password..."
+            />
+            {!passwordVisible ? (
+              <AiOutlineEyeInvisible
+               size='20px'
+               
+                onClick={() => {
+                  setPasswordVisible((prev) => !prev);
+                }}
+                // className={`cursor-pointer ${
+                //   formik.values.password
+                //     ? "text-[#3C3744]"
+                //     : "text-[#3C3744]/60"
+                // } `}
+
+                style={formik.values.password ? { cursor: "pointer", color:"white"}:{cursor: "pointer",color:'white',opacity:'0.3'}}
+              />
+            ) : (
+              <AiOutlineEye
+              size='20px'
+                color="white"
+                onClick={() => {
+                  setPasswordVisible((prev) => !prev);
+                }}
+                // className={`cursor-pointer ${
+                //   formik.values.password
+                //     ? "text-[#3C3744]"
+                //     : "text-[#3C3744]/60"
+                // } `}
+                style={formik.values.password ? { cursor: "pointer", color:"white"}:{cursor: "pointer",color:'white',opacity:'0.3'}}
+              />
+            )}
+          </div>
+          {/* <input
             {...formik.getFieldProps("password")}
             style={
               formik.touched.password && formik.errors.password
@@ -257,7 +339,7 @@ const Register = () => {
             }
             type="password"
             placeholder="Enter your password..."
-          />
+          /> */}
           {/* {formik.errors.password && formik.touched.password && (
                           <p  style={{ color: "red", fontSize: "12px", marginTop: "3px" }}>
                             {formik.errors.password}
@@ -274,7 +356,7 @@ const Register = () => {
             marginBottom: "32px",
             lineHeight: "18px",
             fontSize: "12px",
-            fontWeight: "400",
+            fontWeight: "300",
             display: "flex",
             alignItems: "center",
             color:'white',
@@ -337,6 +419,7 @@ const Register = () => {
                 },
               );              
             }}
+            id="authButton"
             style={{
               marginBottom: "20px",
               width: "100%",
@@ -351,7 +434,7 @@ const Register = () => {
               fontWeight: 300,
             }}
           >
-            Sign in
+            Sign up
           </button>
           <div
             style={{
@@ -418,6 +501,14 @@ const Register = () => {
           <div style={{display:'flex',justifyContent:'center'}}>
             <GoogleOAuthProvider clientId="750278697489-u68emmire3d35234obo1mne9v0eobmsu.apps.googleusercontent.com">
               <GoogleLogin
+               text="continue_with"
+               shape="square"
+               width={
+                 document.getElementById("authButton")?.offsetWidth + "px"
+               }
+               // size="large"
+               // width={document.getElementById('authButton')?.offsetWidth}
+               theme="filled_black"
                 onSuccess={(credentialResponse) => {
                   //   setcertificate(credentialResponse);
                   console.log(credentialResponse);
