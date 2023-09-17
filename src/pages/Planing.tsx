@@ -21,7 +21,9 @@ const Planing = () => {
         res => {
             const newob: Array<any> = [];
             let keys = [];
-            keys = Object.keys(res);
+            keys = Object.keys(res).filter(item => item != 'title' && item != 'sub_title');
+            setPagetitle(res.title);
+            setPageSub(res.sub_title)
             keys.forEach(item => {
             const news = {
                 title: item,
@@ -45,6 +47,11 @@ const Planing = () => {
     useConstructor(() => {
         getBotsControled()
     })    
+    const [pageTitle,setPagetitle] = useState("How are you planning to use Codie?")
+    const [pageSub,setPageSub] = useState("")
+    //     title:'',
+    //     sub_title:'We’ll fit the experience to your needs.'
+    // })
     return (
         <div style={{backgroundColor:'#121212',width:window.innerWidth,height:window.innerHeight,overflowY:'scroll'}}>
             {isLoading?
@@ -60,10 +67,10 @@ const Planing = () => {
             <div style={{width:'100%',fontFamily:'Poppins-Meduim',height:'100%',display:'flex',justifyContent:'center'}}>
                 <div>
                     <div style={{width:'100%',display:'flex',justifyContent:'center',marginTop: 100,color:'#FFFFFFDE',fontSize:16}}>
-                        How are you planning to use Codie?
+                       {pageTitle} 
                     </div>
                     <div style={{marginTop: 8,textAlign:'center',color:'#FFFFFF99',fontSize:12}}>
-                        We’ll fit the experience to your needs.
+                        {pageSub}
                     </div>
 
                     <div className="hiddenScrollBar" style={{height:200,overflowY:'scroll',marginTop: 56}}>
@@ -201,6 +208,7 @@ const Planing = () => {
                         backgroundColor: '#007BFF',
                         width: '100%',
                         borderRadius: 5,
+                        border:'none',
                         height: 50,
                         top: 70,
                         marginTop: '32px',

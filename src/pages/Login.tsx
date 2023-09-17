@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Auth from "../api/Auth";
 import { useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Please enter a valid email").required("Required"),
@@ -30,6 +31,20 @@ const Login = () => {
       console.log(values);
     },
   });
+  const [loginWidth,setLoginWidth] = useState<number>()
+  const handleResize =useCallback(() => {
+    if(document.getElementById('authButton')){
+      setTimeout(() => {
+        const width: number = document.getElementById('authButton')?.offsetWidth as number
+        console.log(width)
+        setLoginWidth(width)   
+      }, 200);
+    }
+  },[loginWidth])  
+  useEffect(() => {
+    handleResize()
+    window.addEventListener("resize", handleResize, false);
+  },[])
   const submitDisabled = Object.keys(formik.errors).length > 0 || !formik.dirty;
   return (
     <div
@@ -250,6 +265,7 @@ const Login = () => {
               })
             }}
             disabled={submitDisabled}
+            id="authButton"
             style={{
               marginBottom: "20px",
               width: "100%",
@@ -329,8 +345,16 @@ const Login = () => {
             }}
           > */}
           <div style={{display:'flex',justifyContent:'center'}}>
-            <GoogleOAuthProvider clientId="750278697489-u68emmire3d35234obo1mne9v0eobmsu.apps.googleusercontent.com">
+            {/* {document.getElementById('authButton')?.style.width} */}
+            {/* {window.innerWidth * 80 /100} */}
+            <GoogleOAuthProvider  clientId="750278697489-u68emmire3d35234obo1mne9v0eobmsu.apps.googleusercontent.com">
               <GoogleLogin
+                  text="continue_with"
+                  shape="square"
+                  width={document.getElementById('authButton')?.offsetWidth +'px'}
+                  // size="large"
+                  // width={document.getElementById('authButton')?.offsetWidth}
+                  theme="filled_black"
                   onSuccess={(credentialResponse) => {
                     //   setcertificate(credentialResponse);
                     console.log(credentialResponse);
