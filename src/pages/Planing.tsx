@@ -73,7 +73,7 @@ const Planing = () => {
                         {pageSub}
                     </div>
 
-                    <div className="hiddenScrollBar" style={{height:200,overflowY:'scroll',marginTop: 56}}>
+                    <div className="hiddenScrollBar" style={{height:250,overflowY:'scroll',marginTop: 56}}>
                     {bots
                         .filter(item => item.title !== 'technician')
                         .map((item: any, index: number) => {
@@ -87,7 +87,9 @@ const Planing = () => {
                                 style={{marginTop: 8}}>
                                 <div
                                     style={{
-                                    height: '55px',
+                                    height: '70px',
+                                    // paddingTop: '8px',
+                                    // paddingBottom: '8px',
                                     backgroundColor: '#1F1F1F',
                                     borderRadius: '4px',
                                     display: 'flex',
