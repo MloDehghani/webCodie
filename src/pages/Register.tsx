@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { useFormik } from "formik";
@@ -502,29 +503,33 @@ const Register = () => {
           <div style={{display:'flex',justifyContent:'center'}}>
             <GoogleOAuthProvider clientId="750278697489-u68emmire3d35234obo1mne9v0eobmsu.apps.googleusercontent.com">
               <GoogleLogin
-               text="continue_with"
-               shape="square"
-               width={
-                 document.getElementById("authButton")?.offsetWidth + "px"
-               }
-               // size="large"
-               // width={document.getElementById('authButton')?.offsetWidth}
-               theme="filled_black"
+                text="continue_with"
+                shape="square"
+                width={
+                  document.getElementById("authButton")?.offsetWidth + "px"
+                }
+                // size="large"
+                // width={document.getElementById('authButton')?.offsetWidth}
+                theme="filled_black"
                 onSuccess={(credentialResponse) => {
                   //   setcertificate(credentialResponse);
                   console.log(credentialResponse);
-                  // const prof: any = jwt_decode(
-                  //   credentialResponse.credential
-                  //     ? credentialResponse?.credential
-                  //     : ""
-                  // );
+                  const prof: any = jwt_decode(
+                    credentialResponse.credential
+                      ? credentialResponse?.credential
+                      : ""
+                  );
 
-                  console.log(
-                    jwt_decode(
-                      credentialResponse.credential
-                        ? credentialResponse?.credential
-                        : ""
-                    )
+                  Auth.login(
+                    {
+                      google_json: prof,
+                    },
+                    (res) => {
+                      if (res.access_token) {
+                        localStorage.setItem("accessToken", res.access_token);
+                        navigate("/chat");
+                      }
+                    }
                   );
                   //   authentication.register(
                   //     {
