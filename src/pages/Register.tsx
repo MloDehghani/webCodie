@@ -262,7 +262,7 @@ const Register = () => {
                       borderRadius: "4px",
                     display:'flex',
                     alignItems:'center',
-
+                    marginTop: "-5px",
                       fontFamily: "Poppins-Regular",
                       color: "white",
                    
@@ -276,6 +276,7 @@ const Register = () => {
                       fontFamily: "Poppins-Regular",
                       color: "white",
                       borderRadius: "4px",
+                      marginTop: "-5px",
                    
                     }
               }>
