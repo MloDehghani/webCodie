@@ -103,14 +103,14 @@ const Planing = () => {
                                         <div
                                         style={{
                                             color: '#FFFFFFDE',
-                                            fontSize: 10,
+                                            fontSize: 12,
                                             fontFamily: 'Poppins-Meduim',
                                         }}>
                                         {item.title}
                                         </div>
                                         <div
                                         style={{
-                                            fontSize: 8,
+                                            fontSize: 10,
                                             color: '#FFFFFF99',
                                             marginTop: 4,
                                         }}>
