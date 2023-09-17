@@ -13,11 +13,20 @@ const Sugesstions = (props: any) => {
           text: 'Tell me about attractions of the city around the hotel',
         },
       ];
+    const resolveWidthBox =() => {
+      if(window.innerWidth < 600){
+        return '90%'
+      }else if(window.innerWidth >= 600 && window.innerWidth < 1366){
+        return '60%'
+      }else{
+        return '40%'
+      }
+    }
   return (
     <div
       style={{
         display: 'flex',
-        width:'90%',
+        width:resolveWidthBox(),
         alignItems: 'flex-start',
         // flexDirection: 'row',
         flexDirection:'column',

@@ -8,7 +8,7 @@ import { useConstructor } from "../help";
 import makeid from '../Hoc/RandomKey';
 import Flow from "../api/Flow";
 import { BeatLoader } from "react-spinners";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import { checkBotId } from "../api/botId";
 import keybordIcon from '../assets/keyboard.svg';
 import SettingIcon from '../assets/setting.svg';
@@ -101,7 +101,8 @@ const Chat = () => {
                       chats.push(responseApi)
                       setAudioUrl(responseApi.audio)
                       setIsTalking(true);
-                      setChat(chats)        
+                      setChat(chats)
+                      localStorage.setItem('catchChats',JSON.stringify(chats))        
                       pageScroll() 
                     }else{
                       alert('I did not understand your question, ask your question again')
@@ -181,7 +182,8 @@ const Chat = () => {
                 setChat(chat);
                 setAudioUrl(responseApi.audio)
                 setIsTalking(true);
-                setChat(chat)                  
+                setChat(chat)     
+                localStorage.setItem('catchChats',JSON.stringify(chat))              
                 // console.log(res);
                 pageScroll()
               }else{
@@ -198,6 +200,9 @@ const Chat = () => {
           console.log('try send')
           sendToApi()
       }      
+      if(isLoading) {
+        pageScroll()
+      }
       if(audioRef.current){
           const refren = audioRef.current  as any   
           refren.load()
@@ -234,6 +239,10 @@ const Chat = () => {
     }    
     useConstructor(() => {
       // _test()
+      if(localStorage.getItem('catchChats')){
+        const data:string = localStorage.getItem('catchChats') as string
+        setChat(JSON.parse(data));
+      }
 
       if(!localStorage.getItem('accessToken')){
         setTimeout(() => {
@@ -456,6 +465,7 @@ const Chat = () => {
                       setShowSetting(!showSetting)
                       document.addEventListener('click',closeFilter)
                       setAudioUrl('')
+                      setIsTalking(false)
                     }} style={{width:56,height: 56,border:'solid 1px white',backgroundColor:'#121212',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
                       <img src={SettingIcon} />
                     </button>
@@ -496,6 +506,7 @@ const Chat = () => {
                     <button id="boxInput-button" onClick={() => {
                       setShowTextBox(true);
                       setAudioUrl('');
+                      setIsTalking(false)
                       document.addEventListener('click',closeFilter)
                     }} style={{width:56,height: 56,border:'solid 1px white',backgroundColor:'#121212',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
                       <img src={keybordIcon} />
