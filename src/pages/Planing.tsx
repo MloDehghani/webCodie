@@ -132,7 +132,22 @@ const Planing = () => {
                                         }}>
                                         <img src={TikIcon} alt="" />
                                     </div>
-                                    ) : undefined}
+                                    ) : (
+                                    <div
+                                        style={{
+                                        visibility:'hidden',
+                                        backgroundColor: '#007BFF',
+                                        width: 24,
+                                        height: 24,
+                                        borderRadius: 100,
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        }}>
+                                        <img src={TikIcon} alt="" />
+                                    </div>                                        
+                                    )}
                                 </div>
                                 </div>
                             )

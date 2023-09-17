@@ -97,11 +97,12 @@ const Login = () => {
         >
           <label
             style={{
-              fontWeight: "500",
+              fontWeight: "300",
               lineHeight: "24px",
               color:'white',
-              fontFamily:'Poppins-Meduim',
+              // fontFamily:'Poppins-Meduim',
               fontSize: "16px",
+              fontFamily:'Poppins-Regular',
               marginBottom: "7px",
             }}
             htmlFor="email"
@@ -162,10 +163,10 @@ const Login = () => {
         >
           <label
             style={{
-              fontWeight: "500",
+              fontWeight: "300",
               lineHeight: "24px",
               fontSize: "16px",
-              fontFamily:'Poppins-Meduim',
+              fontFamily:'Poppins-Regular', 
               color:'white',
               marginBottom: "7px",
             }}
@@ -256,10 +257,11 @@ const Login = () => {
               height: "50px",
               opacity:submitDisabled? '0.5':'1',
               borderRadius: "5px",
+              fontFamily:'Poppins-Regular',
               lineHeight: "25.6px",
               color:'white',
               fontSize: "16px",
-              fontWeight: "500",
+              fontWeight: 300,
             }}
           >
             Sign in
@@ -291,7 +293,7 @@ const Login = () => {
                 opacity: ".87",
                 paddingLeft: "8px",
                 paddingRight: "8px",
-
+                fontFamily:'Poppins-Regular',
                 fontWeight: "300",
 
                 fontSize: "16px",
@@ -376,7 +378,8 @@ const Login = () => {
             marginRight: "auto",
             color: "#ffffff",
             fontSize: "16px",
-            fontWeight: "500",
+            fontWeight: "300",
+            fontFamily:'Poppins-Regular',
             paddingRight: "24px",
             paddingLeft: "24px",
             lineHeight: "24px",

@@ -66,6 +66,8 @@ const Chat = () => {
                   chats.push(newChat)
                   setChat(chats);
                   setIsLoading(true);
+                  pageScroll()      
+
                   Flow.chat(
                     {
                       text: newChat.message,
@@ -78,31 +80,37 @@ const Chat = () => {
                           : 1,
                     }                  
                   ).then(res => {
-                    const responseApi = {
-                      type: 'text',
-                      message: res.answer.answer,
-                      from: 'admin',
-                      video: res.answer.video_file,
-                      audio: res.answer.audio_file,
-                      question: newChat.message,
-                      currentconverationid: res.currentconverationid,
-                      weekDay: new Date().getDay(),
-                      month: new Date().getMonth(),
-                      day: new Date().getDate(),
-                      aisles:
-                        res.answer.suggestion_list !== 'NA'
-                          ? res.answer.suggestion_list
-                          : [],
-                      instanceid: res.instanceid,
-                      // aisles:JSON.parse(res.suggestion_list),
-                    };
-                    chats.push(responseApi)
-                    setAudioUrl(responseApi.audio)
-                    setIsTalking(true);
-                    setChat(chats)        
-                    pageScroll()          
+                    if(res.answer){
+                      const responseApi = {
+                        type: 'text',
+                        message: res.answer.answer,
+                        from: 'admin',
+                        video: res.answer.video_file,
+                        audio: res.answer.audio_file,
+                        question: newChat.message,
+                        currentconverationid: res.currentconverationid,
+                        weekDay: new Date().getDay(),
+                        month: new Date().getMonth(),
+                        day: new Date().getDate(),
+                        aisles:
+                          res.answer.suggestion_list !== 'NA'
+                            ? res.answer.suggestion_list
+                            : [],
+                        instanceid: res.instanceid,
+                        // aisles:JSON.parse(res.suggestion_list),
+                      };
+                      chats.push(responseApi)
+                      setAudioUrl(responseApi.audio)
+                      setIsTalking(true);
+                      setChat(chats)        
+                      pageScroll() 
+                    }else{
+                      alert('I did not understand your question, ask your question again')
+                    }
                     // console.log(res);
                     setIsLoading(false);
+                  }).catch(() => {
+                    setIsLoading(false)
                   })
                }
               }
@@ -112,7 +120,11 @@ const Chat = () => {
     }    
     const navigate = useNavigate();    
     const pageScroll = () => {
-        // document.getElementById('chatMessageScrool1')?.scrollIntoView({behavior:'smooth'});
+        const el = document.getElementById('chatMessageScrool')
+        if(el) {
+          el.scrollTop = el?.scrollHeight
+        }
+        document.getElementById('loader')?.scrollIntoView({behavior:'smooth'});
         // setTimeout(pageScroll,2);
     }     
     const _handleOfferClick = (offer: string) => {
@@ -134,6 +146,7 @@ const Chat = () => {
       setChat(chat);
       setTimeout(async () => {
           setIsLoading(true);
+          pageScroll()
           Flow.chat(
             {
               text: offer,
@@ -146,36 +159,38 @@ const Chat = () => {
                   : 1,
             }
           ).then(async (res: any) => {
-            console.log(res);
-
-              const responseApi = {
-                type: 'text',
-                message: res.answer.answer,
-                from: 'admin',
-                video: res.answer.video_file,
-                audio: res.answer.audio_file,
-                question: '',
-                currentconverationid: res.currentconverationid,
-                weekDay: new Date().getDay(),
-                month: new Date().getMonth(),
-                day: new Date().getDate(),
-                aisles:
-                  res.answer.suggestion_list !== 'NA'
-                    ? res.answer.suggestion_list
-                    : [],
-                instanceid: res.instanceid,
-                // aisles:JSON.parse(res.suggestion_list),
-              };
-              chat.push(responseApi);
-              setChat(chat);
-              setAudioUrl(responseApi.audio)
-              setIsTalking(true);
-              setChat(chat)                  
-              // console.log(res);
-              pageScroll()
+              if(res.answer) {
+                const responseApi = {
+                  type: 'text',
+                  message: res.answer.answer,
+                  from: 'admin',
+                  video: res.answer.video_file,
+                  audio: res.answer.audio_file,
+                  question: '',
+                  currentconverationid: res.currentconverationid,
+                  weekDay: new Date().getDay(),
+                  month: new Date().getMonth(),
+                  day: new Date().getDate(),
+                  aisles:
+                    res.answer.suggestion_list !== 'NA'
+                      ? res.answer.suggestion_list
+                      : [],
+                  instanceid: res.instanceid,
+                  // aisles:JSON.parse(res.suggestion_list),
+                };
+                chat.push(responseApi);
+                setChat(chat);
+                setAudioUrl(responseApi.audio)
+                setIsTalking(true);
+                setChat(chat)                  
+                // console.log(res);
+                pageScroll()
+              }else{
+                alert('I did not understand your question, ask your question again')
+              }
               setIsLoading(false);              
               // await AsyncStorage.setItem('chatsCash' + useApikey, JSON.stringify(chat));
-          });
+          }).catch(() => {setIsLoading(false)});
 
       }, 1);
     };       
@@ -262,7 +277,7 @@ const Chat = () => {
             {!isRecording && showSugestion && chat.length ==0 ?
               <div style={{ 
                 position: 'absolute',
-                width: '100%',
+                width: '-webkit-fill-available',
                 display: 'flex',
                 alignItems: 'flex-start',
                 flexDirection: 'row',
@@ -273,13 +288,13 @@ const Chat = () => {
                 <Sugesstions sugges={suglist} dark handleOfferClick={_handleOfferClick}></Sugesstions>    
               </div>
              :undefined}
-            <div id="chatMessageScrool1" className="hiddenScrollBar" style={{height:400,display:'flex',justifyContent:'center',width:'100%',marginTop:32,overflowY:'scroll'}}>
-              <div style={{width:'80%'}}>
+            <div id="chatMessageScrool" className="hiddenScrollBar" style={{height:400,display:'flex',justifyContent:'center',width:'100%',marginTop:32,overflowY:'scroll'}}>
+              <div style={{width:'90%'}}>
                 {
-                  chat.map((item:any) => {
+                  chat.map((item:any,index:number) => {
                     return (
                       <>
-                        <div>
+                        <div id={"chatitem"+index}>
                           {item.from == 'user' ?
                                     <div
                                       style={{
@@ -346,6 +361,7 @@ const Chat = () => {
                 }
                 {isLoading ? (
                     <div
+                      id="loader"
                       style={{
                         // width: '100%',
                         height: 48,
@@ -423,64 +439,66 @@ const Chat = () => {
               }
                 
             </div>
-            {showTextBox ? 
-              <div id="boxInput" style={{position:'absolute',padding:'0px 16px',width:'-webkit-fill-available',bottom:24 ,height: 50,display:'flex',justifyContent:'center',alignItems:'center'}}>
-                <input value={text} onChange={(event) => setText(event.target.value)} style={{width:'100%',height:37,borderRadius:8,backgroundColor:'#2D2D2D',padding:'0px 12px',paddingRight:40,color:'white',fontFamily:'poppins-Regular'}} />
-                <img onClick={() => {
-                  setShowTextBox(false);
-                  if(text.length > 0){
-                    _handleOfferClick(text)
-                  }
-                  setText('')
-                }} style={{position:'absolute',zIndex:20,right:32}} src={SendIcon} />
-              </div>
-            :
-              <div style={{position:'absolute',padding:'0px 16px',width:'-webkit-fill-available',bottom:24 ,height: 50,display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                  <button id="settingButton" onClick={() => {
-                    setShowSetting(!showSetting)
-                     document.addEventListener('click',closeFilter)
-                    setAudioUrl('')
-                  }} style={{width:56,height: 56,backgroundColor:'#121212',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
-                    <img src={SettingIcon} />
-                  </button>
-                  {showSetting ?
-                    <div id="setting" style={{backgroundColor:'#353535',padding:'12px 16px',position:'absolute',top:-60,borderRadius:5}}>
-                      {/* <div style={{display:'flex'}}>
-                        <img style={{marginRight:8}} src={translateIcon} />
-                        <div style={{color:'#FFFFFFDE',cursor:'pointer'}}>Language</div>
+            <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+              {showTextBox ? 
+                <div id="boxInput" style={{position:'absolute',border:'none',outline:'none',width:'90%',bottom:24 ,height: 50,display:'flex',justifyContent:'center',alignItems:'center'}}>
+                  <input value={text} onChange={(event) => setText(event.target.value)} style={{width:'100%',height:37,borderRadius:8,backgroundColor:'#2D2D2D',padding:'0px 12px',paddingRight:40,color:'white',fontFamily:'poppins-Regular'}} />
+                  <img onClick={() => {
+                    setShowTextBox(false);
+                    if(text.length > 0){
+                      _handleOfferClick(text)
+                    }
+                    setText('')
+                  }} style={{position:'absolute',zIndex:20,right:10}} src={SendIcon} />
+                </div>
+              :
+                <div style={{position:'absolute',width:'90%',bottom:24 ,height: 50,display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                    <button id="settingButton" onClick={() => {
+                      setShowSetting(!showSetting)
+                      document.addEventListener('click',closeFilter)
+                      setAudioUrl('')
+                    }} style={{width:56,height: 56,border:'solid 1px white',backgroundColor:'#121212',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
+                      <img src={SettingIcon} />
+                    </button>
+                    {showSetting ?
+                      <div id="setting" style={{backgroundColor:'#353535',padding:'12px 16px',position:'absolute',top:-60,borderRadius:5}}>
+                        {/* <div style={{display:'flex'}}>
+                          <img style={{marginRight:8}} src={translateIcon} />
+                          <div style={{color:'#FFFFFFDE',cursor:'pointer'}}>Language</div>
+                        </div>
+                        <div style={{height:'0.5px',margin:'8px 0px' ,width:'100%',backgroundColor:'white'}} /> */}
+                        <div onClick={() => {
+                          const logoutConfirm = confirm('Do you want to exit ?')
+                          if(logoutConfirm){
+                            localStorage.clear()
+                            navigate('/plan')
+                          }
+                        }} style={{display:'flex',width:'100%'}}>
+                          <img style={{marginRight:8}} src={LogOutIcom} />
+                          <div style={{color:'#FFFFFFDE',cursor:'pointer'}}>Log out</div>
+                        </div>                      
                       </div>
-                      <div style={{height:'0.5px',margin:'8px 0px' ,width:'100%',backgroundColor:'white'}} /> */}
-                      <div onClick={() => {
-                        const logoutConfirm = confirm('Do you want to exit ?')
-                        if(logoutConfirm){
-                          localStorage.clear()
-                          navigate('/plan')
-                        }
-                      }} style={{display:'flex',width:'100%'}}>
-                        <img style={{marginRight:8}} src={LogOutIcom} />
-                        <div style={{color:'#FFFFFFDE',cursor:'pointer'}}>Log out</div>
-                      </div>                      
-                    </div>
-                   :undefined}
-                  <button disabled={isLoading} onClick={isRecording?() => {
-                    stopSpeechToText()
-                    setAudioUrl('');
-                    setIsTalking(false)
-                    sendToApi()   
-                  }:() => {
-                    startSpeechToText()
-                  }} style={{width:isRecording? 66: 56,height:isRecording? 66: 56,backgroundColor:'#007BFF',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
-                      <img style={{width:isRecording? 35: 30}} src={micIcon} />
-                  </button>
-                  <button id="boxInput-button" onClick={() => {
-                    setShowTextBox(true);
-                    setAudioUrl('');
-                    document.addEventListener('click',closeFilter)
-                  }} style={{width:56,height: 56,backgroundColor:'#121212',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
-                    <img src={keybordIcon} />
-                  </button>
-              </div>
-            }
+                    :undefined}
+                    <button disabled={isLoading} onClick={isRecording?() => {
+                      stopSpeechToText()
+                      setAudioUrl('');
+                      setIsTalking(false)
+                      sendToApi()   
+                    }:() => {
+                      startSpeechToText()
+                    }} style={{width:isRecording? 66: 56,height:isRecording? 66: 56,border:'none',backgroundColor:'#007BFF',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
+                        <img style={{width:isRecording? 35: 30}} src={micIcon} />
+                    </button>
+                    <button id="boxInput-button" onClick={() => {
+                      setShowTextBox(true);
+                      setAudioUrl('');
+                      document.addEventListener('click',closeFilter)
+                    }} style={{width:56,height: 56,border:'solid 1px white',backgroundColor:'#121212',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
+                      <img src={keybordIcon} />
+                    </button>
+                </div>
+              }
+            </div>
          </div>
           <div style={{visibility:'hidden',top:0,left:0,position:'absolute',width:'0px',height:'0px'}}>
               <div style={{position:'absolute',zIndex:300}}>

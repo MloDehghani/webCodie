@@ -103,7 +103,8 @@ const Register = () => {
         >
           <label
             style={{
-              fontWeight: "500",
+              fontWeight: 300,
+              fontFamily:'Poppins-Regular',              
               lineHeight: "24px",
               fontSize: "16px",
               color:'white',
@@ -159,7 +160,8 @@ const Register = () => {
         >
           <label
             style={{
-              fontWeight: "500",
+              fontWeight: 300,
+              fontFamily:'Poppins-Regular',              
               lineHeight: "24px",
               fontSize: "16px",
               color:'white',
@@ -221,9 +223,10 @@ const Register = () => {
         >
           <label
             style={{
-              fontWeight: "500",
+              fontWeight: 300,
               lineHeight: "24px",
               color:'white',
+              fontFamily:'Poppins-Regular',              
               fontSize: "16px",
               marginBottom: "7px",
             }}
@@ -341,10 +344,11 @@ const Register = () => {
               backgroundColor: "#007BFF",
               height: "50px",
               color:'white',
+              fontFamily:'Poppins-Regular',
               borderRadius: "5px",
               lineHeight: "25.6px",
               fontSize: "16px",
-              fontWeight: "500",
+              fontWeight: 300,
             }}
           >
             Sign in
@@ -376,8 +380,8 @@ const Register = () => {
                 opacity: ".87",
                 paddingLeft: "8px",
                 paddingRight: "8px",
-
-                fontWeight: "300",
+                fontFamily:'Poppins-Regular',
+                fontWeight: 300,
 
                 fontSize: "16px",
                 lineHeight: "27.25px",
@@ -460,10 +464,11 @@ const Register = () => {
             marginRight: "auto",
             color: "#ffffff",
             fontSize: "16px",
-            fontWeight: "500",
+            fontWeight: 300,
             paddingRight: "24px",
             paddingLeft: "24px",
             lineHeight: "24px",
+            fontFamily:'Poppins-Regular',
             width: " -webkit-fill-available",
           }}
         >

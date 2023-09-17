@@ -17,6 +17,7 @@ const Sugesstions = (props: any) => {
     <div
       style={{
         display: 'flex',
+        width:'90%',
         alignItems: 'flex-start',
         // flexDirection: 'row',
         flexDirection:'column',
@@ -41,13 +42,13 @@ const Sugesstions = (props: any) => {
         return (
           <div
             key={item.text}
-            style={{margin: '4px 0px'}}
+            style={{margin: '4px 0px',width:'-webkit-fill-available'}}
             onClick={() => {
               props.handleOfferClick(item.text);
             }}>
             <div
               style={{
-                width: 340,
+                width: '-webkit-fill-available',
                 fontWeight: '400',
                 marginBottom: 8,
                 fontFamily: 'Poppins-Regular',
@@ -60,7 +61,8 @@ const Sugesstions = (props: any) => {
                 padding: 10,
                 fontSize: 14,
                 textAlign: 'left',
-                paddingLeft: 24,
+                paddingLeft: 16,
+                // paddingRight: 4,
                 borderRadius: 8,
                 borderColor: props.dark ? '#313133' : '#FFFFFF',
                 borderWidth: '1px',
