@@ -67,7 +67,6 @@ const Chat = () => {
                   setChat(chats);
                   setIsLoading(true);
                   pageScroll()      
-
                   Flow.chat(
                     {
                       text: newChat.message,
@@ -364,7 +363,7 @@ const Chat = () => {
                       id="loader"
                       style={{
                         // width: '100%',
-                        height: 48,
+                        height: 40,
                         backgroundColor: '#2D2D2D',
                         borderRadius: 4,
                         display: 'flex',
@@ -375,7 +374,7 @@ const Chat = () => {
                         justifyContent: 'center',
                       }}>
                       <div>
-                        <BeatLoader  color="white" />
+                        <BeatLoader size={10}  color="white" />
                       </div>
                     </div>
                 ) : undefined}      
@@ -484,8 +483,13 @@ const Chat = () => {
                       setAudioUrl('');
                       setIsTalking(false)
                       sendToApi()   
+                      pageScroll()
                     }:() => {
                       startSpeechToText()
+                      setAudioUrl('');
+                      setIsTalking(false)
+                      sendToApi()     
+                      pageScroll()                    
                     }} style={{width:isRecording? 66: 56,height:isRecording? 66: 56,border:'none',backgroundColor:'#007BFF',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
                         <img style={{width:isRecording? 35: 30}} src={micIcon} />
                     </button>

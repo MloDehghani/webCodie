@@ -57,6 +57,6 @@ const ImageSpinner = (props: any) => {
       }, 1400);
     }
   }, [aiName, props.isTalking]);
-  return <img src={avatar} />;
+  return <img width={180} src={avatar} />;
 };
 export default ImageSpinner;
