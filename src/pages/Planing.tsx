@@ -65,7 +65,7 @@ const Planing = () => {
              undefined
             }
             <div style={{width:'100%',fontFamily:'Poppins-Meduim',height:'100%',display:'flex',justifyContent:'center'}}>
-                <div>
+                <div style={{width: window.innerWidth <600 ? '90%':'unused'}}>
                     <div style={{width:'100%',display:'flex',justifyContent:'center',marginTop: 100,color:'#FFFFFFDE',fontSize:16}}>
                        {pageTitle} 
                     </div>
