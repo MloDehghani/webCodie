@@ -66,7 +66,7 @@ const Planing = () => {
                         We’ll fit the experience to your needs.
                     </div>
 
-                    <div className="hiddenScrollBar" style={{height:250,overflowY:'scroll',marginTop: 56}}>
+                    <div className="hiddenScrollBar" style={{height:200,overflowY:'scroll',marginTop: 56}}>
                     {bots
                         .filter(item => item.title !== 'technician')
                         .map((item: any, index: number) => {
@@ -188,6 +188,7 @@ const Planing = () => {
                         borderRadius: 5,
                         height: 50,
                         top: 70,
+                        marginTop: '32px',
                         display: 'flex',
                         opacity: selectedBox === 0 ? 0.4 : 1,
                         // position:'absolute',
@@ -199,7 +200,7 @@ const Planing = () => {
                             color: 'white',
                             fontSize: 16,
                             fontWeight: '500',
-                            fontFamily: 'Poppins-Medium',
+                            fontFamily: 'Poppins-Meduim',
                         }}>
                         Go for next step
                         </div>
