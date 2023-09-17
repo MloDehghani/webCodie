@@ -8,7 +8,7 @@ import { useConstructor } from "../help";
 import makeid from '../Hoc/RandomKey';
 import Flow from "../api/Flow";
 import { BeatLoader } from "react-spinners";
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { checkBotId } from "../api/botId";
 import keybordIcon from '../assets/keyboard.svg';
 import SettingIcon from '../assets/setting.svg';
