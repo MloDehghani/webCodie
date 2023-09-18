@@ -15,6 +15,7 @@ import SettingIcon from '../assets/setting.svg';
 import SendIcon from '../assets/Send.svg';
 // import translateIcon from '../assets/translate.svg';
 import LogOutIcom from '../assets/logOut.svg';
+import { toast } from "react-toastify";
 
 const Chat = () => {
     const [boxWidth,setBoxWidth] = useState(window.innerWidth);
@@ -106,11 +107,13 @@ const Chat = () => {
                       localStorage.setItem('catchChats',JSON.stringify(chats))        
                       pageScroll() 
                     }else{
-                      alert('I did not understand your question, ask your question again')
+                      toast.warning('I did not understand your question, ask your question again',{theme:'colored'})
+                      // alert('I did not understand your question, ask your question again')
                     }
                     // console.log(res);
                     setIsLoading(false);
                   }).catch(() => {
+                     toast.error('Network Connection Error, Please Check Your Connection',{theme:'colored'})
                     setIsLoading(false)
                   })
                }
@@ -189,11 +192,15 @@ const Chat = () => {
                 // console.log(res);
                 pageScroll()
               }else{
-                alert('I did not understand your question, ask your question again')
+                toast.warning('I did not understand your question, ask your question again',{theme:'colored'})
+                // alert('I did not understand your question, ask your question again')
               }
               setIsLoading(false);              
               // await AsyncStorage.setItem('chatsCash' + useApikey, JSON.stringify(chat));
-          }).catch(() => {setIsLoading(false)});
+          }).catch(() => {
+            toast.error('Network Connection Error, Please Check Your Connection',{theme:'colored'})
+            setIsLoading(false)
+          });
 
       }, 1);
     };       
@@ -273,6 +280,7 @@ const Chat = () => {
         })        
       }
     })
+    const [showExitModal,setShowExitModal] = useState(false);
     return (
         <>
          <div className="hiddenScrollBar" style={{backgroundColor:'#121212',position:'relative',width:boxWidth,height:boxHeight,overflowY:'scroll'}}>
@@ -293,7 +301,7 @@ const Chat = () => {
                 flexDirection: 'row',
                 top: 200,
                 justifyContent: 'center',
-                zIndex: 50,              
+                zIndex: 15,              
               }}>
                 <Sugesstions sugges={suglist} dark handleOfferClick={_handleOfferClick}></Sugesstions>    
               </div>
@@ -487,11 +495,7 @@ const Chat = () => {
                         </div>
                         <div style={{height:'0.5px',margin:'8px 0px' ,width:'100%',backgroundColor:'white'}} /> */}
                         <div onClick={() => {
-                          const logoutConfirm = confirm('Do you want to exit ?')
-                          if(logoutConfirm){
-                            localStorage.clear()
-                            navigate('/plan')
-                          }
+                          setShowExitModal(true);
                         }} style={{display:'flex',width:'100%'}}>
                           <img style={{marginRight:8}} src={LogOutIcom} />
                           <div style={{color:'#FFFFFFDE',cursor:'pointer'}}>Log out</div>
@@ -525,6 +529,27 @@ const Chat = () => {
               }
             </div>
          </div>
+          {
+            showExitModal ?
+            <>
+              <div style={{width:'100%',height:'100%',backgroundColor:'black',position:'absolute',top:0,zIndex: 20,opacity:'0.4'}}></div>
+              <div style={{width:'100%',zIndex:21,height:'100vh',position:'absolute',display:'flex',justifyContent:'center',alignItems:'center',top:0,left:0}}>
+                <div style={{width:'320px',borderRadius:15,backgroundColor:'#121212',height:163,display:'flex',justifyContent:'center',alignItems:'center'}}>
+                  <div>
+                    <div style={{color:'#FFFFFFDE',fontSize:16,textAlign:'center',fontWeight:400}}>Are you sure you want to exit?</div>
+                    <div style={{display:'flex',justifyContent:'center',alignItems:'center',marginTop:32}}>
+                      <div onClick={() => {
+                        localStorage.clear()
+                        navigate('/plan')
+                      }} style={{color:'#007BFF',fontFamily:'Poppins-Meduim',fontSize:'16px',cursor:'pointer'}}>Confirm</div>
+                      <div onClick={() => setShowExitModal(false)} style={{color:'#007BFF',fontFamily:'Poppins-Meduim',fontSize:'16px',marginLeft:'32px',cursor:'pointer'}}>Cancel</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+            :undefined
+          }
           <div style={{visibility:'hidden',top:0,left:0,position:'absolute',width:'0px',height:'0px'}}>
               <div style={{position:'absolute',zIndex:300}}>
               <audio ref={audioRef} controls onEnded={() => {
