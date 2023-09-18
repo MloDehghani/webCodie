@@ -54,6 +54,7 @@ const Chat = () => {
                if(results.map((item:any) => item.transcript)[results.length -1]!= ''){
                   const newChat = {
                     type: 'text',
+                    like:null,
                     message: results.map((item:any) => item.transcript)[results.length -1],
                     from: 'user',
                     timestamp:results.map((item:any) => item.timestamp)[results.length -1],
@@ -176,6 +177,7 @@ const Chat = () => {
                       ? res.answer.suggestion_list
                       : [],
                   instanceid: res.instanceid,
+                  like:null,
                   // aisles:JSON.parse(res.suggestion_list),
                 };
                 chat.push(responseApi);
@@ -359,6 +361,14 @@ const Chat = () => {
                                   }}>
                                   {item.message}
                                 </div>
+                                {/* <div style={{display:'flex',justifyContent:'end',width:'100%'}}>
+                                  <div style={{cursor:'pointer'}}>
+                                    <img src="./icons/like.svg" alt="" />
+                                  </div>
+                                  <div style={{marginLeft: 8,cursor:'pointer'}}>
+                                    <img style={{transform:'rotate(180deg)'}} src="./icons/like.svg" alt="" />
+                                  </div>                                  
+                                </div> */}
                               </div>
                             </div>                        
                           </>}                  

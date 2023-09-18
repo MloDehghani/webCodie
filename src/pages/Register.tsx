@@ -8,6 +8,8 @@ import Auth from "../api/Auth";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { useState ,useEffect,useCallback} from "react";
+import { useConstructor } from "../help";
+import { MoonLoader } from "react-spinners";
 
 
 const validationSchema = Yup.object().shape({
@@ -59,6 +61,20 @@ const Register = () => {
     handleResize();
     window.addEventListener("resize", handleResize, false);
   }, []);
+  useConstructor(() => {
+    if(localStorage.getItem('accessToken') && localStorage.getItem('ApiKey')){
+      const token: string = localStorage.getItem('accessToken') as string
+      const apikey: string = localStorage.getItem('ApiKey') as string
+      console.log(token)
+      console.log(apikey)
+      if(token.length > 0 && apikey.length > 0){
+        setTimeout(() => {
+          navigate('/chat')
+        }, 300);
+      }
+    } 
+  })  
+  const [isLoading,setIsLoading] = useState(false); 
   return (
     <div
       style={{
@@ -73,6 +89,16 @@ const Register = () => {
         // paddingRight:'20px'
       }}
     >
+      {isLoading?
+          <div style={{width:window.innerWidth,height:window.innerHeight,backgroundColor:'black',position:'absolute',zIndex: 50,top:0,left:0,opacity:'0.4'}}></div>
+      :undefined}
+      {isLoading ?
+        <div style={{position:'absolute',width:window.innerWidth,height:window.innerHeight,display:'flex',zIndex:51,justifyContent:'center',top:0,left:0,alignItems:'center'}}>
+          <MoonLoader color="#0c63f0" />
+        </div>
+        :
+        undefined
+      }      
       <div onClick={() => navigate('/login')} style={{ paddingLeft: "18px", marginTop: "25px",  }}>
         <img src="/icons/leftVector.svg" alt="leftArrow" style={{cursor:'pointer'}} />
       </div>
@@ -407,6 +433,7 @@ const Register = () => {
           <button
             disabled={submitDisabled}
             onClick={() => {
+              setIsLoading(true)
               Auth.register(
                 {
                   full_name: formik.values.username,
@@ -415,6 +442,7 @@ const Register = () => {
                 },
                 res => {
                   if (res.access_token) {
+                    setIsLoading(false);
                     localStorage.setItem('accessToken', res.access_token);
                     navigate('/chat')
                   }
@@ -519,13 +547,14 @@ const Register = () => {
                       ? credentialResponse?.credential
                       : ""
                   );
-
+                  setIsLoading(true);
                   Auth.login(
                     {
                       google_json: prof,
                     },
                     (res) => {
                       if (res.access_token) {
+                        setIsLoading(false)
                         localStorage.setItem("accessToken", res.access_token);
                         navigate("/chat");
                       }
