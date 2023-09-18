@@ -94,7 +94,7 @@ const Login = () => {
         undefined
       }
       <div
-        onClick={() => navigate("/plan")}
+        onClick={() => navigate("/register")}
         style={{ paddingLeft: "18px", marginTop: "40px" }}
       >
         <img
@@ -196,6 +196,11 @@ const Login = () => {
             type="text"
             placeholder="Enter your email..."
           />
+          {formik.errors.email && formik.touched.email ? (
+                      <div  style={{ color: "red", maxHeight:10,fontFamily:'Poppins-Regular',fontSize: "10px", marginTop: "3px" }}>
+                        {formik.errors.email}
+                      </div>
+                    ):<div style={{height: '10px',width: 2}}></div>}          
           {/* {formik.errors.email && formik.touched.email && (
             <p
               style={{ color: "red", fontSize: "12px", marginTop: "3px" }}
@@ -260,6 +265,7 @@ const Login = () => {
               type={passwordVisible ? "text" : "password"}
               placeholder="Enter your password..."
             />
+
             {!passwordVisible ? (
               <AiOutlineEyeInvisible
                size='20px'
@@ -291,11 +297,12 @@ const Login = () => {
               />
             )}
           </div>
-          {/* {formik.errors.password && formik.touched.password && (
-                      <p  style={{ color: "red", fontSize: "12px", marginTop: "3px" }}>
+
+          {formik.errors.password && formik.touched.password ? (
+                      <div  style={{ color: "red",fontSize: "10px",fontFamily:'Poppins-Regular', marginTop: "3px" }}>
                         {formik.errors.password}
-                      </p>
-                    )} */}
+                      </div>
+                    ):<div style={{height: '10px'}}></div>}
         </div>
         <div
           style={{

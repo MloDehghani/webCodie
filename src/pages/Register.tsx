@@ -100,7 +100,7 @@ const Register = () => {
         :
         undefined
       }      
-      <div onClick={() => navigate('/login')} style={{ paddingLeft: "18px", marginTop: "25px",  }}>
+      <div onClick={() => navigate('/plan')} style={{ paddingLeft: "18px", marginTop: "25px",  }}>
         <img src="/icons/leftVector.svg" alt="leftArrow" style={{cursor:'pointer'}} />
       </div>
       <div style={{ marginTop: "-10px" }}>
@@ -185,6 +185,11 @@ const Register = () => {
             type="text"
             placeholder="Enter your Full Name..."
           />
+          {formik.errors.username && formik.touched.username ? (
+                      <div  style={{ color: "red", maxHeight:10,fontSize: "10px",fontFamily:'Poppins-Regular', marginTop: "3px" }}>
+                        {formik.errors.username}
+                      </div>
+                    ):<div style={{height: '10px'}}></div>}          
           {/* {formik.errors.username && formik.touched.username && (
                 <p
                   style={{ color: "red", fontSize: "12px", marginTop: "3px" }}
@@ -249,6 +254,11 @@ const Register = () => {
             type="text"
             placeholder="Enter your email..."
           />
+          {formik.errors.email && formik.touched.email ? (
+                      <div  style={{ color: "red", maxHeight:10,fontSize: "10px",fontFamily:'Poppins-Regular', marginTop: "3px" }}>
+                        {formik.errors.email}
+                      </div>
+                    ):<div style={{height: '10px'}}></div>}          
           {/* {formik.errors.email && formik.touched.email && (
                 <p
                   style={{ color: "red", fontSize: "12px", marginTop: "3px" }}
@@ -345,6 +355,11 @@ const Register = () => {
               />
             )}
           </div>
+          {formik.errors.password && formik.touched.password ? (
+                      <div  style={{ color: "red",fontSize: "10px",fontFamily:'Poppins-Regular', marginTop: "3px" }}>
+                        {formik.errors.password}
+                      </div>
+                    ):<div style={{height: '10px'}}></div>}          
           {/* <input
             {...formik.getFieldProps("password")}
             style={

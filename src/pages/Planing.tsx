@@ -73,7 +73,7 @@ const Planing = () => {
                         {pageSub}
                     </div>
 
-                    <div className="hiddenScrollBar" style={{height:250,overflowY:'scroll',marginTop: 56}}>
+                    <div className="hiddenScrollBar" style={{height:300,overflowY:'scroll',marginTop: 56}}>
                     {bots
                         .filter(item => item.title !== 'technician')
                         .map((item: any, index: number) => {
@@ -169,7 +169,7 @@ const Planing = () => {
                         if (localApikey.length > 1) {
                             // props.setApikey(localApikey);
                             localStorage.setItem('ApiKey',localApikey)
-                            navigate('/login')
+                            navigate('/register')
                             // checkBotId(localApikey).then(a => {
                             // console.log(a);
                             // setTimeout(() => {
