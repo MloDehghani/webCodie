@@ -78,10 +78,13 @@ const Register = () => {
   const [isLoading,setIsLoading] = useState(false); 
   return (
     <div
+      className="hiddenScrollBar"
       style={{
         backgroundColor: "#121212",
         width: window.innerWidth < 600 ? window.innerWidth :window.innerWidth / 2,
         height: window.innerHeight,
+        overflowY:'scroll',
+        paddingBottom: 16,
         // overflowY: "scroll",
         display: "flex",
         flexDirection: "column",
