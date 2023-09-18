@@ -135,7 +135,7 @@ const Welcome = () => {
             className="macbook-image"
             src="/images/MacBook-17.png"
             alt="MacBook"
-            style={{ width: "900px",position:'relative',right: '-90px'}}
+            style={{ width: "1000px",position:'relative',right: '-110px',top:-40}}
           />
         </div>
       </div>
