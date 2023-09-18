@@ -127,14 +127,15 @@ const Welcome = () => {
             // position: "absolute", // Added position property
             // bottom: "0", // Positioned at the bottom
             // right: "0", // Positioned at the right
+            width:'100%',
             alignSelf: "end",
           }}
         >
           <img
             className="macbook-image"
-            src="/images/MacBook.svg"
+            src="/images/MacBook-17.png"
             alt="MacBook"
-            style={{ width: "650px", height: "500px" }}
+            style={{ width: "900px",position:'relative',right: '-90px'}}
           />
         </div>
       </div>
