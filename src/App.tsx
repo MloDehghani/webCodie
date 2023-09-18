@@ -6,9 +6,9 @@ import { Planing, Login, Chat, JustGoogleLogin } from './pages';
 import './App.css';
 import Register from "./pages/Register";
 import { useEffect, useState } from "react";
-
+import { ToastContainer} from 'react-toastify';
 import Welcome from "./pages/Welcome";
-
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [boxWidth,setBoxWidth] = useState(window.innerWidth);
@@ -51,6 +51,7 @@ function App() {
   return (
     <div style={{backgroundColor:'#121212',marginTop:'0px',overflow:'hidden',width:boxWidth,height:boxHeight,display:'flex',justifyContent:'center',alignItems:'center'}}>
       <RouterProvider  router={router}/>
+      <ToastContainer />
     </div>
   )
 }

@@ -10,6 +10,7 @@ import { AiOutlineEye } from "react-icons/ai";
 import { useState ,useEffect,useCallback} from "react";
 import { useConstructor } from "../help";
 import { MoonLoader } from "react-spinners";
+import { toast } from "react-toastify";
 
 
 const validationSchema = Yup.object().shape({
@@ -445,6 +446,9 @@ const Register = () => {
                     setIsLoading(false);
                     localStorage.setItem('accessToken', res.access_token);
                     navigate('/chat')
+                  }else{
+                    toast.error(res,{theme:'colored'})
+                    setIsLoading(false);
                   }
                 },
               );              

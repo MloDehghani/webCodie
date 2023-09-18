@@ -10,6 +10,7 @@ import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { useConstructor } from "../help";
 import { MoonLoader } from "react-spinners";
+import { toast } from 'react-toastify';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Please enter a valid email").required("Required"),
@@ -53,6 +54,7 @@ const Login = () => {
     window.addEventListener("resize", handleResize, false);
   }, []);
   useConstructor(() => {
+
     if(localStorage.getItem('accessToken') && localStorage.getItem('ApiKey')){
       const token: string = localStorage.getItem('accessToken') as string
       const apikey: string = localStorage.getItem('ApiKey') as string
@@ -339,6 +341,9 @@ const Login = () => {
                     setIsLoading(false);
                     localStorage.setItem("accessToken", res.access_token);
                     navigate("/chat");
+                  }else{
+                    toast.error(res,{theme:'colored'})
+                    setIsLoading(false);
                   }
                 }
               );
