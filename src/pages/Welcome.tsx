@@ -48,7 +48,7 @@ const Welcome = () => {
               style={{
                 whiteSpace: "pre-line",
                 lineHeight: "72px",
-                fontSize: "48px",
+                fontSize: "44px",
                 fontWeight: "500",
               }}
             >
@@ -58,7 +58,7 @@ const Welcome = () => {
               className="welcomeday"
               style={{
                 lineHeight: "54px",
-                fontSize: "36px",
+                fontSize: "32px",
                 fontWeight: "500",
                 marginTop: "-32px",
               }}
@@ -75,7 +75,7 @@ const Welcome = () => {
 
             <p
               className="communicate"
-              style={{ whiteSpace: "pre-line", marginTop: "40px" }}
+              style={{ whiteSpace: "pre-line", marginTop: "40px" ,fontSize:'20px'}}
             >
               How would you prefer to communicate {"\n"} with us?{" "}
             </p>
@@ -108,10 +108,11 @@ const Welcome = () => {
                 src="/images/chrome-web.svg"
                 alt="chrome web"
                 style={{
-                  width: "250px",
+                  width: "260px",
                   height: "80px",
                   cursor: "pointer",
                   marginLeft: "16px",
+                  
                 }}
               />
 
