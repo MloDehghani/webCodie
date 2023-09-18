@@ -54,7 +54,7 @@ const Login = () => {
     <div
       style={{
         backgroundColor: "#121212",
-        width: window.innerWidth,
+        width: window.innerWidth < 600 ? window.innerWidth :window.innerWidth / 2,
         height: window.innerHeight,
         // overflowY: "scroll",
         display: "flex",
