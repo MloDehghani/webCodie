@@ -20,14 +20,14 @@ const Welcome = () => {
         style={{
           marginTop: "25px",
           width: " -webkit-fill-available",
-          paddingLeft: "119px",
+          paddingLeft: "108px",
         }}
       >
         <img
           className="logo"
-          src="/images/codie-logo2.svg"
+          src="/images/CodieAi.svg"
           alt="Codie ai"
-          style={{ width: "250px", height: "140px" }}
+          style={{ width: "250px",height:140}}
         />
       </div>
       <div
