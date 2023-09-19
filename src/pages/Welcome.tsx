@@ -84,6 +84,7 @@ const Welcome = () => {
             style={{
               display: "flex",
               justifyContent: "start",
+              // flexWrap:'wrap',
               alignItems: "center",
               marginLeft: "0px",
             }}
@@ -93,10 +94,11 @@ const Welcome = () => {
                 onClick={() => {
                   window.open('https://play.google.com/store/apps/details?id=com.sellguru.Codie')
                 }}
-                className="gplay-image"
-                src="/images/google-play.svg"
+                className="chromeWeb-image2"
+                // className="chromeWeb-image"
+                src="/images/play.png"
                 alt="google play"
-                style={{ width: "260px", height: "80px", cursor: "pointer" }}
+                style={{ width: "200px",height:'65px', cursor: "pointer" }}
               />
             </div>
             <div>
@@ -104,12 +106,32 @@ const Welcome = () => {
               onClick={() => {
                 navigate('/plan')
               }}
-                className="chromeWeb-image"
+              className="chromeWeb-image2"
+                // className="chromeWeb-image"
+                src="/images/App Store.png"
+                alt="chrome web"
+                style={{
+                  width: "200px",
+                  height: "65px",
+                  cursor: "pointer",
+                  marginLeft: "16px",
+                  
+                }}
+              />
+
+            </div>            
+            <div>
+              <img
+              onClick={() => {
+                navigate('/plan')
+              }}
+              className="chromeWeb-image2"
+                // className="chromeWeb-image"
                 src="/images/chrome-web.svg"
                 alt="chrome web"
                 style={{
-                  width: "260px",
-                  height: "80px",
+                  width: "200px",
+                  // height: "80px",
                   cursor: "pointer",
                   marginLeft: "16px",
                   
@@ -135,7 +157,7 @@ const Welcome = () => {
             className="macbook-image"
             src="/images/MacBook-17.png"
             alt="MacBook"
-            style={{ width: "1000px",position:'relative',right: '-110px',top:-40}}
+            style={{ width: "900px",position:'relative',right: '-110px',top:-40}}
           />
         </div>
       </div>
