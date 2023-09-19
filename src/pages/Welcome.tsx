@@ -77,7 +77,7 @@ const Welcome = () => {
               className="communicate"
               style={{ whiteSpace: "pre-line", marginTop: "40px" ,fontSize:'20px'}}
             >
-              How would you prefer to communicate {"\n"} with us?{" "}
+              How would you prefer to communicate with us?{" "}
             </p>
           </div>
           <div className="image-container"
