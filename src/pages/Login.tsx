@@ -196,7 +196,7 @@ const Login = () => {
                   }
             }
             type="text"
-            placeholder="enter your email..."
+            placeholder="Enter your email..."
           />
           {formik.errors.email && formik.touched.email ? (
                       <div  style={{ color: "red", maxHeight:10,fontFamily:'Poppins-Regular',fontSize: "10px", marginTop: "3px" }}>
@@ -265,7 +265,7 @@ const Login = () => {
               {...formik.getFieldProps("password")}
             style={{ backgroundColor: "#1F1F1F", width:'100%',color:'white'}}
               type={passwordVisible ? "text" : "password"}
-              placeholder="enter your password..."
+              placeholder="Enter your password..."
             />
 
             {!passwordVisible ? (
