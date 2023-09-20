@@ -73,7 +73,7 @@ const Planing = () => {
                         {pageSub}
                     </div>
 
-                    <div className="hiddenScrollBar" style={{height:300,overflowY:'scroll',marginTop: 56}}>
+                    <div className="hiddenScrollBar" style={{height:300,overflowY:'scroll',backgroundColor: '#2D2D2D',padding:'16px 8px',borderRadius:4,marginTop: 56}}>
                     {bots
                         .filter(item => item.title !== 'technician')
                         .map((item: any, index: number) => {
@@ -107,7 +107,37 @@ const Planing = () => {
                                         paddingLeft: '16px',
                                         paddingRight: '16px',
                                     }}>
-                                    <img src={selectedBox==index+1 ? calageIcon :calageIconNon}/>
+                                    {selectedBox === index+1 ? (
+                                    <div
+                                        style={{
+                                        backgroundColor: '#007BFF',
+                                        width: 24,
+                                        height: 24,
+                                        borderRadius: 100,
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        }}>
+                                        <img src={TikIcon} alt="" />
+                                    </div>
+                                    ) : (
+                                    <div
+                                        style={{
+                                        // visibility:'hidden',
+                                        backgroundColor: '#FFFFFF61',
+                                        width: 24,
+                                        height: 24,
+                                        borderRadius: 100,
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        }}>
+                                        {/* <img src={TikIcon} alt="" /> */}
+                                    </div>                                        
+                                    )}
+                                    {/* <img src={selectedBox==index+1 ? calageIcon :calageIconNon}/> */}
                                     <div style={{marginLeft: 12}}>
                                         <div
                                         style={{
@@ -127,36 +157,7 @@ const Planing = () => {
                                         </div>
                                     </div>
                                     </div>
-                                    {selectedBox === index+1 ? (
-                                    <div
-                                        style={{
-                                        backgroundColor: '#007BFF',
-                                        width: 24,
-                                        height: 24,
-                                        borderRadius: 100,
-                                        display: 'flex',
-                                        flexDirection: 'row',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        }}>
-                                        <img src={TikIcon} alt="" />
-                                    </div>
-                                    ) : (
-                                    <div
-                                        style={{
-                                        visibility:'hidden',
-                                        backgroundColor: '#007BFF',
-                                        width: 24,
-                                        height: 24,
-                                        borderRadius: 100,
-                                        display: 'flex',
-                                        flexDirection: 'row',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        }}>
-                                        <img src={TikIcon} alt="" />
-                                    </div>                                        
-                                    )}
+
                                 </div>
                                 </div>
                             )
