@@ -126,8 +126,8 @@ const Planing = () => {
                                         style={{
                                         // visibility:'hidden',
                                         backgroundColor: '#FFFFFF61',
-                                        width: 24,
-                                        height: 24,
+                                        minHeight: 24,
+                                        minWidth: 24,
                                         borderRadius: 100,
                                         display: 'flex',
                                         flexDirection: 'row',
