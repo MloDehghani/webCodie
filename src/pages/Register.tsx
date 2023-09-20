@@ -186,7 +186,7 @@ const Register = () => {
                   }
             }
             type="text"
-            placeholder="Enter your Full Name..."
+            placeholder="enter your full name..."
           />
           {formik.errors.username && formik.touched.username ? (
                       <div  style={{ color: "red", maxHeight:10,fontSize: "10px",fontFamily:'Poppins-Regular', marginTop: "3px" }}>
