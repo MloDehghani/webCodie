@@ -73,7 +73,7 @@ const Planing = () => {
                         {pageSub}
                     </div>
 
-                    <div className="hiddenScrollBar" style={{height:300,overflowY:'scroll',backgroundColor: '#2D2D2D',padding:'16px 8px',borderRadius:4,marginTop: 56}}>
+                    <div className="hiddenScrollBar" style={{height:260,overflowY:'scroll',backgroundColor: '#2D2D2D',padding:'16px 8px',borderRadius:4,marginTop: 56}}>
                     {bots
                         .filter(item => item.title !== 'technician')
                         .map((item: any, index: number) => {
