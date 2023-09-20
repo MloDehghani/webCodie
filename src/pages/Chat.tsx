@@ -495,6 +495,8 @@ const Chat = () => {
                         </div>
                         <div style={{height:'0.5px',margin:'8px 0px' ,width:'100%',backgroundColor:'white'}} /> */}
                         <div onClick={() => {
+                          setIsTalking(false);
+                          setAudioUrl('');
                           setShowExitModal(true);
                         }} style={{display:'flex',width:'100%'}}>
                           <img style={{marginRight:8}} src={LogOutIcom} />

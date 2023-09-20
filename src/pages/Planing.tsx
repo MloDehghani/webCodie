@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useConstructor } from "../help";
 import Bots from "../api/Bots";
-import calageIcon from '../assets/calage.svg';
-import calageIconNon from '../assets/calageUnselect.svg';
+// import calageIcon from '../assets/calage.svg';
+// import calageIconNon from '../assets/calageUnselect.svg';
 import TikIcon from '../assets/Tik.svg';
 import { MoonLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
