@@ -2,7 +2,7 @@ import {
   createHashRouter,
   RouterProvider,
 } from "react-router-dom";
-import { Planing, Login, Chat, JustGoogleLogin } from './pages';
+import { Planing, Login, Chat, JustGoogleLogin, Starting } from './pages';
 import './App.css';
 import Register from "./pages/Register";
 import { useEffect, useState } from "react";
@@ -18,6 +18,10 @@ function App() {
       path: "/",
       element: <Welcome />,
     },
+    {
+      path: "/hotel",
+      element: <Starting />,
+    },    
     {
       path: "/plan",
       element: <Planing/> ,

@@ -132,6 +132,10 @@ button {
     width: 220px !important;
     padding-top: 2px !important;
   }
+  .under-image2 {
+    width: 350px !important;
+    padding-top: 2px !important;
+  }  
 input::placeholder {
   font-weight: "300";
   opacity: 0.6;
@@ -212,6 +216,11 @@ input[type="checkbox"] {
     width: 220px !important;
     padding-top: 2px !important;
   }
+  .under-image2 {
+    width: 190px !important;
+    margin-top: -30px !important;
+    padding-top: 2px !important;
+  }  
   .communicate {
     line-height: 24px !important;
     font-size: 18px !important;
@@ -239,6 +248,11 @@ input[type="checkbox"] {
     width: 140px !important;
     padding-top: 2px !important;
   }  
+  .under-image2 {
+    width: 190px !important;
+    margin-top: -30px !important;
+    padding-top: 2px !important;
+  }    
   .image-container{
     padding-right: 16px !important;
     flex-wrap: wrap;
