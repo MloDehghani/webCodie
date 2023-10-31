@@ -15,3 +15,38 @@
   font-style: normal;
   font-display: swap;
 }
+@keyframes waves {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+.Acord-VoiceRecorder-WaveBox {
+  z-index: 1;
+  bottom: 0;
+  position: absolute;
+  display: block;
+  opacity: 30%;
+  width: 100%;
+  height: 66px;
+  background-color: white;
+  border-radius: 90%;
+  /* @apply z-[-1] top-0 absolute block opacity-50 w-[var(--Acord-voiceRecorder-width)] h-[var(--Acord-voiceRecorder-width)] rounded-full bg-primary-color; */
+}
+.Acord-VoiceRecorder-Wave1 {
+  animation: waves 2.5s linear 0.1s infinite;
+}
+.Acord-VoiceRecorder-Wave2 {
+  animation: waves 2.5s linear 0.7s infinite;
+}
+.Acord-VoiceRecorder-Wave3 {
+  animation: waves 2.5s linear 1.3s infinite;
+}
+.Acord-VoiceRecorder-Wave4 {
+  animation: waves 2.5s linear 1.9s infinite;
+}

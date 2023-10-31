@@ -11,7 +11,7 @@ import { useState ,useEffect,useCallback} from "react";
 import { useConstructor } from "../help";
 import { MoonLoader } from "react-spinners";
 import { toast } from "react-toastify";
-
+import googleImage from '../assets/Google.svg';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("Required"),
@@ -141,6 +141,186 @@ const Register = () => {
           alignItems: "center",
         }}
       >
+          <div style={{width:'-webkit-fill-available',marginBottom:32,paddingLeft:24,paddingRight:24,display:'flex',alignItems:'center',justifyContent:'center'}}>
+            <div onClick={() => {
+            //  console.log(document.querySelectorAll('[role="button"]'))
+            const ifram = document.getElementsByTagName('iframe') as any
+            console.log(ifram)
+            if(ifram){
+              console.log(ifram[0].contentWindow.document.body.querySelectorAll('[role="button"]'))
+              // ifram.contentWindow.document.body.querySelectorAll('[role="button"]')
+            }
+            // document.getElementById("gsi_712973_14844").contentWindow.document.body
+            //  document.querySelectorAll('[role="button"]')[0].
+            }} style={{width:'-webkit-fill-available',display:'flex',cursor:'pointer',justifyContent:'center',alignItems:'center',height:'48px',border:'1px solid #FFFFFF61',borderRadius:'8px'}}>
+              <div style={{display:'flex',justifyContent:'center',visibility:'visible',marginRight:8}}>
+                <GoogleOAuthProvider clientId="750278697489-u68emmire3d35234obo1mne9v0eobmsu.apps.googleusercontent.com">
+                  <GoogleLogin
+                    text="continue_with"
+                    shape="square"
+                    type="icon"
+                    size="large"
+                    width={
+                      document.getElementById("authButton")?.offsetWidth + "px"
+                    }
+                    // size="large"
+                    // width={document.getElementById('authButton')?.offsetWidth}
+                    theme="filled_black"
+                    onSuccess={(credentialResponse) => {
+                      //   setcertificate(credentialResponse);
+                      console.log(credentialResponse);
+                      const prof: any = jwt_decode(
+                        credentialResponse.credential
+                          ? credentialResponse?.credential
+                          : ""
+                      );
+                      setIsLoading(true);
+                      Auth.login(
+                        {
+                          google_json: prof,
+                        },
+                        (res) => {
+                          if (res.access_token) {
+                            setIsLoading(false)
+                            localStorage.setItem("accessToken", res.access_token);
+                            navigate("/chat");
+                          }
+                        }
+                      );
+                      //   authentication.register(
+                      //     {
+                      //       google_json:prof
+                      //     },
+                      //     (res) => {
+                      //       if (res.status == 200 && res.data.access_token) {
+                      //         storeTokenInLocalStorage(res.data.access_token);
+                      //         navigate(APP_ROUTES.DASHBOARD);
+                      //       } else {
+                      //         setAlertmassage(res.data);
+                      //         // alert.current?.showToast();
+                      //         toast.error('Invalid email or password')
+                      //       }
+                      //     }
+                      //   );
+                    }}
+                    onError={() => {
+                      console.log("Login Failed");
+                    }}
+                  />
+                </GoogleOAuthProvider>
+              </div>  
+                <div style={{color:'#FFFFFFDE',fontSize:'16px'}}>Continue with Google</div>
+            </div>
+
+          </div>
+          {/* <div style={{display:'flex',justifyContent:'center',visibility:'visible',position:'absolute'}}>
+            <GoogleOAuthProvider clientId="750278697489-u68emmire3d35234obo1mne9v0eobmsu.apps.googleusercontent.com">
+              <GoogleLogin
+                text="continue_with"
+                shape="square"
+                type="icon"
+                size="large"
+                width={
+                  document.getElementById("authButton")?.offsetWidth + "px"
+                }
+                // size="large"
+                // width={document.getElementById('authButton')?.offsetWidth}
+                theme="filled_black"
+                onSuccess={(credentialResponse) => {
+                  //   setcertificate(credentialResponse);
+                  console.log(credentialResponse);
+                  const prof: any = jwt_decode(
+                    credentialResponse.credential
+                      ? credentialResponse?.credential
+                      : ""
+                  );
+                  setIsLoading(true);
+                  Auth.login(
+                    {
+                      google_json: prof,
+                    },
+                    (res) => {
+                      if (res.access_token) {
+                        setIsLoading(false)
+                        localStorage.setItem("accessToken", res.access_token);
+                        navigate("/chat");
+                      }
+                    }
+                  );
+                  //   authentication.register(
+                  //     {
+                  //       google_json:prof
+                  //     },
+                  //     (res) => {
+                  //       if (res.status == 200 && res.data.access_token) {
+                  //         storeTokenInLocalStorage(res.data.access_token);
+                  //         navigate(APP_ROUTES.DASHBOARD);
+                  //       } else {
+                  //         setAlertmassage(res.data);
+                  //         // alert.current?.showToast();
+                  //         toast.error('Invalid email or password')
+                  //       }
+                  //     }
+                  //   );
+                }}
+                onError={() => {
+                  console.log("Login Failed");
+                }}
+              />
+            </GoogleOAuthProvider>
+          </div>   */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "8px 0",
+              width: "90%",
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginBottom: "25px",
+            }}
+          >
+            {/* left line */}
+            <div
+              style={{
+                background: `linear-gradient(to left, rgba(140, 138, 147, 1), rgba(140, 138, 147, 0))`,
+                height: "1px",
+                width: "100%",
+              }}
+            ></div>
+            {/* or text */}
+            <div
+              style={{
+                color: "#FFFFFF",
+                opacity: ".87",
+                paddingLeft: "8px",
+                paddingRight: "8px",
+                fontFamily:'Poppins-Regular',
+                fontWeight: 300,
+
+                fontSize: "16px",
+                lineHeight: "27.25px",
+              }}
+            >
+              or
+            </div>{" "}
+            {/* <div
+              style={{
+                backgroundColor: "#8C8A93",
+                height: "1px",
+                width: "100%",
+              }}
+            ></div>{" "} */}
+            {/* right line */}
+            <div
+              style={{
+                background: `linear-gradient(to right, rgba(140, 138, 147, 1), rgba(140, 138, 147, 0))`,
+                height: "1px",
+                width: "100%",
+              }}
+            ></div>
+          </div>                
         <div
           style={{
             display: "flex",
@@ -488,58 +668,7 @@ const Register = () => {
           >
             Sign Up
           </button>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "8px 0",
-              width: "90%",
-              marginLeft: "auto",
-              marginRight: "auto",
-              marginBottom: "25px",
-            }}
-          >
-            {/* left line */}
-            <div
-              style={{
-                background: `linear-gradient(to left, rgba(140, 138, 147, 1), rgba(140, 138, 147, 0))`,
-                height: "1px",
-                width: "100%",
-              }}
-            ></div>
-            {/* or text */}
-            <div
-              style={{
-                color: "#FFFFFF",
-                opacity: ".87",
-                paddingLeft: "8px",
-                paddingRight: "8px",
-                fontFamily:'Poppins-Regular',
-                fontWeight: 300,
 
-                fontSize: "16px",
-                lineHeight: "27.25px",
-              }}
-            >
-              or
-            </div>{" "}
-            {/* <div
-              style={{
-                backgroundColor: "#8C8A93",
-                height: "1px",
-                width: "100%",
-              }}
-            ></div>{" "} */}
-            {/* right line */}
-            <div
-              style={{
-                background: `linear-gradient(to right, rgba(140, 138, 147, 1), rgba(140, 138, 147, 0))`,
-                height: "1px",
-                width: "100%",
-              }}
-            ></div>
-          </div>
           {/* <div style={{ padding: "16px 30px", width: "100%" }}> */}
           {/* <button
             style={{
@@ -550,60 +679,7 @@ const Register = () => {
               height: "50px",
             }}
           > */}
-          <div style={{display:'flex',justifyContent:'center'}}>
-            <GoogleOAuthProvider clientId="750278697489-u68emmire3d35234obo1mne9v0eobmsu.apps.googleusercontent.com">
-              <GoogleLogin
-                text="continue_with"
-                shape="square"
-                width={
-                  document.getElementById("authButton")?.offsetWidth + "px"
-                }
-                // size="large"
-                // width={document.getElementById('authButton')?.offsetWidth}
-                theme="filled_black"
-                onSuccess={(credentialResponse) => {
-                  //   setcertificate(credentialResponse);
-                  console.log(credentialResponse);
-                  const prof: any = jwt_decode(
-                    credentialResponse.credential
-                      ? credentialResponse?.credential
-                      : ""
-                  );
-                  setIsLoading(true);
-                  Auth.login(
-                    {
-                      google_json: prof,
-                    },
-                    (res) => {
-                      if (res.access_token) {
-                        setIsLoading(false)
-                        localStorage.setItem("accessToken", res.access_token);
-                        navigate("/chat");
-                      }
-                    }
-                  );
-                  //   authentication.register(
-                  //     {
-                  //       google_json:prof
-                  //     },
-                  //     (res) => {
-                  //       if (res.status == 200 && res.data.access_token) {
-                  //         storeTokenInLocalStorage(res.data.access_token);
-                  //         navigate(APP_ROUTES.DASHBOARD);
-                  //       } else {
-                  //         setAlertmassage(res.data);
-                  //         // alert.current?.showToast();
-                  //         toast.error('Invalid email or password')
-                  //       }
-                  //     }
-                  //   );
-                }}
-                onError={() => {
-                  console.log("Login Failed");
-                }}
-              />
-            </GoogleOAuthProvider>
-          </div>
+
           {/* </button> */}
         </div>
         <div

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from "react";
-import {WaveVoice,ImageSpinner, Sugesstions} from "../components"
+import {WaveVoice,ImageSpinner, Sugesstions, RateComponent, TypeAndRecord, HintComponent} from "../components"
 import micIcon from '../assets/mic.svg';
 import useSpeechToText from "react-hook-speech-to-text";
 import { useConstructor } from "../help";
@@ -10,12 +10,14 @@ import Flow from "../api/Flow";
 import { BeatLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { checkBotId } from "../api/botId";
+import logOutIcon from '../assets/fi_log-out.svg';
 import keybordIcon from '../assets/keyboard.svg';
 import SettingIcon from '../assets/setting.svg';
 import SendIcon from '../assets/Send.svg';
 // import translateIcon from '../assets/translate.svg';
 import LogOutIcom from '../assets/logOut.svg';
 import { toast } from "react-toastify";
+
 
 const Chat = () => {
     const [boxWidth,setBoxWidth] = useState(window.innerWidth);
@@ -37,7 +39,7 @@ const Chat = () => {
     } = useSpeechToText({
         continuous: true,
         crossBrowser: true,
-        timeout:6000,
+        timeout:3000,
         googleApiKey: 'AIzaSyB904oDQEZb5M1vdJYxVhXOtU3_URla1Nk',
         // speechRecognitionProperties: { interimResults: true },
         useLegacyResults: false
@@ -45,6 +47,7 @@ const Chat = () => {
     const [showSugestions, setShowSuggestions] = useState(false);    
     const [chat, setChat] = useState<Array<any>>([]);   
     const [showSugestion,setShowSuggestion] = useState(false); 
+    const [openRate,setOpenRate] = useState(false)
     const sendToApi =() => {
       const adminChats = chat.filter(item => item.from === 'admin');
       const chats:Array<any> = chat
@@ -205,6 +208,7 @@ const Chat = () => {
       }, 1);
     };       
     useEffect(() => {
+      console.log(chat)
       if(!isRecording){
           console.log('try send')
           sendToApi()
@@ -465,7 +469,7 @@ const Chat = () => {
               }
                 
             </div>
-            <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+            {/* <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
               {showTextBox ? 
                 <div id="boxInput" style={{position:'absolute',border:'none',outline:'none',width:'90%',bottom:24 ,height: 50,display:'flex',justifyContent:'center',alignItems:'center'}}>
                   <input value={text} onChange={(event) => setText(event.target.value)} style={{width:'100%',height:37,borderRadius:8,backgroundColor:'#2D2D2D',padding:'0px 12px',paddingRight:40,color:'white',fontFamily:'poppins-Regular'}} />
@@ -489,11 +493,6 @@ const Chat = () => {
                     </button>
                     {showSetting ?
                       <div id="setting" style={{backgroundColor:'#353535',padding:'12px 16px',position:'absolute',top:-60,borderRadius:5}}>
-                        {/* <div style={{display:'flex'}}>
-                          <img style={{marginRight:8}} src={translateIcon} />
-                          <div style={{color:'#FFFFFFDE',cursor:'pointer'}}>Language</div>
-                        </div>
-                        <div style={{height:'0.5px',margin:'8px 0px' ,width:'100%',backgroundColor:'white'}} /> */}
                         <div onClick={() => {
                           setIsTalking(false);
                           setAudioUrl('');
@@ -529,7 +528,34 @@ const Chat = () => {
                     </button>
                 </div>
               }
-            </div>
+            </div> */}
+            {chat.length > 0 ?
+              <div style={{width:'100%',position:'absolute',bottom:88,display:'flex',justifyContent:'center'}}>
+                <div style={{width:'90%',display:'flex',justifyContent:'end'}}>
+                    <HintComponent hints={chat[chat.length -1].aisles} send={_handleOfferClick}></HintComponent>
+
+                </div>
+              </div>
+            :undefined}
+            {/* new type */}
+            <TypeAndRecord onstart={() => {
+              startSpeechToText()
+              setAudioUrl('');
+              setIsTalking(false)
+              sendToApi()     
+              pageScroll()                
+            }}
+            logout={() => {
+              setShowExitModal(true)
+            }}
+            onStop={() => {
+              stopSpeechToText()
+              setAudioUrl('');
+              setIsTalking(false)
+              sendToApi()   
+              pageScroll()             
+            }}
+             isRecording={isRecording} _handleOfferClick={_handleOfferClick}></TypeAndRecord>
          </div>
           {
             showExitModal ?
@@ -542,7 +568,9 @@ const Chat = () => {
                     <div style={{display:'flex',justifyContent:'center',alignItems:'center',marginTop:32}}>
                       <div onClick={() => {
                         localStorage.clear()
-                        navigate('/plan')
+                        setOpenRate(true)
+                        setShowExitModal(false)
+                        // navigate('/plan')
                       }} style={{color:'#007BFF',fontFamily:'Poppins-Meduim',fontSize:'16px',cursor:'pointer'}}>Confirm</div>
                       <div onClick={() => setShowExitModal(false)} style={{color:'#007BFF',fontFamily:'Poppins-Meduim',fontSize:'16px',marginLeft:'32px',cursor:'pointer'}}>Cancel</div>
                     </div>
@@ -552,6 +580,11 @@ const Chat = () => {
             </>
             :undefined
           }
+          {window.innerWidth < 520 ?
+            <div onClick={() => setShowExitModal(true)} style={{position:'absolute',top:16 ,left:32}}>
+              <img style={{width:24}} src={logOutIcon} alt="" />
+            </div>
+          :undefined}
           <div style={{visibility:'hidden',top:0,left:0,position:'absolute',width:'0px',height:'0px'}}>
               <div style={{position:'absolute',zIndex:300}}>
               <audio ref={audioRef} controls onEnded={() => {
@@ -565,7 +598,23 @@ const Chat = () => {
                   <source id="audioPlayer" src={audioUrl} type="audio/mpeg"/>
               </audio>
               </div>             
-          </div>           
+          </div>      
+          {
+            openRate ?
+              <>
+                <div style={{width:'100%',zIndex:20,height:'100vh',position:'absolute',alignItems:'center',display:'flex',justifyContent:'center'}}>
+                  <RateComponent onclose={() => {
+                    setOpenRate(false)
+                    navigate('/plan')
+                    }} onSubmit={() => {
+                      setOpenRate(false)
+                      navigate('/plan')                     
+                    }}></RateComponent>
+                </div>
+                <div style={{width:'100%',height:'100vh',backgroundColor:'#121212',opacity:'90%',position:'absolute'}}></div>
+              </>
+            :undefined
+          }     
         </>
     )
 }
