@@ -17,6 +17,7 @@ import SendIcon from '../assets/Send.svg';
 // import translateIcon from '../assets/translate.svg';
 import LogOutIcom from '../assets/logOut.svg';
 import { toast } from "react-toastify";
+import Rate from "../api/Rate";
 
 
 const Chat = () => {
@@ -529,10 +530,14 @@ const Chat = () => {
                 </div>
               }
             </div> */}
-            {chat.length > 0 ?
+            {chat.length > 0  && chat[chat.length -1].aisles ?
               <div style={{width:'100%',position:'absolute',bottom:88,display:'flex',justifyContent:'center'}}>
                 <div style={{width:'90%',display:'flex',justifyContent:'end'}}>
-                    <HintComponent hints={chat[chat.length -1].aisles} send={_handleOfferClick}></HintComponent>
+                    <HintComponent hints={chat[chat.length -1].aisles} send={(text:string) => {
+                      setAudioUrl('');
+                      setIsTalking(false)
+                      _handleOfferClick(text)
+                    }}></HintComponent>
 
                 </div>
               </div>
@@ -545,6 +550,7 @@ const Chat = () => {
               sendToApi()     
               pageScroll()                
             }}
+            setShowSugestions={setShowSuggestion}
             logout={() => {
               setShowExitModal(true)
             }}
@@ -567,8 +573,12 @@ const Chat = () => {
                     <div style={{color:'#FFFFFFDE',fontSize:16,textAlign:'center',fontWeight:400}}>Are you sure you want to exit?</div>
                     <div style={{display:'flex',justifyContent:'center',alignItems:'center',marginTop:32}}>
                       <div onClick={() => {
-                        localStorage.clear()
-                        setOpenRate(true)
+                        if(localStorage.getItem("has_rated") == 'true') {
+                          setOpenRate(true)
+                        }else{
+                          navigate('/plan')   
+                          localStorage.clear()
+                        }
                         setShowExitModal(false)
                         // navigate('/plan')
                       }} style={{color:'#007BFF',fontFamily:'Poppins-Meduim',fontSize:'16px',cursor:'pointer'}}>Confirm</div>
@@ -605,10 +615,16 @@ const Chat = () => {
                 <div style={{width:'100%',zIndex:20,height:'100vh',position:'absolute',alignItems:'center',display:'flex',justifyContent:'center'}}>
                   <RateComponent onclose={() => {
                     setOpenRate(false)
+                    localStorage.clear()
                     navigate('/plan')
-                    }} onSubmit={() => {
+                    }} onSubmit={(rate) => {
                       setOpenRate(false)
-                      navigate('/plan')                     
+                      Rate.record({rate:rate})   
+                      setTimeout(() => {
+                        navigate('/plan') 
+                        localStorage.clear()
+                      }, 300);
+                                       
                     }}></RateComponent>
                 </div>
                 <div style={{width:'100%',height:'100vh',backgroundColor:'#121212',opacity:'90%',position:'absolute'}}></div>

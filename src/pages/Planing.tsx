@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useConstructor } from "../help";
 import Bots from "../api/Bots";
 import calageIcon from '../assets/calage.svg';
@@ -16,8 +16,10 @@ import { useNavigate } from "react-router-dom";
 const Planing = () => {
     const navigate = useNavigate();    
     const [isLoading, setIsLoading] = useState(true);
-    const [selectedBox, setSelectedBox] = useState(0);        
-    const [bots, setBots] = useState<Array<any>>([]);    
+    const [selectedBox, setSelectedBox] = useState(0);     
+    const [searchBox ,setsearchBox] = useState('')  
+    const [bots, setBots] = useState<Array<any>>([]);  
+    const [filterdBots,setFilterdBots] = useState<Array<any>>([]);    
     const [localApikey, setLocalApikey] = useState('');
     const resolveInconName = (name:string,index:number) => {
         if(selectedBox == index +1) {
@@ -36,51 +38,81 @@ const Planing = () => {
         }        
         return ''
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const filterSearch = () => {
+        if(searchBox != ''){
+            setFilterdBots(bots.filter(item => item.title.toLowerCase().includes(searchBox.toLowerCase())))
+        }else{
+            setFilterdBots(bots)
+        }
+    }
+    useEffect(() => {
+        filterSearch()
+    },[filterSearch, searchBox])
     const getBotsControled = () => {
-        Bots.getBots(
-        null,
-        res => {
+        // Bots.getBots(
+        // null,
+        // res => {
+        //     const newob: Array<any> = [];
+        //     let keys = [];
+        //     keys = Object.keys(res).filter(item => item != 'title' && item != 'sub_title');
+        //     setPagetitle(res.title);
+        //     setPageSub(res.sub_title)
+        //     keys.forEach(item => {
+        //     const news = {
+        //         title: item,
+        //         description: res[item].description,
+        //         icon: res[item].icon,
+        //         apikey: res[item].apikey,
+        //         status: res[item].status,
+        //     };
+        //     newob.push(news);
+        //     });
+        //     console.log(newob);
+        //     setBots(newob);
+        //     setIsLoading(false);
+        // },
+        // // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // _err => {
+        //     console.log('err')
+        // },
+        // );
+        Bots.getCategories((res) => {
+            // console.log(res)
             const newob: Array<any> = [];
-            let keys = [];
-            keys = Object.keys(res).filter(item => item != 'title' && item != 'sub_title');
             setPagetitle(res.title);
-            setPageSub(res.sub_title)
-            keys.forEach(item => {
-            const news = {
-                title: item,
-                description: res[item].description,
-                icon: res[item].icon,
-                apikey: res[item].apikey,
-                status: res[item].status,
-            };
-            newob.push(news);
-            });
-            console.log(newob);
-            setBots(newob);
+            setPageSub(res.sub_title)      
+            const keys = Object.keys(res).filter(item => item != 'title' && item != 'sub_title' && item!='Technician'); 
+            keys.forEach((item,index) => {
+                const news = {
+                    title: res[item].title,
+                    description: res[item].sub_title,
+                    icon: item,
+                    key:item
+                };
+                newob.push(news);
+            });      
+            // console.log(newob)
+            setCategories(newob)          
             setIsLoading(false);
-        },
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        _err => {
-            console.log('err')
-        },
-        );
+        },()=>{})
     };    
-    const [categories,setCategories] = useState([
-        {
-            title:'As a university student',
-            description:'Canterbury Christ Church University',
-            icon:'University'
-        },
-        {
-            title:'As a Hotel Passenger',
-            description:'Hotels',
-            icon:'Hotel'
-        },
-        {
-            title:'As a technician',
-            description:'Companies and Groups',
-            icon:'Hotel'
-        }        
+    const [categories,setCategories] = useState<Array<any>>([
+        // {
+        //     title:'As a university student',
+        //     description:'Canterbury Christ Church University',
+        //     icon:'University'
+        // },
+        // {
+        //     title:'As a Hotel Passenger',
+        //     description:'Hotels',
+        //     icon:'Hotel'
+        // },
+        // {
+        //     title:'As a technician',
+        //     description:'Companies and Groups',
+        //     icon:'Hotel'
+        // }        
     ])
     useConstructor(() => {
         getBotsControled()
@@ -105,6 +137,15 @@ const Planing = () => {
             }
             <div style={{width:'100%',fontFamily:'Poppins-Meduim',height:'100%',display:'flex',justifyContent:'center'}}>
                 {
+                    stepWork != 'plan' ?
+                          <img onClick={() => {
+                            setSelectedBox(0)
+                            setStepWork('plan')
+                        }} style={{position:'absolute',top:24,left:32,cursor:'pointer'}} src="./icons/leftVector.svg" />
+                    :undefined
+                }
+               
+                {
                     stepWork == 'plan' ?
                     <div style={{width: window.innerWidth <600 ? '90%':'unused'}}>
                         <div style={{width:'100%',display:'flex',justifyContent:'center',marginTop: 100,color:'#FFFFFFDE',fontSize:16}}>
@@ -114,7 +155,7 @@ const Planing = () => {
                             {pageSub}
                         </div>
 
-                        <div className="hiddenScrollBar" style={{height:260,overflowY:'scroll',width:430,padding:'16px 8px',borderRadius:4,marginTop: 56}}>
+                        <div className="hiddenScrollBar" style={{height:260,overflowY:'scroll',width:window.innerWidth > 500?'400px':'auto',padding:'16px 8px',borderRadius:4,marginTop: 56}}>
                             {categories.map(((item,index) => {
                                 return (
                                     <>
@@ -122,9 +163,33 @@ const Planing = () => {
                                         // props.setPlan('As a technician');
                                         // setLocalApikey(item.apikey)
                                         setSelectedBox(index+ 1);
-                                        setTimeout(() => {
+                                        setIsLoading(true)
+                                        Bots.getBots({category:item.key},(res) =>{
+                                            const newob: Array<any> = [];
+                                            let keys = [];
+                                            keys = Object.keys(res).filter(item => item != 'title' && item != 'sub_title');
+                                            setPagetitle(res.title);
+                                            setPageSub(res.sub_title)
+                                            keys.forEach(item => {
+                                            const news = {
+                                                title: item,
+                                                description: res[item].description,
+                                                icon: res[item].icon,
+                                                apikey: res[item].apikey,
+                                                status: res[item].status,
+                                            };
+                                            newob.push(news);
+                                            });
+                                            // console.log(newob);
+                                            setBots(newob);
+                                            setFilterdBots(newob)
+                                            setIsLoading(false);
                                             setStepWork('')
-                                        }, 1000);
+                                            setSelectedBox(0)
+                                        },() => {})
+                                        // setTimeout(() => {
+                                        //     setStepWork('')
+                                        // }, 1000);
                                     }} style={{
                                             height: '70px',
                                             marginTop: '8px',
@@ -140,7 +205,7 @@ const Planing = () => {
                                         flexDirection: 'row',
                                         }}>
                                             <div style={{display:'flex',justifyContent:'start',alignItems:'center'}}>
-                                                <img src={resolveInconName(item.icon,index)}/>
+                                                {/* <img src={resolveInconName(item.icon,index)}/> */}
                                                 <div style={{marginLeft: 12}}>
                                                     <div
                                                     style={{
@@ -206,11 +271,13 @@ const Planing = () => {
                         <div style={{marginTop: 56,paddingLeft: '8px',paddingRight: '8px',overflow:'hidden',backgroundColor:'#2D2D2D',borderTopLeftRadius: '4px',borderTopRightRadius:'4px'}}>
                             <div style={{display:'flex',justifyContent:'start',alignItems:'center',borderBottom:'1px solid #1F1F1F',paddingTop:8,paddingBottom:8}}>
                                 <img style={{marginLeft:16}} src={fiSearch} />
-                                <input style={{fontSize:12,fontWeight:'300',outline:'none',border:'none',padding:'10px 8px',color:'#FFFFFFDE',backgroundColor:'#2D2D2D',width:'220px'}} placeholder="Search for your faculty" />
+                                <input value={searchBox} onChange={(event) =>{
+                                    setsearchBox(event.target.value)
+                                }} style={{fontSize:12,fontWeight:'300',outline:'none',border:'none',padding:'10px 8px',color:'#FFFFFFDE',backgroundColor:'#2D2D2D',width:'220px'}} placeholder="Search for your faculty" />
                             </div>
                         </div>
-                        <div className="hiddenScrollBar" style={{height:260,width:'auto',overflowY:'scroll',backgroundColor: '#2D2D2D',padding:'16px 8px',borderRadius:'0px 0px 4px 4px'}}>
-                        {bots
+                        <div className="hiddenScrollBar" style={{height:260,width:'auto',minWidth:window.innerWidth > 500?'400px':'300px',maxWidth:window.innerWidth > 500?'400px':'100%',overflowY:'scroll',backgroundColor: '#2D2D2D',padding:'16px 8px',borderRadius:'0px 0px 4px 4px'}}>
+                        {filterdBots
                             .filter(item => item.title !== 'technician')
                             .map((item: any, index: number) => {
                                 return (

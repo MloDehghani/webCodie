@@ -7,6 +7,7 @@ import logOutIcon from '../assets/fi_log-out.svg';
 // _handleOfferClick
 type TypeAndRecordProps ={
     _handleOfferClick : (text:string) => void
+    setShowSugestions:(action:boolean)  =>void
     isRecording: boolean
     onstart:() => void
     onStop:() => void
@@ -14,7 +15,7 @@ type TypeAndRecordProps ={
 }
 
 const TypeAndRecord:React.FC<TypeAndRecordProps> = (
-    {_handleOfferClick,isRecording,onstart,onStop,logout}) => {
+    {_handleOfferClick,isRecording,onstart,onStop,logout,setShowSugestions}) => {
     const [text ,setText] = useState('')
     const [mode,setMode] = useState('Type');
     let mouseTimer: number;
@@ -68,7 +69,11 @@ const TypeAndRecord:React.FC<TypeAndRecordProps> = (
                                 {
                                     mode == 'Type'?
                                     <>
-                                        <input value={text} onChange={(event) => setText(event.target.value)} type='text' placeholder='Message...' style={{width:'-webkit-fill-available',minWidth: '0px',fontFamily: 'Poppins-Regular',outline:'none',border:'none',color:'#FFFFFFDE',fontSize:'14px',fontWeight:300,paddingLeft:12,paddingRight:40,height:32,backgroundColor:'#2D2D2D',borderRadius:4 }} />
+                                        <input onFocus={() => {
+                                            if(window.innerWidth < 500) {
+                                                setShowSugestions(false)
+                                            }
+                                        }} value={text} onChange={(event) => setText(event.target.value)} type='text' placeholder='Message...' style={{width:'-webkit-fill-available',minWidth: '0px',fontFamily: 'Poppins-Regular',outline:'none',border:'none',color:'#FFFFFFDE',fontSize:'14px',fontWeight:300,paddingLeft:12,paddingRight:40,height:32,backgroundColor:'#2D2D2D',borderRadius:4 }} />
                                         {
                                             text.length > 0 ?
                                                 <img onClick={() => {

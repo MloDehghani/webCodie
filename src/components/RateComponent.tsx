@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 type RateComponentProps = {
     onclose : () => void
-    onSubmit: () => void
+    onSubmit: (rate:number) => void
 }
 
 const RateComponent:React.FC<RateComponentProps> = ({onclose,onSubmit}) => {
@@ -60,7 +60,7 @@ const RateComponent:React.FC<RateComponentProps> = ({onclose,onSubmit}) => {
                 {
                     star > 0 ?
                         <div  style={{display:'flex',cursor:'pointer',justifyContent:'center',marginTop:24,alignItems:'center'}}>
-                            <div onClick={onSubmit} style={{color:'#FFFFFF',background:'#007BFF',borderRadius:8,fontFamily:'Poppins-Regular',fontSize:'14px',padding:'8px 12px'}}>Submit</div>
+                            <div onClick={() => onSubmit(star)} style={{color:'#FFFFFF',background:'#007BFF',borderRadius:8,fontFamily:'Poppins-Regular',fontSize:'14px',padding:'8px 12px'}}>Submit</div>
                         </div>
                     :undefined
                 }

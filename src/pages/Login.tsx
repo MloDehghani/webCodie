@@ -73,7 +73,7 @@ const Login = () => {
       className="hiddenScrollBar"
       style={{
         backgroundColor: "#121212",
-        width: window.innerWidth < 600 ? window.innerWidth :window.innerWidth / 2,
+        width: window.innerWidth < 600 ? window.innerWidth :'450px',
         height: window.innerHeight,
         overflowY: "scroll",
         paddingBottom: 16,
@@ -105,7 +105,7 @@ const Login = () => {
           style={{ cursor: "pointer" }}
         />
       </div>
-      <div style={{ marginTop: "-10px" }}>
+      <div style={{ marginTop: "0px" }}>
         <p
           style={{
             color: "#FFFFFFDE",
@@ -139,8 +139,124 @@ const Login = () => {
           width: "100%",
           justifyContent: "center",
           alignItems: "center",
+          marginTop:32
         }}
       >
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            {/* {document.getElementById('authButton')?.style.width} */}
+            {/* {window.innerWidth * 80 /100} */}
+            <GoogleOAuthProvider clientId="750278697489-u68emmire3d35234obo1mne9v0eobmsu.apps.googleusercontent.com">
+              <GoogleLogin
+                text="continue_with"
+                shape="square"
+                width={
+                  document.getElementById("authButton")?.offsetWidth + "px"
+                }
+                // size="large"
+                // width={document.getElementById('authButton')?.offsetWidth}
+                theme="filled_black"
+                onSuccess={(credentialResponse) => {
+                  setIsLoading(true);
+                  //   setcertificate(credentialResponse);
+                  console.log(credentialResponse);
+                  const prof: any = jwt_decode(
+                    credentialResponse.credential
+                      ? credentialResponse?.credential
+                      : ""
+                  );
+
+                  Auth.login(
+                    {
+                      google_json: prof,
+                    },
+                    (res) => {
+                      if (res.access_token) {
+                        setIsLoading(false)
+                        setTimeout(() => {
+                          localStorage.setItem("accessToken", res.access_token);
+                          navigate("/chat");                          
+                        }, 200);
+                      }
+                      if(res.has_rated ==false){
+                        console.log(res.has_rated)
+                        localStorage.setItem("has_rated","true")
+                      }
+                    }
+                  );
+                  //   authentication.register(
+                  //     {
+                  //       google_json:prof
+                  //     },
+                  //     (res) => {
+                  //       if (res.status == 200 && res.data.access_token) {
+                  //         storeTokenInLocalStorage(res.data.access_token);
+                  //         navigate(APP_ROUTES.DASHBOARD);
+                  //       } else {
+                  //         setAlertmassage(res.data);
+                  //         // alert.current?.showToast();
+                  //         toast.error('Invalid email or password')
+                  //       }
+                  //     }
+                  //   );
+                }}
+                onError={() => {
+                  console.log("Login Failed");
+                }}
+              />
+            </GoogleOAuthProvider>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "8px 0",
+              width: "90%",
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginBottom: "25px",
+            }}
+          >
+            {/* left line */}
+            <div
+              style={{
+                background: `linear-gradient(to left, rgba(140, 138, 147, 1), rgba(140, 138, 147, 0))`,
+                height: "1px",
+                width: "100%",
+              }}
+            ></div>
+            {/* or text */}
+            <div
+              style={{
+                color: "#FFFFFF",
+                opacity: ".87",
+                paddingLeft: "8px",
+                paddingRight: "8px",
+                fontFamily:'Poppins-Regular',
+                fontWeight: 300,
+
+                fontSize: "16px",
+                lineHeight: "27.25px",
+              }}
+            >
+              or
+            </div>{" "}
+            {/* <div
+              style={{
+                backgroundColor: "#8C8A93",
+                height: "1px",
+                width: "100%",
+              }}
+            ></div>{" "} */}
+            {/* right line */}
+            <div
+              style={{
+                background: `linear-gradient(to right, rgba(140, 138, 147, 1), rgba(140, 138, 147, 0))`,
+                height: "1px",
+                width: "100%",
+              }}
+            ></div>
+          </div>           
         <div
           style={{
             display: "flex",
@@ -346,6 +462,9 @@ const Login = () => {
                   password: formik.values.password,
                 },
                 (res) => {
+                  if(res.has_rated ==false){
+                    localStorage.setItem("has_rated",'true')
+                  }
                   if (res.access_token) {
                     setIsLoading(false);
                     localStorage.setItem("accessToken", res.access_token);
@@ -375,7 +494,7 @@ const Login = () => {
           >
             Sign In
           </button>
-          <div
+          {/* <div
             style={{
               display: "flex",
               alignItems: "center",
@@ -387,7 +506,6 @@ const Login = () => {
               marginBottom: "25px",
             }}
           >
-            {/* left line */}
             <div
               style={{
                 background: `linear-gradient(to left, rgba(140, 138, 147, 1), rgba(140, 138, 147, 0))`,
@@ -395,7 +513,6 @@ const Login = () => {
                 width: "100%",
               }}
             ></div>
-            {/* or text */}
             <div
               style={{
                 color: "#FFFFFF",
@@ -411,14 +528,6 @@ const Login = () => {
             >
               or
             </div>{" "}
-            {/* <div
-              style={{
-                backgroundColor: "#8C8A93",
-                height: "1px",
-                width: "100%",
-              }}
-            ></div>{" "} */}
-            {/* right line */}
             <div
               style={{
                 background: `linear-gradient(to right, rgba(140, 138, 147, 1), rgba(140, 138, 147, 0))`,
@@ -426,7 +535,7 @@ const Login = () => {
                 width: "100%",
               }}
             ></div>
-          </div>
+          </div> */}
           {/* <div style={{ padding: "16px 30px", width: "100%" }}> */}
           {/* <button
             style={{
@@ -437,9 +546,8 @@ const Login = () => {
               height: "50px",
             }}
           > */}
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            {/* {document.getElementById('authButton')?.style.width} */}
-            {/* {window.innerWidth * 80 /100} */}
+          {/* <div style={{ display: "flex", justifyContent: "center" }}>
+
             <GoogleOAuthProvider clientId="750278697489-u68emmire3d35234obo1mne9v0eobmsu.apps.googleusercontent.com">
               <GoogleLogin
                 text="continue_with"
@@ -447,8 +555,6 @@ const Login = () => {
                 width={
                   document.getElementById("authButton")?.offsetWidth + "px"
                 }
-                // size="large"
-                // width={document.getElementById('authButton')?.offsetWidth}
                 theme="filled_black"
                 onSuccess={(credentialResponse) => {
                   setIsLoading(true);
@@ -474,28 +580,13 @@ const Login = () => {
                       }
                     }
                   );
-                  //   authentication.register(
-                  //     {
-                  //       google_json:prof
-                  //     },
-                  //     (res) => {
-                  //       if (res.status == 200 && res.data.access_token) {
-                  //         storeTokenInLocalStorage(res.data.access_token);
-                  //         navigate(APP_ROUTES.DASHBOARD);
-                  //       } else {
-                  //         setAlertmassage(res.data);
-                  //         // alert.current?.showToast();
-                  //         toast.error('Invalid email or password')
-                  //       }
-                  //     }
-                  //   );
                 }}
                 onError={() => {
                   console.log("Login Failed");
                 }}
               />
             </GoogleOAuthProvider>
-          </div>
+          </div> */}
           {/* </button> */}
         </div>
         <div

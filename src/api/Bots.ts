@@ -7,7 +7,18 @@ class Bots extends Api {
     submit: (res: any) => void,
     catc: (res: any) => void,
   ) {
-    this.post('/get_bot_data', data)
+    this.post('/get_bot_data_temp', data)
+      .then(res => {
+        submit(res);
+      })
+      .catch(err => catc(err));
+  }
+
+  static getCategories(
+    submit: (res: any) => void,
+    catc: (res: any) => void,    
+  ){
+    this.post('/get_bot_data_select_category',null)
       .then(res => {
         submit(res);
       })

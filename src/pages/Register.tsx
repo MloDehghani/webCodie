@@ -81,7 +81,7 @@ const Register = () => {
       className="hiddenScrollBar"
       style={{
         backgroundColor: "#121212",
-        width: window.innerWidth < 600 ? window.innerWidth :window.innerWidth / 2,
+        width: window.innerWidth < 600 ? window.innerWidth :'450px',
         height: window.innerHeight,
         overflowY:'scroll',
         paddingBottom: 16,
@@ -106,7 +106,7 @@ const Register = () => {
       <div onClick={() => navigate('/plan')} style={{ paddingLeft: "18px", marginTop: "25px",  }}>
         <img src="/icons/leftVector.svg" alt="leftArrow" style={{cursor:'pointer'}} />
       </div>
-      <div style={{ marginTop: "-10px" }}>
+      <div style={{ marginTop: "0px" }}>
         <p
           style={{
             color: "#FFFFFFDE",
@@ -139,9 +139,10 @@ const Register = () => {
           width: "100%",
           justifyContent: "center",
           alignItems: "center",
+          marginTop: 32
         }}
       >
-          <div style={{width:'-webkit-fill-available',marginBottom:32,paddingLeft:24,paddingRight:24,display:'flex',alignItems:'center',justifyContent:'center'}}>
+          {/* <div style={{width:'-webkit-fill-available',marginBottom:32,paddingLeft:24,paddingRight:24,display:'flex',alignItems:'center',justifyContent:'center'}}>
             <div onClick={() => {
             //  console.log(document.querySelectorAll('[role="button"]'))
             const ifram = document.getElementsByTagName('iframe') as any
@@ -212,14 +213,14 @@ const Register = () => {
                 <div style={{color:'#FFFFFFDE',fontSize:'16px'}}>Continue with Google</div>
             </div>
 
-          </div>
-          {/* <div style={{display:'flex',justifyContent:'center',visibility:'visible',position:'absolute'}}>
+          </div> */}
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            {/* {document.getElementById('authButton')?.style.width} */}
+            {/* {window.innerWidth * 80 /100} */}
             <GoogleOAuthProvider clientId="750278697489-u68emmire3d35234obo1mne9v0eobmsu.apps.googleusercontent.com">
               <GoogleLogin
                 text="continue_with"
                 shape="square"
-                type="icon"
-                size="large"
                 width={
                   document.getElementById("authButton")?.offsetWidth + "px"
                 }
@@ -227,6 +228,7 @@ const Register = () => {
                 // width={document.getElementById('authButton')?.offsetWidth}
                 theme="filled_black"
                 onSuccess={(credentialResponse) => {
+                  setIsLoading(true);
                   //   setcertificate(credentialResponse);
                   console.log(credentialResponse);
                   const prof: any = jwt_decode(
@@ -234,7 +236,7 @@ const Register = () => {
                       ? credentialResponse?.credential
                       : ""
                   );
-                  setIsLoading(true);
+
                   Auth.login(
                     {
                       google_json: prof,
@@ -242,9 +244,14 @@ const Register = () => {
                     (res) => {
                       if (res.access_token) {
                         setIsLoading(false)
-                        localStorage.setItem("accessToken", res.access_token);
-                        navigate("/chat");
+                        setTimeout(() => {
+                          localStorage.setItem("accessToken", res.access_token);
+                          navigate("/chat");                          
+                        }, 200);
                       }
+                        if(res.has_rated == false){
+                          localStorage.setItem("has_rated",'true')
+                        }                      
                     }
                   );
                   //   authentication.register(
@@ -268,7 +275,7 @@ const Register = () => {
                 }}
               />
             </GoogleOAuthProvider>
-          </div>   */}
+          </div>
           <div
             style={{
               display: "flex",
@@ -640,6 +647,9 @@ const Register = () => {
                   password:formik.values.password,
                 },
                 res => {
+                  if(res.has_rated ==false){
+                    localStorage.setItem("has_rated",'true')
+                  }                  
                   if (res.access_token) {
                     setIsLoading(false);
                     localStorage.setItem('accessToken', res.access_token);
