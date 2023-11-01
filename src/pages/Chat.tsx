@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from "react";
 import {WaveVoice,ImageSpinner, Sugesstions, RateComponent, TypeAndRecord, HintComponent} from "../components"
-import micIcon from '../assets/mic.svg';
+// import micIcon from '../assets/mic.svg';
 import useSpeechToText from "react-hook-speech-to-text";
 import { useConstructor } from "../help";
 import makeid from '../Hoc/RandomKey';
@@ -11,11 +11,11 @@ import { BeatLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { checkBotId } from "../api/botId";
 import logOutIcon from '../assets/fi_log-out.svg';
-import keybordIcon from '../assets/keyboard.svg';
-import SettingIcon from '../assets/setting.svg';
-import SendIcon from '../assets/Send.svg';
+// import keybordIcon from '../assets/keyboard.svg';
+// import SettingIcon from '../assets/setting.svg';
+// import SendIcon from '../assets/Send.svg';
 // import translateIcon from '../assets/translate.svg';
-import LogOutIcom from '../assets/logOut.svg';
+// import LogOutIcom from '../assets/logOut.svg';
 import { toast } from "react-toastify";
 import Rate from "../api/Rate";
 
@@ -28,9 +28,9 @@ const Chat = () => {
     const [isTalking, setIsTalking] = useState(false);    
     const [isLoading, setIsLoading] = useState(false);
     const [useApikey, setApiKey] = useState('');
-    const [showTextBox,setShowTextBox] = useState(false);
-    const [text,setText] = useState('');
-    const [showSetting,setShowSetting] = useState(false);
+    // const [showTextBox,setShowTextBox] = useState(false);
+    // const [text,setText] = useState('');
+    // const [showSetting,setShowSetting] = useState(false);
     const {
         interimResult,
         isRecording,
@@ -246,8 +246,8 @@ const Chat = () => {
         paths = event.composedPath().map((item:HTMLElement) => item.id)
         console.log(paths)
         if(!paths.includes('boxInput') && !paths.includes('boxInput-button') && !paths.includes('settingButton') && !paths.includes('setting')){
-            setShowTextBox(false);
-            setShowSetting(false)
+            // setShowTextBox(false);
+            // setShowSetting(false)
             document.removeEventListener('click',closeFilter);
         }
     }    

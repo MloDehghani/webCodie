@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import { useConstructor } from "../help";
 import Bots from "../api/Bots";
-import calageIcon from '../assets/calage.svg';
-import calageIconNon from '../assets/calageUnselect.svg';
+// import calageIcon from '../assets/calage.svg';
+// import calageIconNon from '../assets/calageUnselect.svg';
 import TikIcon from '../assets/Tik.svg';
 import untick from '../assets/unTick.svg';
-import hotelIcon from '../assets/hotel.svg';
+// import hotelIcon from '../assets/hotel.svg';
 import fiSearch from '../assets/fi_search.svg';
 
 import { MoonLoader } from "react-spinners";
@@ -21,23 +21,23 @@ const Planing = () => {
     const [bots, setBots] = useState<Array<any>>([]);  
     const [filterdBots,setFilterdBots] = useState<Array<any>>([]);    
     const [localApikey, setLocalApikey] = useState('');
-    const resolveInconName = (name:string,index:number) => {
-        if(selectedBox == index +1) {
-            if(name == 'University'){
-                return calageIcon
-            }
-            if(name == 'Hotel') {
-                return hotelIcon
-            }
-        }
-        if(name == 'University'){
-            return calageIconNon
-        }
-        if(name == 'Hotel') {
-            return hotelIcon
-        }        
-        return ''
-    }
+    // const resolveInconName = (name:string,index:number) => {
+    //     if(selectedBox == index +1) {
+    //         if(name == 'University'){
+    //             return calageIcon
+    //         }
+    //         if(name == 'Hotel') {
+    //             return hotelIcon
+    //         }
+    //     }
+    //     if(name == 'University'){
+    //         return calageIconNon
+    //     }
+    //     if(name == 'Hotel') {
+    //         return hotelIcon
+    //     }        
+    //     return ''
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const filterSearch = () => {
         if(searchBox != ''){
@@ -83,7 +83,7 @@ const Planing = () => {
             setPagetitle(res.title);
             setPageSub(res.sub_title)      
             const keys = Object.keys(res).filter(item => item != 'title' && item != 'sub_title' && item!='Technician'); 
-            keys.forEach((item,index) => {
+            keys.forEach((item) => {
                 const news = {
                     title: res[item].title,
                     description: res[item].sub_title,

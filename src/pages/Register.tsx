@@ -11,7 +11,7 @@ import { useState ,useEffect,useCallback} from "react";
 import { useConstructor } from "../help";
 import { MoonLoader } from "react-spinners";
 import { toast } from "react-toastify";
-import googleImage from '../assets/Google.svg';
+// import googleImage from '../assets/Google.svg';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required("Required"),
