@@ -139,6 +139,7 @@ const Planing = () => {
                 {
                     stepWork != 'plan' ?
                           <img onClick={() => {
+                            getBotsControled()
                             setSelectedBox(0)
                             setStepWork('plan')
                         }} style={{position:'absolute',top:24,left:32,cursor:'pointer'}} src="./icons/leftVector.svg" />

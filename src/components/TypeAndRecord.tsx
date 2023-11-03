@@ -95,7 +95,7 @@ const TypeAndRecord:React.FC<TypeAndRecordProps> = (
                             </div>
                             {
                                 window.innerWidth > 520 ?
-                                    <div onClick={logout} style={{width:'32px',minWidth:32,minHeight:32,marginLeft:16,display:'flex',cursor:'pointer',justifyContent:'center',alignItems:'center',height:'32px',borderRadius:'100%',backgroundColor:'#353535',border:'1.25px solid #282828'}}>
+                                    <div onClick={logout} style={{width:'32px',minWidth:32,minHeight:32,marginLeft:8,display:'flex',cursor:'pointer',justifyContent:'center',alignItems:'center',height:'32px',borderRadius:'100%',backgroundColor:'#353535',border:'1.25px solid #282828'}}>
                                         <img style={{width:16}} src={logOutIcon} alt="" />
                                     </div>
                                 :

@@ -38,9 +38,9 @@ const Chat = () => {
         startSpeechToText,
         stopSpeechToText
     } = useSpeechToText({
-        continuous: true,
+        continuous:window.innerWidth < 500 ? true: false,
         crossBrowser: true,
-        timeout:3000,
+        timeout:9000,
         googleApiKey: 'AIzaSyB904oDQEZb5M1vdJYxVhXOtU3_URla1Nk',
         // speechRecognitionProperties: { interimResults: true },
         useLegacyResults: false
@@ -422,7 +422,7 @@ const Chat = () => {
                 // padding: '0px 16px',
                 alignItems: 'center',
               }}>
-              {!showSugestions && interimResult === undefined && chat.length === 0 ? (
+              {/* {!showSugestions && interimResult === undefined && chat.length === 0 ? (
                 <div
                   style={{
                     color: 'white',
@@ -437,7 +437,7 @@ const Chat = () => {
                   To start chatting, simply select either the voice recording
                   button or the keyboard option
                 </div>
-              ) : undefined}
+              ) : undefined} */}
             </div>
 
 
@@ -566,7 +566,7 @@ const Chat = () => {
           {
             showExitModal ?
             <>
-              <div style={{width:'100%',height:'100%',backgroundColor:'black',position:'absolute',top:0,zIndex: 20,opacity:'0.4'}}></div>
+              <div style={{width:'100%',height:'100%',backgroundColor:'black',position:'absolute',top:0,zIndex: 20,opacity:'0.6'}}></div>
               <div style={{width:'100%',zIndex:21,height:'100vh',position:'absolute',display:'flex',justifyContent:'center',alignItems:'center',top:0,left:0}}>
                 <div style={{width:'320px',borderRadius:15,backgroundColor:'#121212',height:163,display:'flex',justifyContent:'center',alignItems:'center'}}>
                   <div>
@@ -627,7 +627,7 @@ const Chat = () => {
                                        
                     }}></RateComponent>
                 </div>
-                <div style={{width:'100%',height:'100vh',backgroundColor:'#121212',opacity:'90%',position:'absolute'}}></div>
+                <div style={{width:'100%',height:'100vh',backgroundColor:'#121212',opacity:'70%',position:'absolute'}}></div>
               </>
             :undefined
           }     
