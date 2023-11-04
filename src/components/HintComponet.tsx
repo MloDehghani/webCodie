@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import hintIcon from '../assets/hint.svg';
+import hintIcon2 from '../assets/hint2.svg';
 
 type HintComponentProps = {
     send:(text:string) => void
@@ -8,6 +9,22 @@ type HintComponentProps = {
 
 const HintComponent = (props:HintComponentProps) => {
     const [showHint,setShowHint] = useState(false)
+    const [toggleIcon,setToggleIcon] = useState(false)
+    // const resolveIcon = () => {
+    //     setTimeout(() => {
+    //         setToggleIcon(!toggleIcon)
+    //     }, 500);
+    //     if(toggleIcon){
+    //         return hintIcon
+    //     }else {
+    //         return hintIcon2
+    //     }
+    // }
+    useEffect(() => {
+        setTimeout(() => {
+            setToggleIcon(!toggleIcon)
+        },500)
+    })
     // const [hints,setHints] = useState(['Which one has a higher score?','Which one has a higher score?','Which one has a higher score?'])
     return (
         <>
@@ -28,7 +45,11 @@ const HintComponent = (props:HintComponentProps) => {
                         </div>
                     :undefined
                 }
-                <img onClick={() => setShowHint(!showHint)} style={{width:'32px',cursor:'pointer',height:32}} src={hintIcon} alt="" /> 
+                {toggleIcon ?
+                    <img onClick={() => setShowHint(!showHint)} style={{cursor:'pointer',width:32,height:32}} src={hintIcon2} alt="" /> 
+                :
+                    <img onClick={() => setShowHint(!showHint)} style={{cursor:'pointer',width:32,height:32}} src={hintIcon} alt="" />
+                }
 
             </div>
         </>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import mic2 from '../assets/mic2.svg';
 import SendIcon from '../assets/Send.svg';
@@ -12,10 +13,11 @@ type TypeAndRecordProps ={
     onstart:() => void
     onStop:() => void
     logout:() => void
+    setIsTalking:(action:boolean) => void
 }
 
 const TypeAndRecord:React.FC<TypeAndRecordProps> = (
-    {_handleOfferClick,isRecording,onstart,onStop,logout,setShowSugestions}) => {
+    {_handleOfferClick,isRecording,onstart,onStop,logout,setShowSugestions,setIsTalking}) => {
     const [text ,setText] = useState('')
     const [mode,setMode] = useState('Type');
     let mouseTimer: number;
@@ -26,6 +28,13 @@ const TypeAndRecord:React.FC<TypeAndRecordProps> = (
     const mouseUp =() => {
         if (mouseTimer) window.clearTimeout(mouseTimer);
     }
+    const handleKeyPress = (event: any) => {
+        setIsTalking(false)
+        if (event.key === "Enter" && text.length > 0) {
+            setText('') 
+            _handleOfferClick(text)
+        }
+    };    
     return (
         <>
             {
@@ -73,7 +82,7 @@ const TypeAndRecord:React.FC<TypeAndRecordProps> = (
                                             if(window.innerWidth < 500) {
                                                 setShowSugestions(false)
                                             }
-                                        }} value={text} onChange={(event) => setText(event.target.value)} type='text' placeholder='Message...' style={{width:'-webkit-fill-available',minWidth: '0px',fontFamily: 'Poppins-Regular',outline:'none',border:'none',color:'#FFFFFFDE',fontSize:'14px',fontWeight:300,paddingLeft:12,paddingRight:40,height:32,backgroundColor:'#2D2D2D',borderRadius:4 }} />
+                                        }} onKeyDown={handleKeyPress} value={text} onChange={(event) => setText(event.target.value)} type='text' placeholder='Message...' style={{width:'-webkit-fill-available',minWidth: '0px',fontFamily: 'Poppins-Regular',outline:'none',border:'none',color:'#FFFFFFDE',fontSize:'14px',fontWeight:300,paddingLeft:12,paddingRight:40,height:32,backgroundColor:'#2D2D2D',borderRadius:4 }} />
                                         {
                                             text.length > 0 ?
                                                 <img onClick={() => {

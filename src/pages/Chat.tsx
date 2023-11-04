@@ -210,7 +210,6 @@ const Chat = () => {
       }, 1);
     };       
     useEffect(() => {
-      console.log(chat)
       if(!isRecording){
           console.log('try send')
           sendToApi()
@@ -271,7 +270,7 @@ const Chat = () => {
       }      
       setTimeout(() => {
         setShowSuggestion(true)
-      }, 4000);
+      }, 3000);
       if(localStorage.getItem('ApiKey')!= null){
         setApiKey(localStorage.getItem('ApiKey') as string)
         checkBotId(localStorage.getItem('ApiKey') as string).then(res => {
@@ -544,7 +543,7 @@ const Chat = () => {
               </div>
             :undefined}
             {/* new type */}
-            <TypeAndRecord onstart={() => {
+            <TypeAndRecord setIsTalking={setIsTalking} onstart={() => {
               startSpeechToText()
               setAudioUrl('');
               setIsTalking(false)
