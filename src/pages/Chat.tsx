@@ -45,7 +45,7 @@ const Chat = () => {
         // speechRecognitionProperties: { interimResults: true },
         useLegacyResults: false
     });    
-    const [showSugestions, setShowSuggestions] = useState(false);    
+    // const [showSugestions, setShowSuggestions] = useState(false);    
     const [chat, setChat] = useState<Array<any>>([]);   
     const [showSugestion,setShowSuggestion] = useState(false); 
     const [openRate,setOpenRate] = useState(false)
@@ -137,7 +137,8 @@ const Chat = () => {
     }     
     const _handleOfferClick = (offer: string) => {
       // console.log(offer.substring(0, 6));
-      setShowSuggestions(false);
+      setShowSuggestion(false)
+      // setShowSuggestions(false);
       const adminChats = chat.filter(item => item.from === 'admin');
       const newChat = {
         type: 'text',
