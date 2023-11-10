@@ -21,7 +21,7 @@ const Planing = () => {
     const [bots, setBots] = useState<Array<any>>([]);  
     const [filterdBots,setFilterdBots] = useState<Array<any>>([]);    
     const [localApikey, setLocalApikey] = useState('');
-    const resolveInconName = (name:string,index:number) => {
+    const resolveInconName = (name:string,_index:number) => {
         if(name == 'University'){
             return './icons/college-studying.svg'
         }

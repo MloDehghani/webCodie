@@ -25,7 +25,7 @@ const RateComponent:React.FC<RateComponentProps> = ({onclose,onSubmit}) => {
                 <div style={{color:'#FFFFFF99',fontFamily:'Poppins-Regular',textAlign:'center',padding:'0px 18px',marginTop:'8px'}}>
                     We’ve been working hard on our features, so your feedback is super helpful to us.
                 </div>
-                <div style={{display:'flex',marginTop:8,justifyContent:'center',alignItems:'center'}}>
+                <div style={{display:'flex',marginTop:24,justifyContent:'center',alignItems:'center'}}>
                     {
                         star > 0 ?
                             <img onClick={() => {setStar(1)}} style={{marginLeft:10,cursor:'pointer',marginRight:10}} src={starIcon} />

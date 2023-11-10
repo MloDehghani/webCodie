@@ -28,6 +28,7 @@ const Chat = () => {
     const [isTalking, setIsTalking] = useState(false);    
     const [isLoading, setIsLoading] = useState(false);
     const [useApikey, setApiKey] = useState('');
+    const BLokedIdList =useRef<string[]>([]);
     // const [showTextBox,setShowTextBox] = useState(false);
     // const [text,setText] = useState('');
     // const [showSetting,setShowSetting] = useState(false);
@@ -86,30 +87,32 @@ const Chat = () => {
                     }                  
                   ).then(res => {
                     if(res.answer){
-                      const responseApi = {
-                        type: 'text',
-                        message: res.answer.answer,
-                        from: 'admin',
-                        video: res.answer.video_file,
-                        audio: res.answer.audio_file,
-                        question: newChat.message,
-                        currentconverationid: res.currentconverationid,
-                        weekDay: new Date().getDay(),
-                        month: new Date().getMonth(),
-                        day: new Date().getDate(),
-                        aisles:
-                          res.answer.suggestion_list !== 'NA'
-                            ? res.answer.suggestion_list
-                            : [],
-                        instanceid: res.instanceid,
-                        // aisles:JSON.parse(res.suggestion_list),
-                      };
-                      chats.push(responseApi)
-                      setAudioUrl(responseApi.audio)
-                      setIsTalking(true);
-                      setChat(chats)
-                      localStorage.setItem('catchChats',JSON.stringify(chats))        
-                      pageScroll() 
+                        if(!BLokedIdList.current.includes(res.message_key as never)){
+                          const responseApi = {
+                            type: 'text',
+                            message: res.answer.answer,
+                            from: 'admin',
+                            video: res.answer.video_file,
+                            audio: res.answer.audio_file,
+                            question: newChat.message,
+                            currentconverationid: res.currentconverationid,
+                            weekDay: new Date().getDay(),
+                            month: new Date().getMonth(),
+                            day: new Date().getDate(),
+                            aisles:
+                              res.answer.suggestion_list !== 'NA'
+                                ? res.answer.suggestion_list
+                                : [],
+                            instanceid: res.instanceid,
+                            // aisles:JSON.parse(res.suggestion_list),
+                          };
+                          chats.push(responseApi)
+                          setAudioUrl(responseApi.audio)
+                          setIsTalking(true);
+                          setChat(chats)
+                          localStorage.setItem('catchChats',JSON.stringify(chats))        
+                          pageScroll()           
+                        }
                     }else{
                       toast.warning('I did not understand your question, ask your question again',{theme:'colored'})
                       // alert('I did not understand your question, ask your question again')
@@ -135,6 +138,13 @@ const Chat = () => {
         document.getElementById('loader')?.scrollIntoView({behavior:'smooth'});
         // setTimeout(pageScroll,2);
     }     
+    const handleStop = (id: string) => {
+      setIsLoading(false);
+      const newChats = chat;
+      newChats.pop();
+      setChat(newChats);
+      BLokedIdList.current = [...BLokedIdList.current, id];
+    };    
     const _handleOfferClick = (offer: string) => {
       // console.log(offer.substring(0, 6));
       setShowSuggestion(false)
@@ -168,34 +178,36 @@ const Chat = () => {
                   : 1,
             }
           ).then(async (res: any) => {
-              if(res.answer) {
-                const responseApi = {
-                  type: 'text',
-                  message: res.answer.answer,
-                  from: 'admin',
-                  video: res.answer.video_file,
-                  audio: res.answer.audio_file,
-                  question: '',
-                  currentconverationid: res.currentconverationid,
-                  weekDay: new Date().getDay(),
-                  month: new Date().getMonth(),
-                  day: new Date().getDate(),
-                  aisles:
-                    res.answer.suggestion_list !== 'NA'
-                      ? res.answer.suggestion_list
-                      : [],
-                  instanceid: res.instanceid,
-                  like:null,
-                  // aisles:JSON.parse(res.suggestion_list),
-                };
-                chat.push(responseApi);
-                setChat(chat);
-                setAudioUrl(responseApi.audio)
-                setIsTalking(true);
-                setChat(chat)     
-                localStorage.setItem('catchChats',JSON.stringify(chat))              
-                // console.log(res);
-                pageScroll()
+              if(res.answer ) {
+                if(!BLokedIdList.current.includes(res.message_key as never)){
+                  const responseApi = {
+                    type: 'text',
+                    message: res.answer.answer,
+                    from: 'admin',
+                    video: res.answer.video_file,
+                    audio: res.answer.audio_file,
+                    question: '',
+                    currentconverationid: res.currentconverationid,
+                    weekDay: new Date().getDay(),
+                    month: new Date().getMonth(),
+                    day: new Date().getDate(),
+                    aisles:
+                      res.answer.suggestion_list !== 'NA'
+                        ? res.answer.suggestion_list
+                        : [],
+                    instanceid: res.instanceid,
+                    like:null,
+                    // aisles:JSON.parse(res.suggestion_list),
+                  };
+                  chat.push(responseApi);
+                  setChat(chat);
+                  setAudioUrl(responseApi.audio)
+                  setIsTalking(true);
+                  setChat(chat)     
+                  localStorage.setItem('catchChats',JSON.stringify(chat))              
+                  // console.log(res);
+                  pageScroll()
+                }
               }else{
                 toast.warning('I did not understand your question, ask your question again',{theme:'colored'})
                 // alert('I did not understand your question, ask your question again')
@@ -403,10 +415,18 @@ const Chat = () => {
                         alignItems: 'center',
                         paddingLeft: 18,
                         paddingRight: 20,
-                        justifyContent: 'center',
+                        justifyContent: 'space-between',
                       }}>
                       <div>
                         <BeatLoader size={10}  color="white" />
+                      </div>
+                      <div onClick={() => {
+                        handleStop(chat[chat.length -1].message_key)
+                      }} style={{color: '#007BFF',
+                                  fontSize: 14,
+                                  fontWeight: '500',
+                                  fontFamily: 'Poppins-Regular',}}>
+                        Stop
                       </div>
                     </div>
                 ) : undefined}      
@@ -533,7 +553,7 @@ const Chat = () => {
             {chat.length > 0  && chat[chat.length -1].aisles ?
               <div style={{width:'100%',position:'absolute',bottom:88,display:'flex',justifyContent:'center'}}>
                 <div style={{width:'90%',display:'flex',justifyContent:'end'}}>
-                    <HintComponent hints={chat[chat.length -1].aisles} send={(text:string) => {
+                    <HintComponent isTalking={isTalking} isloading={isLoading} instanceId={chat.filter(item => item.from =='admin')[chat.filter(item => item.from =='admin').length -1].instanceid} send={(text:string) => {
                       setAudioUrl('');
                       setIsTalking(false)
                       _handleOfferClick(text)
@@ -550,6 +570,7 @@ const Chat = () => {
               sendToApi()     
               pageScroll()                
             }}
+            isLoading={isLoading}
             setShowSugestions={setShowSuggestion}
             logout={() => {
               setShowExitModal(true)

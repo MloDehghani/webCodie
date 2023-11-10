@@ -10,6 +10,7 @@ type TypeAndRecordProps ={
     _handleOfferClick : (text:string) => void
     setShowSugestions:(action:boolean)  =>void
     isRecording: boolean
+    isLoading:boolean
     onstart:() => void
     onStop:() => void
     logout:() => void
@@ -17,7 +18,7 @@ type TypeAndRecordProps ={
 }
 
 const TypeAndRecord:React.FC<TypeAndRecordProps> = (
-    {_handleOfferClick,isRecording,onstart,onStop,logout,setShowSugestions,setIsTalking}) => {
+    {_handleOfferClick,isRecording,isLoading,onstart,onStop,logout,setShowSugestions,setIsTalking}) => {
     const [text ,setText] = useState('')
     const [mode,setMode] = useState('Type');
     let mouseTimer: number;
@@ -84,7 +85,7 @@ const TypeAndRecord:React.FC<TypeAndRecordProps> = (
                                             }
                                         }} onKeyDown={handleKeyPress} value={text} onChange={(event) => setText(event.target.value)} type='text' placeholder='Message...' style={{width:'-webkit-fill-available',minWidth: '0px',fontFamily: 'Poppins-Regular',outline:'none',border:'none',color:'#FFFFFFDE',fontSize:'14px',fontWeight:300,paddingLeft:12,paddingRight:40,height:32,backgroundColor:'#2D2D2D',borderRadius:4 }} />
                                         {
-                                            text.length > 0 ?
+                                            text.length > 0 && !isLoading?
                                                 <img onClick={() => {
                                                     _handleOfferClick(text)
                                                     setText('')
@@ -95,7 +96,7 @@ const TypeAndRecord:React.FC<TypeAndRecordProps> = (
                                     </>
                                     :
                                     <>
-                                        <div onTouchStart={onstart} onMouseDown={()=> {onstart()}} style={{width:'-webkit-fill-available',cursor:'pointer',fontFamily: 'Poppins-Regular',outline:'none',border:'none',color:'#FFFFFFDE',fontSize:'14px',fontWeight:300,paddingLeft:12,paddingRight:40,height:35,display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'#2D2D2D',borderRadius:4 }}>
+                                        <div onTouchStart={!isLoading ?onstart : undefined} onMouseDown={!isLoading ?onstart : undefined} style={{width:'-webkit-fill-available',cursor:'pointer',fontFamily: 'Poppins-Regular',outline:'none',border:'none',color:'#FFFFFFDE',fontSize:'14px',fontWeight:300,paddingLeft:12,paddingRight:40,height:35,display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'#2D2D2D',borderRadius:4 }}>
                                             <div>Hold to Talk</div>
                                         </div>
                                    
