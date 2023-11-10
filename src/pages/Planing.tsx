@@ -21,23 +21,21 @@ const Planing = () => {
     const [bots, setBots] = useState<Array<any>>([]);  
     const [filterdBots,setFilterdBots] = useState<Array<any>>([]);    
     const [localApikey, setLocalApikey] = useState('');
-    // const resolveInconName = (name:string,index:number) => {
-    //     if(selectedBox == index +1) {
-    //         if(name == 'University'){
-    //             return calageIcon
-    //         }
-    //         if(name == 'Hotel') {
-    //             return hotelIcon
-    //         }
-    //     }
-    //     if(name == 'University'){
-    //         return calageIconNon
-    //     }
-    //     if(name == 'Hotel') {
-    //         return hotelIcon
-    //     }        
-    //     return ''
-    // }
+    const resolveInconName = (name:string,index:number) => {
+        if(name == 'University'){
+            return './icons/college-studying.svg'
+        }
+        if(name == 'Hotel') {
+            return './icons/hotel.svg'
+        }
+        if(name == 'Abbasabad'){
+            return './icons/Turist.svg'
+        }
+        if(name == 'Medical'){
+            return './icons/diabet.svg'
+        }        
+        return ''
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const filterSearch = () => {
         if(searchBox != ''){
@@ -206,7 +204,7 @@ const Planing = () => {
                                         flexDirection: 'row',
                                         }}>
                                             <div style={{display:'flex',justifyContent:'start',alignItems:'center'}}>
-                                                {/* <img src={resolveInconName(item.icon,index)}/> */}
+                                                <img src={resolveInconName(item.icon,index)}/>
                                                 <div style={{marginLeft: 12}}>
                                                     <div
                                                     style={{

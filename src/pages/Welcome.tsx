@@ -50,9 +50,10 @@ const Welcome = () => {
                 lineHeight: "72px",
                 fontSize: "44px",
                 fontWeight: "500",
+                width:'100%',
               }}
             >
-              Canterbury Christ Church {"\n"} University
+              Canterbury Christ Church University
             </p>
             <p
               className="welcomeday"
@@ -60,12 +61,12 @@ const Welcome = () => {
                 lineHeight: "54px",
                 fontSize: "32px",
                 fontWeight: "500",
-                marginTop: "-32px",
+                marginTop: "32px",
               }}
             >
-              Welcoming Day
+              Answering Day
             </p>
-            <div className="under-image" style={{ marginTop: "-40px" }}>
+            <div className="under-image" style={{ marginTop: "0px" }}>
               <img className="under-image"
                 src="/images/under_blue.svg"
                 alt=""
