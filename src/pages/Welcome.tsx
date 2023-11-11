@@ -66,7 +66,7 @@ const Welcome = () => {
             >
               Answering Day
             </p>
-            <div className="under-image" style={{ marginTop: "0px" }}>
+            <div className="under-image" style={{ marginTop:"0px" }}>
               <img className="under-image"
                 src="/images/under_blue.svg"
                 alt=""

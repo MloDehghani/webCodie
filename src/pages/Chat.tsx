@@ -29,6 +29,21 @@ const Chat = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [useApikey, setApiKey] = useState('');
     const BLokedIdList =useRef<string[]>([]);
+    const [showSetting,setShowSetting] = useState(false);
+    const [showLangs,setShowLangs] = useState(false);
+    const lnguages = [
+      {lan: 'English', code: 'en-US'},
+      {lan: 'German', code: 'de'},
+      {lan: 'French', code: 'fr'},
+      {lan: 'Persian', code: 'fa'},
+      {lan: 'Turkish', code: '	tu'},
+      {lan: 'Chinese', code: 'zh-cn'},
+      {lan: 'Arabic', code: 'ar-AE'},
+    ];    
+    const [selectedLangCode, setSelectedlangCode] = useState({
+      lan: 'English',
+      code: 'en-US',
+    });    
     // const [showTextBox,setShowTextBox] = useState(false);
     // const [text,setText] = useState('');
     // const [showSetting,setShowSetting] = useState(false);
@@ -42,6 +57,9 @@ const Chat = () => {
         continuous:window.innerWidth < 500 ? true: false,
         crossBrowser: true,
         timeout:9000,
+        googleCloudRecognitionConfig: {
+          languageCode: selectedLangCode.code
+        },        
         googleApiKey: 'AIzaSyB904oDQEZb5M1vdJYxVhXOtU3_URla1Nk',
         // speechRecognitionProperties: { interimResults: true },
         useLegacyResults: false
@@ -77,7 +95,7 @@ const Chat = () => {
                   Flow.chat(
                     {
                       text: newChat.message,
-                      language: 'English',
+                      language: selectedLangCode.lan,
                       message_key: newChat.message_key,
                       apikey: useApikey,
                       getcurrentconvesationid:
@@ -169,7 +187,7 @@ const Chat = () => {
           Flow.chat(
             {
               text: offer,
-              language: 'English',
+              language: selectedLangCode.lan,
               message_key: newChat.message_key,
               apikey: useApikey,
               getcurrentconvesationid:
@@ -309,6 +327,70 @@ const Chat = () => {
                 }
 
             </div>
+            <div style={{width:'100%',position:'absolute',top:16,left:0,display:'flex',justifyContent:'center',alignItems:'center'}}>
+              <div style={{width:'90%',display:'flex',justifyContent:'start',alignItems:'self-start'}}>
+                <img onClick={() => {
+                  setShowSetting(!showSetting)
+                  setShowLangs(false)
+                  }} style={{cursor:'pointer'}} src="./icons/Setting.svg" alt="" />
+                {showSetting ?
+                  <div style={{backgroundColor:'#353535',width:'120px',cursor:'pointer',marginLeft:8,borderRadius:4}}>
+                    <div onClick={() =>setShowLangs(true)} style={{paddingTop: 5,paddingBottom:5,paddingLeft:8,display:'flex',justifyContent:'start',alignItems:'center'}}>
+                      <img src="./icons/Lang.svg" style={{marginRight:8}} alt="" />
+                      <div style={{color:'white',fontSize:12,fontFamily: 'Poppins-Regular'}}>Language</div>
+                    </div>
+                    <div style={{width:'100%',height:'1px',backgroundColor:'#FFFFFF61'}}></div>
+                    <div onClick={() => {
+                        const conf = confirm('Are you sure you want to clear history?')
+                        if(conf){
+                          // setSelectedlangCode(item)
+                          setShowLangs(false)
+                          setChat([])
+                          setShowSetting(false)
+                          localStorage.removeItem('catchChats')
+                        }                      
+                    }} style={{paddingTop: 5,paddingBottom:5,paddingLeft:8,display:'flex',justifyContent:'start',alignItems:'center'}}>
+                      <img src="./icons/clear.svg" style={{marginRight:8}} alt="" />
+                      <div style={{color:'white',fontSize:12,fontFamily: 'Poppins-Regular'}}>Clear History</div>
+                    </div>                  
+                  </div>
+                :undefined}
+                {showLangs?
+                  <div style={{backgroundColor:'#353535',width:'100px',cursor:'pointer',marginLeft:8,borderRadius:4}}>
+                    {lnguages.map((item,index) => {
+                      return (
+                        <>
+                          <div onClick={() => {                           
+                            const conf = confirm('Are you sure you want to change language? This causes clear your chat history')
+                            if(conf){
+                              setSelectedlangCode(item)
+                              setShowLangs(false)
+                              setChat([])
+                              setShowSetting(false)
+                              localStorage.removeItem('catchChats')
+                            }
+
+                          }} style={{display:'flex',textAlign:'left',borderBottomWidth:1,justifyContent:'space-between',paddingLeft:8,paddingRight:8,borderBottom:index < lnguages.length -1 ?'1px solid #FFFFFF61':'none',paddingTop: 4,paddingBottom:4,alignItems:'center'}}>
+                            <div style={{color:'#FFFFFFDE',fontSize:'14px',fontFamily: 'Poppins-Regular'}}>
+                              {item.lan}
+                            </div>
+                            {item.code == selectedLangCode.code ?
+                              <img src="./icons/tik.svg" alt="" />
+                            :
+                              undefined
+                            }
+                          </div>
+                          {/* {index < lnguages.length -1 ?
+                           <div style={{width:'100%',height:'1px',backgroundColor:'#FFFFFF61'}}></div>
+                          :undefined
+                          } */}
+                        </>
+                      )
+                    })}
+                  </div>
+                :undefined}
+              </div>
+            </div>
             {!isRecording && showSugestion && chat.length ==0 ?
               <div style={{ 
                 position: 'absolute',
@@ -424,6 +506,7 @@ const Chat = () => {
                         handleStop(chat[chat.length -1].message_key)
                       }} style={{color: '#007BFF',
                                   fontSize: 14,
+                                  cursor:'pointer',
                                   fontWeight: '500',
                                   fontFamily: 'Poppins-Regular',}}>
                         Stop
@@ -612,7 +695,7 @@ const Chat = () => {
             :undefined
           }
           {window.innerWidth < 520 ?
-            <div onClick={() => setShowExitModal(true)} style={{position:'absolute',top:16 ,left:32}}>
+            <div onClick={() => setShowExitModal(true)} style={{position:'absolute',top:16 ,right:32}}>
               <img style={{width:24}} src={logOutIcon} alt="" />
             </div>
           :undefined}
