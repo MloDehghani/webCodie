@@ -315,7 +315,7 @@ const Chat = () => {
       }      
       setTimeout(() => {
         setShowSuggestion(true)
-      }, 3000);
+      }, 1500);
       if(localStorage.getItem('ApiKey')!= null){
         setApiKey(localStorage.getItem('ApiKey') as string)
         checkBotId(localStorage.getItem('ApiKey') as string).then(res => {

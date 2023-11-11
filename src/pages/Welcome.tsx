@@ -66,7 +66,7 @@ const Welcome = () => {
             >
               Answering Day
             </p>
-            <div className="under-image" style={{ marginTop:"0px" }}>
+            <div className="under-image" style={{ marginTop:window.innerWidth< 500?'-20px' :"0px" }}>
               <img className="under-image"
                 src="/images/under_blue.svg"
                 alt=""
@@ -76,7 +76,7 @@ const Welcome = () => {
 
             <p
               className="communicate"
-              style={{ whiteSpace: "pre-line", marginTop: "40px" ,fontSize:'20px'}}
+              style={{ whiteSpace: "pre-line", marginTop: "40px",marginBottom:8 ,fontSize:'20px'}}
             >
               How would you prefer to communicate with us?{" "}
             </p>
@@ -99,7 +99,7 @@ const Welcome = () => {
                 // className="chromeWeb-image"
                 src="/images/play.png"
                 alt="google play"
-                style={{ width: "200px",height:'65px', cursor: "pointer" }}
+                style={{ width: "200px",height:'65px', cursor: "pointer",top:window.innerWidth< 500? '50px !important':'undet',left:window.innerWidth<500? '110px !important':'unset'}}
               />
             </div>
             <div>
@@ -158,7 +158,7 @@ const Welcome = () => {
             className="macbook-image"
             src="/images/MacBook-17.png"
             alt="MacBook"
-            style={{ width: "900px",position:'relative',right: '-110px',top:-40}}
+            style={{ width: "900px",position:'relative',right: '0px',top:20,left:'150px'}}
           />
         </div>
       </div>

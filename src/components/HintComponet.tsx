@@ -47,13 +47,13 @@ const HintComponent = (props:HintComponentProps) => {
         Hint.getHints({instanceid:props.instanceId},(res) => {
             console.log(res);
             setHints(res.content.replace(/[0-9]/g, '#').split('#.'));
-        })
+        })          
     },[props.instanceId])
     // const [hints,setHints] = useState(['Which one has a higher score?','Which one has a higher score?','Which one has a higher score?'])
     return (
         <>
             {hints.length > 0 && !props.isloading && !props.isTalking? 
-                <div style={{display:'flex',userSelect:'none',justifyContent:'end',height:'34px',alignItems:'center'}}>
+                <div style={{display:'flex',userSelect:'none',justifyContent:'end',height:'34px',alignItems:'center',width:'-webkit-fill-available'}}>
                     {
                         showHint ?
                             <div className='hiddenScrollBar' style={{display:'flex',alignItems:'center',width:'100%',overflowX:'scroll'}}>
