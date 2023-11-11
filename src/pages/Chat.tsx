@@ -63,7 +63,19 @@ const Chat = () => {
         googleApiKey: 'AIzaSyB904oDQEZb5M1vdJYxVhXOtU3_URla1Nk',
         // speechRecognitionProperties: { interimResults: true },
         useLegacyResults: false
-    });    
+    });  
+    // const closeFilter = (event:any) => {
+    //   // console.log(event.path[0].id )
+    //   let paths = []
+    //   paths = event.path.map((item:HTMLElement) => item.id)
+    //   // if(event.path[0].id =='sellguru-newBoardModal' ){
+    //     // console.log(paths)
+    //   if(!paths.includes('langModal') && !paths.includes('langModal-button')){
+    //     // setOpenNicheKeywords(false)
+    //     document.removeEventListener('click',closeFilter);
+    //     // document.getElementById('sellguru-modaloverly').style.display = 'none'
+    //   }
+    // }        
     // const [showSugestions, setShowSuggestions] = useState(false);    
     const [chat, setChat] = useState<Array<any>>([]);   
     const [showSugestion,setShowSuggestion] = useState(false); 
@@ -275,9 +287,12 @@ const Chat = () => {
         let paths = []
         paths = event.composedPath().map((item:HTMLElement) => item.id)
         console.log(paths)
-        if(!paths.includes('boxInput') && !paths.includes('boxInput-button') && !paths.includes('settingButton') && !paths.includes('setting')){
+        // id="settingBox"
+        if(!paths.includes('boxInput')&& !paths.includes("settingButton")&& !paths.includes("settingBox") && !paths.includes("LangBox")  && !paths.includes('boxInput-button') && !paths.includes('settingButton') && !paths.includes('setting')){
             // setShowTextBox(false);
             // setShowSetting(false)
+            setShowSetting(false)
+            setShowLangs(false)
             document.removeEventListener('click',closeFilter);
         }
     }    
@@ -329,12 +344,13 @@ const Chat = () => {
             </div>
             <div style={{width:'100%',position:'absolute',top:16,left:0,display:'flex',justifyContent:'center',alignItems:'center'}}>
               <div style={{width:'90%',display:'flex',justifyContent:'start',alignItems:'self-start'}}>
-                <img onClick={() => {
+                <img id="settingButton" onClick={() => {
                   setShowSetting(!showSetting)
                   setShowLangs(false)
+                  document.addEventListener('click',closeFilter)
                   }} style={{cursor:'pointer'}} src="./icons/Setting.svg" alt="" />
                 {showSetting ?
-                  <div style={{backgroundColor:'#353535',width:'120px',cursor:'pointer',marginLeft:8,borderRadius:4}}>
+                  <div id="settingBox" style={{backgroundColor:'#353535',width:'120px',cursor:'pointer',marginLeft:8,borderRadius:4}}>
                     <div onClick={() =>setShowLangs(true)} style={{paddingTop: 5,paddingBottom:5,paddingLeft:8,display:'flex',justifyContent:'start',alignItems:'center'}}>
                       <img src="./icons/Lang.svg" style={{marginRight:8}} alt="" />
                       <div style={{color:'white',fontSize:12,fontFamily: 'Poppins-Regular'}}>Language</div>
@@ -356,7 +372,7 @@ const Chat = () => {
                   </div>
                 :undefined}
                 {showLangs?
-                  <div style={{backgroundColor:'#353535',width:'100px',cursor:'pointer',marginLeft:8,borderRadius:4}}>
+                  <div id="LangBox" style={{backgroundColor:'#353535',width:'100px',cursor:'pointer',marginLeft:8,borderRadius:4}}>
                     {lnguages.map((item,index) => {
                       return (
                         <>
