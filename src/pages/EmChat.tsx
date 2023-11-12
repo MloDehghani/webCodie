@@ -1,23 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from "react";
-import {WaveVoice,ImageSpinner, Sugesstions, RateComponent, TypeAndRecord, HintComponent} from "../components"
+import {WaveVoice,ImageSpinner, Sugesstions, TypeAndRecord} from "../components"
 // import micIcon from '../assets/mic.svg';
 import useSpeechToText from "react-hook-speech-to-text";
 import { useConstructor } from "../help";
 import makeid from '../Hoc/RandomKey';
 import Flow from "../api/Flow";
 import { BeatLoader } from "react-spinners";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { checkBotId } from "../api/botId";
-import logOutIcon from '../assets/fi_log-out.svg';
+// import logOutIcon from '../assets/fi_log-out.svg';
 // import keybordIcon from '../assets/keyboard.svg';
 // import SettingIcon from '../assets/setting.svg';
 // import SendIcon from '../assets/Send.svg';
 // import translateIcon from '../assets/translate.svg';
 // import LogOutIcom from '../assets/logOut.svg';
 import { toast } from "react-toastify";
-import Rate from "../api/Rate";
+// import Rate from "../api/Rate";
 
 
 const EmChat = () => {
@@ -29,18 +29,18 @@ const EmChat = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [useApikey, setApiKey] = useState('');
     const BLokedIdList =useRef<string[]>([]);
-    const [showSetting,setShowSetting] = useState(false);
-    const [showLangs,setShowLangs] = useState(false);
-    const lnguages = [
-      {lan: 'English', code: 'en-US'},
-      {lan: 'German', code: 'de'},
-      {lan: 'French', code: 'fr'},
-      {lan: 'Persian', code: 'fa'},
-      {lan: 'Turkish', code: '	tu'},
-      {lan: 'Chinese', code: 'zh-cn'},
-      {lan: 'Arabic', code: 'ar-AE'},
-    ];    
-    const [selectedLangCode, setSelectedlangCode] = useState({
+    const [_showSetting,setShowSetting] = useState(false);
+    const [_showLangs,setShowLangs] = useState(false);
+    // const _lnguages = [
+    //   {lan: 'English', code: 'en-US'},
+    //   {lan: 'German', code: 'de'},
+    //   {lan: 'French', code: 'fr'},
+    //   {lan: 'Persian', code: 'fa'},
+    //   {lan: 'Turkish', code: '	tu'},
+    //   {lan: 'Chinese', code: 'zh-cn'},
+    //   {lan: 'Arabic', code: 'ar-AE'},
+    // ];    
+    const [selectedLangCode, _setSelectedlangCode] = useState({
       lan: 'English',
       code: 'en-US',
     });    
@@ -79,7 +79,7 @@ const EmChat = () => {
     // const [showSugestions, setShowSuggestions] = useState(false);    
     const [chat, setChat] = useState<Array<any>>([]);   
     const [showSugestion,setShowSuggestion] = useState(false); 
-    const [openRate,setOpenRate] = useState(false)
+    // const [openRate,setOpenRate] = useState(false)
     const sendToApi =() => {
       const adminChats = chat.filter(item => item.from === 'admin');
       const chats:Array<any> = chat
@@ -159,7 +159,7 @@ const EmChat = () => {
 
       }  
     }    
-    const navigate = useNavigate();    
+    // const navigate = useNavigate();    
     const pageScroll = () => {
         const el = document.getElementById('chatMessageScrool')
         if(el) {
@@ -332,7 +332,7 @@ const EmChat = () => {
         })        
       }
     })
-    const [showExitModal,setShowExitModal] = useState(false);
+    const [_showExitModal,setShowExitModal] = useState(false);
     return (
         <>
          <div className="hiddenScrollBar" style={{backgroundColor:'white',position:'relative',width:boxWidth,height:boxHeight,overflowY:'scroll'}}>

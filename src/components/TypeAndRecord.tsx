@@ -3,7 +3,7 @@ import { useState } from 'react';
 import mic2 from '../assets/mic2.svg';
 import SendIcon from '../assets/Send.svg';
 import keybordIcon from '../assets/keyboard.svg';
-import logOutIcon from '../assets/fi_log-out.svg';
+// import logOutIcon from '../assets/fi_log-out.svg';
 import { VoiceRecorder } from '../Acord';
 
 // _handleOfferClick
@@ -20,17 +20,17 @@ type TypeAndRecordProps ={
 }
 
 const TypeAndRecord:React.FC<TypeAndRecordProps> = (
-    {_handleOfferClick,isTalking,isRecording,isLoading,onstart,onStop,logout,setShowSugestions,setIsTalking}) => {
+    {_handleOfferClick,isTalking,isRecording,isLoading,onstart,onStop,setShowSugestions,setIsTalking}) => {
     const [text ,setText] = useState('')
     const [mode,setMode] = useState('Type');
-    let mouseTimer: number;
+    // let mouseTimer: number;
     // const [isRecording,setIsRecording] = useState(false)
-    const execMouseDown = () => {
-        onStop()
-    }
-    const mouseUp =() => {
-        if (mouseTimer) window.clearTimeout(mouseTimer);
-    }
+    // const execMouseDown = () => {
+    //     onStop()
+    // }
+    // const mouseUp =() => {
+    //     if (mouseTimer) window.clearTimeout(mouseTimer);
+    // }
     const handleKeyPress = (event: any) => {
         setIsTalking(false)
         if (event.key === "Enter" && text.length > 0) {

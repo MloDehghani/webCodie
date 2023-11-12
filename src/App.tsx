@@ -2,12 +2,12 @@ import {
   createHashRouter,
   RouterProvider,
 } from "react-router-dom";
-import { Planing, Login, Chat, JustGoogleLogin, Starting, EmChat } from './pages';
+import { EmChat } from './pages';
 import './App.css';
-import Register from "./pages/Register";
+// import Register from "./pages/Register";
 import { useEffect, useState } from "react";
 import { ToastContainer} from 'react-toastify';
-import Welcome from "./pages/Welcome";
+// import Welcome from "./pages/Welcome";
 import 'react-toastify/dist/ReactToastify.css';
 import './DefaultTheme.scss';
 

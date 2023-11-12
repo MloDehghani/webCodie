@@ -662,7 +662,7 @@ const Chat = () => {
               </div>
             :undefined}
             {/* new type */}
-            <TypeAndRecord setIsTalking={setIsTalking} onstart={() => {
+            <TypeAndRecord isTalking={isTalking} setIsTalking={setIsTalking} onstart={() => {
               startSpeechToText()
               setAudioUrl('');
               setIsTalking(false)
