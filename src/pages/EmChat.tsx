@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from "react";
-import {WaveVoice,ImageSpinner, Sugesstions, TypeAndRecord} from "../components"
+import Aimy from '../assets/aiMy.png';
+import {Sugesstions, TypeAndRecord} from "../components"
 // import micIcon from '../assets/mic.svg';
 import useSpeechToText from "react-hook-speech-to-text";
 import { useConstructor } from "../help";
@@ -168,13 +169,13 @@ const EmChat = () => {
         document.getElementById('loader')?.scrollIntoView({behavior:'smooth'});
         // setTimeout(pageScroll,2);
     }     
-    const handleStop = (id: string) => {
-      setIsLoading(false);
-      const newChats = chat;
-      newChats.pop();
-      setChat(newChats);
-      BLokedIdList.current = [...BLokedIdList.current, id];
-    };    
+    // const handleStop = (id: string) => {
+    //   setIsLoading(false);
+    //   const newChats = chat;
+    //   newChats.pop();
+    //   setChat(newChats);
+    //   BLokedIdList.current = [...BLokedIdList.current, id];
+    // };    
     const _handleOfferClick = (offer: string) => {
       // console.log(offer.substring(0, 6));
       setShowSuggestion(false)
@@ -337,12 +338,12 @@ const EmChat = () => {
         <>
          <div className="hiddenScrollBar" style={{backgroundColor:'white',position:'relative',width:boxWidth,height:boxHeight,overflowY:'scroll'}}>
             <div style={{marginTop: 50,maxHeight:80,minHeight:80,display:'flex',justifyContent:'center',alignItems:'center'}}>
-                {isRecording ? 
+                {/* {isRecording ? 
                     <WaveVoice />
                 :
                     <ImageSpinner isTalking={isTalking} />
-                }
-
+                } */}
+                <img style={{width: 100}} src={Aimy} alt="" />
             </div>
             {/* <div style={{width:'100%',position:'absolute',top:16,left:0,display:'flex',justifyContent:'center',alignItems:'center'}}>
               <div style={{width:'90%',display:'flex',justifyContent:'start',alignItems:'self-start'}}>
@@ -511,12 +512,12 @@ const EmChat = () => {
                         alignItems: 'center',
                         paddingLeft: 18,
                         paddingRight: 20,
-                        justifyContent: 'space-between',
+                        justifyContent: 'center',
                       }}>
                       <div>
                         <BeatLoader size={10}  color="#404040" />
                       </div>
-                      <div onClick={() => {
+                      {/* <div onClick={() => {
                         handleStop(chat[chat.length -1].message_key)
                       }} style={{color: '#007BFF',
                                   fontSize: 14,
@@ -524,7 +525,7 @@ const EmChat = () => {
                                   fontWeight: '500',
                                   fontFamily: 'Poppins-Regular',}}>
                         Stop
-                      </div>
+                      </div> */}
                     </div>
                 ) : undefined}      
               </div>

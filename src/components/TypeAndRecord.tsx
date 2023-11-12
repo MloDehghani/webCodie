@@ -94,7 +94,7 @@ const TypeAndRecord:React.FC<TypeAndRecordProps> = (
                                         onStart={onstart}
                                         onStop={onStop}
                                     ></VoiceRecorder>             
-                                    <div></div>                 
+                                    <div style={{width:32}}></div>                 
                                 </>
                             :
                                 <div style={{position:'relative',zIndex:60,width:'-webkit-fill-available',marginLeft:8}}>
