@@ -43,7 +43,7 @@ const Sugesstions = (props: any) => {
           fontStyle: 'normal',
           fontFamily: 'Poppins-Regular',
           fontWeight: '500',
-          color: 'white',
+          color: '#1F1F1F',
         }}>
         Ask me a question, or try one of these:
       </div>

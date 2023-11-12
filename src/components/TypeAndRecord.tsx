@@ -4,12 +4,14 @@ import mic2 from '../assets/mic2.svg';
 import SendIcon from '../assets/Send.svg';
 import keybordIcon from '../assets/keyboard.svg';
 import logOutIcon from '../assets/fi_log-out.svg';
+import { VoiceRecorder } from '../Acord';
 
 // _handleOfferClick
 type TypeAndRecordProps ={
     _handleOfferClick : (text:string) => void
     setShowSugestions:(action:boolean)  =>void
     isRecording: boolean
+    isTalking:boolean
     isLoading:boolean
     onstart:() => void
     onStop:() => void
@@ -18,7 +20,7 @@ type TypeAndRecordProps ={
 }
 
 const TypeAndRecord:React.FC<TypeAndRecordProps> = (
-    {_handleOfferClick,isRecording,isLoading,onstart,onStop,logout,setShowSugestions,setIsTalking}) => {
+    {_handleOfferClick,isTalking,isRecording,isLoading,onstart,onStop,logout,setShowSugestions,setIsTalking}) => {
     const [text ,setText] = useState('')
     const [mode,setMode] = useState('Type');
     let mouseTimer: number;
@@ -39,9 +41,10 @@ const TypeAndRecord:React.FC<TypeAndRecordProps> = (
     return (
         <>
             {
-                isRecording ?
+                // eslint-disable-next-line no-constant-condition
+                false ?
                 < >
-                    <div id='recordButton' onMouseDown={() => {
+                    {/* <div id='recordButton' onMouseDown={() => {
                         mouseUp();
                         mouseTimer = window.setTimeout(execMouseDown,500);
                     }} onTouchMove={onStop} onMouseUp={mouseUp} style={{width:'100%',userSelect:'none',zIndex:2,height:'66px',borderTop:' 1px solid #FFFFFF',backgroundColor:'#2D2D2D',position:'absolute',bottom:0}}>
@@ -55,19 +58,26 @@ const TypeAndRecord:React.FC<TypeAndRecordProps> = (
                         <div className="Acord-VoiceRecorder-WaveBox  Acord-VoiceRecorder-Wave2"></div>
                         <div className="Acord-VoiceRecorder-WaveBox  Acord-VoiceRecorder-Wave3"></div>
                         <div className="Acord-VoiceRecorder-WaveBox  Acord-VoiceRecorder-Wave4"></div>                         
-                    </div>
+                    </div> */}
+                    <VoiceRecorder
+                        isLoading={isLoading}
+                        isRecording={isRecording}
+                        isTalking={false}
+                        onStart={onstart}
+                        onStop={onStop}
+                    ></VoiceRecorder>
                     {/* <div style={{width:'100%',backgroundColor:'#2D2D2D',height:window.innerHeight / 3,borderRadius:'100%'}}></div> */}
                 </>
                 :
-                <div style={{width:'100%',backgroundColor:'#1F1F1F',height:'45px',position:'fixed',bottom:21,display:'flex',justifyContent:'center',alignItems:'center'}}>
-                    <div style={{width:'90%',display:'flex',justifyContent:'start',alignItems:'center'}}>
+                <div style={{width:'100%',backgroundColor:'white',height:'45px',position:'fixed',bottom:21,display:'flex',justifyContent:'center',alignItems:'center'}}>
+                    <div style={{width:'90%',display:'flex',justifyContent:mode == 'Type'?'start':'space-between',alignItems:'center'}}>
                             <div onClick={() => {
                                 if(mode =='Type') {
                                     setMode('Voice')
                                 }else{
                                     setMode('Type')
                                 }
-                            }} style={{width:'32px',minWidth:32,minHeight:32,display:'flex',cursor:'pointer',justifyContent:'center',alignItems:'center',height:'32px',borderRadius:'100%',backgroundColor:'#353535',border:'1px solid #353535'}}>
+                            }} style={{width:'32px',minWidth:32,minHeight:32,display:'flex',cursor:'pointer',justifyContent:'center',alignItems:'center',height:'32px',borderRadius:'100%',backgroundColor:'#404040',border:'1px solid #026eb3'}}>
                                 {
                                     mode == 'Type' ?
                                         <img src={mic2} />
@@ -75,42 +85,55 @@ const TypeAndRecord:React.FC<TypeAndRecordProps> = (
                                         <img style={{width:16}} src={keybordIcon} />
                                 }
                             </div>
-                            <div style={{position:'relative',zIndex:60,width:'-webkit-fill-available',marginLeft:8}}>
-                                {
-                                    mode == 'Type'?
-                                    <>
-                                        <input onFocus={() => {
-                                            if(window.innerWidth < 500) {
-                                                setShowSugestions(false)
-                                            }
-                                        }} onKeyDown={handleKeyPress} value={text} onChange={(event) => setText(event.target.value)} type='text' placeholder='Message...' style={{width:'-webkit-fill-available',minWidth: '0px',fontFamily: 'Poppins-Regular',outline:'none',border:'none',color:'#FFFFFFDE',fontSize:'14px',fontWeight:300,paddingLeft:12,paddingRight:40,height:32,backgroundColor:'#2D2D2D',borderRadius:4 }} />
-                                        {
-                                            text.length > 0 && !isLoading?
-                                                <img onClick={() => {
-                                                    _handleOfferClick(text)
-                                                    setText('')
-                                                }} style={{position:'absolute',top:'4px',right:'8px',cursor:'pointer'}} src={SendIcon} />
-                                            :
-                                            undefined
-                                        }                            
-                                    </>
-                                    :
-                                    <>
-                                        <div onTouchStart={!isLoading ?onstart : undefined} onMouseDown={!isLoading ?onstart : undefined} style={{width:'-webkit-fill-available',cursor:'pointer',fontFamily: 'Poppins-Regular',outline:'none',border:'none',color:'#FFFFFFDE',fontSize:'14px',fontWeight:300,paddingLeft:12,paddingRight:40,height:35,display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'#2D2D2D',borderRadius:4 }}>
-                                            <div>Hold to Talk</div>
-                                        </div>
-                                   
-                                    </>
-                                }
-                            </div>
-                            {
+                            {mode == 'Voice'?
+                                <>
+                                    <VoiceRecorder
+                                        isLoading={isLoading}
+                                        isRecording={isRecording}
+                                        isTalking={isTalking}
+                                        onStart={onstart}
+                                        onStop={onStop}
+                                    ></VoiceRecorder>             
+                                    <div></div>                 
+                                </>
+                            :
+                                <div style={{position:'relative',zIndex:60,width:'-webkit-fill-available',marginLeft:8}}>
+                                    {
+                                        mode == 'Type'?
+                                        <>
+                                            <input onFocus={() => {
+                                                if(window.innerWidth < 500) {
+                                                    setShowSugestions(false)
+                                                }
+                                            }} onKeyDown={handleKeyPress} value={text} onChange={(event) => setText(event.target.value)} type='text' placeholder='Message...' style={{width:'-webkit-fill-available',minWidth: '0px',fontFamily: 'Poppins-Regular',outline:'none',border:'none',color:'#FFFFFFDE',fontSize:'14px',fontWeight:300,paddingLeft:12,paddingRight:40,height:32,backgroundColor:'#404040',borderRadius:4 }} />
+                                            {
+                                                text.length > 0 && !isLoading?
+                                                    <img onClick={() => {
+                                                        _handleOfferClick(text)
+                                                        setText('')
+                                                    }} style={{position:'absolute',top:'4px',right:'8px',cursor:'pointer'}} src={SendIcon} />
+                                                :
+                                                undefined
+                                            }                            
+                                        </>
+                                        :
+                                        <>
+                                            {/* <div onTouchStart={!isLoading ?onstart : undefined} onMouseDown={!isLoading ?onstart : undefined} style={{width:'-webkit-fill-available',cursor:'pointer',fontFamily: 'Poppins-Regular',outline:'none',border:'none',color:'#FFFFFFDE',fontSize:'14px',fontWeight:300,paddingLeft:12,paddingRight:40,height:35,display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'#2D2D2D',borderRadius:4 }}>
+                                                <div>Hold to Talk</div>
+                                            </div> */}
+                                    
+                                        </>
+                                    }
+                                </div>
+                            }
+                            {/* {
                                 window.innerWidth > 520 ?
                                     <div onClick={logout} style={{width:'32px',minWidth:32,minHeight:32,marginLeft:8,display:'flex',cursor:'pointer',justifyContent:'center',alignItems:'center',height:'32px',borderRadius:'100%',backgroundColor:'#353535',border:'1.25px solid #282828'}}>
                                         <img style={{width:16}} src={logOutIcon} alt="" />
                                     </div>
                                 :
                                 undefined
-                            }
+                            } */}
                     </div>
                 </div>
             }

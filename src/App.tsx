@@ -2,13 +2,14 @@ import {
   createHashRouter,
   RouterProvider,
 } from "react-router-dom";
-import { Planing, Login, Chat, JustGoogleLogin, Starting } from './pages';
+import { Planing, Login, Chat, JustGoogleLogin, Starting, EmChat } from './pages';
 import './App.css';
 import Register from "./pages/Register";
 import { useEffect, useState } from "react";
 import { ToastContainer} from 'react-toastify';
 import Welcome from "./pages/Welcome";
 import 'react-toastify/dist/ReactToastify.css';
+import './DefaultTheme.scss';
 
 function App() {
   const [boxWidth,setBoxWidth] = useState(window.innerWidth);
@@ -16,32 +17,32 @@ function App() {
   const router = createHashRouter([
     {
       path: "/",
-      element: <Welcome />,
+      element: <EmChat />,
     },
-    {
-      path: "/hotel",
-      element: <Starting />,
-    },    
-    {
-      path: "/plan",
-      element: <Planing/> ,
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/register",
-      element: <Register/>
-    },    
-    {
-      path: "/chat",
-      element: <Chat />,
-    },
-    {
-      path: "/googleLogin",
-      element: <JustGoogleLogin />,
-    },          
+    // {
+    //   path: "/hotel",
+    //   element: <Starting />,
+    // },    
+    // {
+    //   path: "/plan",
+    //   element: <Planing/> ,
+    // },
+    // {
+    //   path: "/login",
+    //   element: <Login />,
+    // },
+    // {
+    //   path: "/register",
+    //   element: <Register/>
+    // },    
+    // {
+    //   path: "/chat",
+    //   element: <Chat />,
+    // },
+    // {
+    //   path: "/googleLogin",
+    //   element: <JustGoogleLogin />,
+    // },          
   ]);  
   const handleResize =() => {
     setBoxWidth(window.innerWidth)

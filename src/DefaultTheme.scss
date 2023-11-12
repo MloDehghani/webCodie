@@ -1,0 +1,136 @@
+:root {
+  --Acord-voiceRecorder-width: 65px;
+}
+// helloWorld
+.Acord-HelloWorld-container {
+  @apply text-3xl font-bold underline text-center;
+}
+
+// endHelloWorld
+
+/* voice Record */
+
+.Acord-VoiceRecorder-WaveBox {
+  @apply z-[-1] top-0 absolute block opacity-50 w-[var(--Acord-voiceRecorder-width)] h-[var(--Acord-voiceRecorder-width)] rounded-full bg-primary-color;
+}
+.Acord-VoiceRecorder-container {
+  @apply relative w-[var(--Acord-voiceRecorder-width)] h-[var(--Acord-voiceRecorder-width)] cursor-pointer rounded-full bg-primary-color flex justify-center items-center;
+}
+.Acord-VoiceRecorder-icon {
+  @apply bg-[url('./Acord/Record.svg')] w-[14px] h-[23px];
+}
+.Acord-VoiceRecorder-Wave1 {
+  animation: waves 2.5s linear 0.1s infinite;
+}
+.Acord-VoiceRecorder-Wave2 {
+  animation: waves 2.5s linear 0.7s infinite;
+}
+.Acord-VoiceRecorder-Wave3 {
+  animation: waves 2.5s linear 1.3s infinite;
+}
+.Acord-VoiceRecorder-Wave4 {
+  animation: waves 2.5s linear 1.9s infinite;
+}
+
+@keyframes waves {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+/* end of VoiceRecord */
+
+/*Button*/
+.Acord-Button-container {
+  @apply text-white disabled:cursor-not-allowed bg-primary-color leading-[19.36px] text-[16px] font-[500]  rounded-[5px] w-[100%] h-[50px];
+}
+/*end of Button */
+
+/*TextField*/
+
+.Acord-TextField-container {
+  @apply flex flex-col  w-[100%]  gap-y-1;
+}
+.Acord-TextField-label {
+  @apply leading-[19.36px] text-[16px] font-[500] text-secondary-color;
+}
+.Acord-TextField-input {
+  @apply focus:outline-none w-full rounded-[4px]  placeholder:leading-[27.25px]  placeholder:text-[16px]  placeholder:font-[300]   pb-[12px] pt-[10px]  placeholder:text-placeholder-color  bg-input-color;
+}
+
+.Acord-TextField-inValid {
+  @apply border-red-500 border;
+}
+.Acord-TextField-box {
+  @apply rounded-[4px] flex items-center justify-between bg-input-color px-[16px];
+}
+.Acord-TextField-togglePassword {
+  @apply cursor-pointer;
+}
+.Acord-TextField-icon-eye {
+  @apply bg-[url('./Acord/eye.svg')] w-[25px] h-[22px];
+}
+.Acord-TextField-icon-eyeOff {
+  @apply bg-[url('./Acord/eyeOff.svg')] w-[25px] h-[22px];
+}
+.Acord-TextField-error {
+  @apply text-red-500 text-xs -mt-1;
+}
+
+/*end of TextField*/
+
+/* Checkbox */
+.Acord-Checkbox-container {
+  @apply flex gap-x-1;
+}
+.Acord-Checkbox-input {
+  @apply w-4 h-4 cursor-pointer  accent-primary-color;
+}
+.Acord-Checkbox-label {
+  @apply leading-[14.52px] text-[12px] font-[400] text-secondary-color;
+}
+/*end of Checkbox*/
+
+/* Suggestions */
+.Acord-Suggestions-container {
+  @apply flex flex-col  items-center;
+}
+.Acord-Suggestions-title {
+  @apply leading-[19.36px] text-[16px] font-[500] text-[#253343]/80 mb-2;
+}
+.Acord-Suggestions-list {
+  @apply space-y-2;
+}
+.Acord-Suggestions-listItem {
+  @apply bg-[#F4F5FF] cursor-pointer px-6 py-4 rounded-[8px] text-[#253343]/80  leading-[17px] text-[14px] font-[400];
+}
+.Acord-Suggestions-selected {
+  @apply text-[#253343]/80  leading-[17px] text-[14px] font-[400];
+}
+/* end of Suggestions */
+
+/* HSuggestions */
+.Acord-HSuggestions-container {
+  @apply flex flex-col items-center;
+}
+.Acord-HSuggestions-list {
+  @apply flex  overflow-x-auto my-2 w-full;
+}
+.Acord-HSuggestions-listItem {
+  @apply px-1 mx-auto;
+}
+.Acord-HSuggestions-listSecondLevel {
+  @apply border border-[#ccc] w-fit cursor-pointer whitespace-nowrap px-4 py-3 rounded-[8px] bg-[#E6F9F4];
+}
+.Acord-HSuggestions-selected {
+  @apply border border-[#ccc] w-fit whitespace-nowrap px-4 py-3 rounded-[8px] bg-[#E6F9F4];
+}
+// .Acord-HSuggestions-button {
+//   @apply my-2;
+// }
+/* end of HSuggestions */
