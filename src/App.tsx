@@ -2,7 +2,7 @@ import {
   createHashRouter,
   RouterProvider,
 } from "react-router-dom";
-import { EmChat } from './pages';
+import { EmChat, ResumeChat } from './pages';
 import './App.css';
 // import Register from "./pages/Register";
 import { useEffect, useState } from "react";
@@ -17,8 +17,12 @@ function App() {
   const router = createHashRouter([
     {
       path: "/",
-      element: <EmChat />,
+      element: <EmChat/>,
     },
+    {
+      path: "/resume",
+      element: <ResumeChat/>,
+    },    
     // {
     //   path: "/hotel",
     //   element: <Starting />,
