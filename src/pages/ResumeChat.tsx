@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from "react";
-import Aimy from '../assets/aiMy.png';
+// import Aimy from '../assets/aiMy.png';
 import {Sugesstions, TypeAndRecord} from "../components"
 // import micIcon from '../assets/mic.svg';
 import useSpeechToText from "react-hook-speech-to-text";
