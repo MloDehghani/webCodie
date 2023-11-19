@@ -353,36 +353,36 @@ const ResumeChat = () => {
     return (
         <>
          <div className="hiddenScrollBar" style={{backgroundColor:'white',position:'relative',width:boxWidth,height:boxHeight,overflowY:'scroll'}}>
-            <div style={{backgroundColor:'#253343',overflowY:'visible',position:'relative',top:'0px',height:'187px',width:'100%'}}>
-                <div style={{backgroundColor:'#FECA06',display:'flex',justifyContent:'center',alignItems:'start',width:'32px',height:'143px',position:'absolute',bottom:'0px',left:'16px'}}>
+            <div style={{backgroundColor:'#253343',overflowY:'visible',position:'relative',top:'0px',height:window.innerWidth<800?'187px':'220px',width:'100%'}}>
+                <div style={{backgroundColor:'#FECA06',paddingTop:'26px',display:'flex',justifyContent:'center',alignItems:'start',width:'32px',height:window.innerWidth<800?'143px':'220px',position:'absolute',bottom:'0px',left:'16px'}}>
                     <div>
-                        <img style={{marginTop:'8px'}} src="./icons/Vector.svg" alt="" />
-                        <img style={{marginTop:'8px'}} src="./icons/call.svg" alt="" />
-                        <img style={{marginTop:'8px'}} src="./icons/global.svg" alt="" />
-                        <img style={{marginTop:'8px'}} src="./icons/linkedin.svg" alt="" />
+                        <img style={{marginTop:window.innerWidth< 800?'8px':'16px'}} src="./icons/Vector.svg" alt="" />
+                        <img style={{marginTop:window.innerWidth< 800?'8px':'16px'}} src="./icons/call.svg" alt="" />
+                        <img style={{marginTop:window.innerWidth< 800?'8px':'22px'}} src="./icons/global.svg" alt="" />
+                        <img style={{marginTop:window.innerWidth< 800?'8px':'20px'}} src="./icons/linkedin.svg" alt="" />
                     </div>
                 </div>
-                <div style={{position:'absolute',bottom:'0px',left:'48px',paddingLeft:'16px',height:'143px'}}>
-                    <div style={{color:'white' ,fontSize:'12px',marginTop:'8px'}}>
+                <div style={{position:'absolute',bottom:'0px',paddingTop:'26px',left:'48px',paddingLeft:'16px',height:window.innerWidth<800?'143px':'220px'}}>
+                    <div style={{color:'white' ,fontSize:window.innerWidth< 800?'12px':'20px',marginTop:'8px'}}>
                         Azami@codie.ai
                     </div>
-                    <div style={{color:'white' ,fontSize:'12px',marginTop:'10px'}}>
+                    <div style={{color:'white' ,fontSize:window.innerWidth< 800?'12px':'20px',marginTop:'10px'}}>
                         +44 (788)29 59 722
                     </div>
-                    <div style={{color:'white' ,fontSize:'12px',marginTop:'10px'}}>
+                    <div style={{color:'white' ,fontSize:window.innerWidth< 800?'12px':'20px',marginTop:'10px'}}>
                         codie.ai
                     </div>
-                    <div style={{color:'white' ,fontSize:'12px',marginTop:'10px'}}>
+                    <div style={{color:'white' ,fontSize:window.innerWidth< 800?'12px':'20px',marginTop:'10px'}}>
                         LinkedIn
                     </div>                                                            
                 </div>
                 <div style={{position:'absolute',right:'0px',top:'60px'}}>
-                    <div style={{backgroundColor:'#FECA06',width:'150px',textAlign:'center',color:'#253343',fontSize:'13px',fontWeight:'600'}}>Dr. Farzin Azami</div>
-                    <div style={{color:'white',fontSize:'12px',textAlign:'center',marginTop:'8px',fontWeight:'500'}}>CoFounder and CEO</div>
+                    <div style={{backgroundColor:'#FECA06',width:window.innerWidth<800?'150px':'303px',textAlign:'center',color:'#253343',fontSize:window.innerWidth<800?'13px':'32px',fontWeight:'600'}}>Dr. Farzin Azami</div>
+                    <div style={{color:'white',fontSize:window.innerWidth<800?'12px':'24px',textAlign:'center',marginTop:'8px',fontWeight:'500'}}>CoFounder and CEO</div>
                 </div>
             </div>
-            <div style={{display:'flex',zIndex:20,top:100,justifyContent:'center',width:'100%',position:'absolute'}}>
-                <video id="dragAbleAi" ref={videoRef} height={'138px'} style={{borderRadius:'100%',border:'2px solid white'}} className="pk_video" preload="auto" width={'138px'} autoPlay loop muted >
+            <div style={{display:'flex',zIndex:20,top:window.innerWidth<800?100:60,justifyContent:'center',width:'100%',position:'absolute'}}>
+                <video id="dragAbleAi" ref={videoRef} height={window.innerWidth<800?'138px':'200px'} style={{borderRadius:'100%',border:'2px solid white'}} className="pk_video" preload="auto" width={window.innerWidth<800?'138px':'200px'} autoPlay loop muted >
                     <source id="videoPlayer" key={videourl}  src={videourl} type="video/mp4"></source>
                 </video> 
                 {/* <video autoPlay style={{borderRadius:'100%',width:'138px',height:'100%',border:'2px solid white'}} src="./images/01.mp4"></video> */}
@@ -396,7 +396,7 @@ const ResumeChat = () => {
                 display: 'flex',
                 alignItems: 'flex-start',
                 flexDirection: 'row',
-                top: 260,
+                top: 280,
                 justifyContent: 'center',
                 zIndex: 15,              
               }}>
