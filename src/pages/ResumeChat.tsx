@@ -382,7 +382,7 @@ const ResumeChat = () => {
                 </div>
             </div>
             <div style={{display:'flex',zIndex:20,top:100,justifyContent:'center',width:'100%',position:'absolute'}}>
-                <video id="dragAbleAi" ref={videoRef} height={'138px'} style={{borderRadius:'100%'}} className="pk_video" preload="auto" width={'138px'} autoPlay loop muted >
+                <video id="dragAbleAi" ref={videoRef} height={'138px'} style={{borderRadius:'100%',border:'2px solid white'}} className="pk_video" preload="auto" width={'138px'} autoPlay loop muted >
                     <source id="videoPlayer" key={videourl}  src={videourl} type="video/mp4"></source>
                 </video> 
                 {/* <video autoPlay style={{borderRadius:'100%',width:'138px',height:'100%',border:'2px solid white'}} src="./images/01.mp4"></video> */}
@@ -400,7 +400,7 @@ const ResumeChat = () => {
                 justifyContent: 'center',
                 zIndex: 15,              
               }}>
-                <Sugesstions sugges={suglist} dark handleOfferClick={_handleOfferClick}></Sugesstions>    
+                <Sugesstions sugges={suglist} handleOfferClick={_handleOfferClick}></Sugesstions>    
               </div>
              :undefined}
             <div id="chatMessageScrool" className="hiddenScrollBar" style={{height:360,display:'flex',justifyContent:'center',width:'100%',marginTop:64,overflowY:'scroll'}}>

@@ -15,11 +15,11 @@ const Sugesstions = (props: any) => {
       ];
     const resolveWidthBox =() => {
       if(window.innerWidth < 600){
-        return '90%'
+        return '75%'
       }else if(window.innerWidth >= 600 && window.innerWidth < 1366){
-        return '60%'
+        return '30%'
       }else{
-        return '40%'
+        return '25%'
       }
     }
   return (
@@ -43,6 +43,7 @@ const Sugesstions = (props: any) => {
           fontStyle: 'normal',
           fontFamily: 'Poppins-Regular',
           fontWeight: '500',
+          width:'-webkit-fill-available',
           color: '#1F1F1F',
         }}>
         Ask me a question, or try one of these:
@@ -63,9 +64,9 @@ const Sugesstions = (props: any) => {
                 fontFamily: 'Poppins-Regular',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'flex-start',
+                justifyContent: 'center',
                 color: props.dark ? 'white' : '#333333',
-                backgroundColor: props.dark ? '#313133' : '#FFFFFF',
+                backgroundColor: props.dark ? '#313133' : '#D0DDEC',
                 // height: 55,
                 padding: 10,
                 fontSize: 14,
@@ -73,7 +74,7 @@ const Sugesstions = (props: any) => {
                 paddingLeft: 16,
                 // paddingRight: 4,
                 borderRadius: 8,
-                borderColor: props.dark ? '#313133' : '#FFFFFF',
+                borderColor: props.dark ? '#313133' : '#D0DDEC',
                 borderWidth: '1px',
               }}>
               {item.text}
