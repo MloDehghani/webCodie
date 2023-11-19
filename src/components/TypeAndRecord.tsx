@@ -69,7 +69,7 @@ const TypeAndRecord:React.FC<TypeAndRecordProps> = (
                     {/* <div style={{width:'100%',backgroundColor:'#2D2D2D',height:window.innerHeight / 3,borderRadius:'100%'}}></div> */}
                 </>
                 :
-                <div style={{width:'100%',backgroundColor:'white',height:'45px',position:'fixed',bottom:21,display:'flex',justifyContent:'center',alignItems:'center'}}>
+                <div style={{width:'100%',backgroundColor:mode == 'Type'?'#253343':'white',height:'45px',position:'fixed',bottom:21,display:'flex',justifyContent:'center',alignItems:'center'}}>
                     <div style={{width:'90%',display:'flex',justifyContent:mode == 'Type'?'start':'space-between',alignItems:'center'}}>
                             <div onClick={() => {
                                 if(mode =='Type') {
@@ -77,7 +77,7 @@ const TypeAndRecord:React.FC<TypeAndRecordProps> = (
                                 }else{
                                     setMode('Type')
                                 }
-                            }} style={{width:'32px',minWidth:32,minHeight:32,display:'flex',cursor:'pointer',justifyContent:'center',alignItems:'center',height:'32px',borderRadius:'100%',backgroundColor:'#404040',border:'1px solid #026eb3'}}>
+                            }} style={{width:'32px',minWidth:32,minHeight:32,display:'flex',cursor:'pointer',justifyContent:'center',alignItems:'center',height:'32px',borderRadius:'100%',backgroundColor:'#30445B',border:'1px solid #026eb3'}}>
                                 {
                                     mode == 'Type' ?
                                         <img src={mic2} />
@@ -105,7 +105,7 @@ const TypeAndRecord:React.FC<TypeAndRecordProps> = (
                                                 if(window.innerWidth < 500) {
                                                     setShowSugestions(false)
                                                 }
-                                            }} onKeyDown={handleKeyPress} value={text} onChange={(event) => setText(event.target.value)} type='text' placeholder='Message...' style={{width:'-webkit-fill-available',minWidth: '0px',fontFamily: 'Poppins-Regular',outline:'none',border:'none',color:'#FFFFFFDE',fontSize:'14px',fontWeight:300,paddingLeft:12,paddingRight:40,height:32,backgroundColor:'#404040',borderRadius:4 }} />
+                                            }} onKeyDown={handleKeyPress} value={text} onChange={(event) => setText(event.target.value)} type='text' placeholder='Message...' style={{width:'-webkit-fill-available',minWidth: '0px',fontFamily: 'Poppins-Regular',outline:'none',border:'none',color:'#FFFFFFDE',fontSize:'14px',fontWeight:300,paddingLeft:12,paddingRight:40,height:32,backgroundColor:'#30445B',borderRadius:4 }} />
                                             {
                                                 text.length > 0 && !isLoading?
                                                     <img onClick={() => {
