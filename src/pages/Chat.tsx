@@ -23,6 +23,7 @@ import Rate from "../api/Rate";
 const Chat = () => {
     const [boxWidth,setBoxWidth] = useState(window.innerWidth);
     const [boxHeight,setBoxHeight] = useState(window.innerHeight);
+    const [isSilent,setIsSilent] = useState(false);
     const [audioUrl, setAudioUrl] = useState<string>('');
     const audioRef = useRef<any>()      
     const [isTalking, setIsTalking] = useState(false);    
@@ -110,6 +111,7 @@ const Chat = () => {
                       language: selectedLangCode.lan,
                       message_key: newChat.message_key,
                       apikey: useApikey,
+                      is_silent: isSilent? false:true,
                       getcurrentconvesationid:
                         adminChats.length > 0
                           ? adminChats[adminChats.length - 1].currentconverationid
@@ -137,8 +139,10 @@ const Chat = () => {
                             // aisles:JSON.parse(res.suggestion_list),
                           };
                           chats.push(responseApi)
-                          setAudioUrl(responseApi.audio)
-                          setIsTalking(true);
+                          if(responseApi.audio){
+                            setAudioUrl(responseApi.audio)
+                            setIsTalking(true);
+                          }
                           setChat(chats)
                           localStorage.setItem('catchChats',JSON.stringify(chats))        
                           pageScroll()           
@@ -202,6 +206,7 @@ const Chat = () => {
               language: selectedLangCode.lan,
               message_key: newChat.message_key,
               apikey: useApikey,
+              is_silent: isSilent? false:true,
               getcurrentconvesationid:
                 adminChats.length > 0
                   ? adminChats[adminChats.length - 1].currentconverationid
@@ -231,8 +236,10 @@ const Chat = () => {
                   };
                   chat.push(responseApi);
                   setChat(chat);
-                  setAudioUrl(responseApi.audio)
-                  setIsTalking(true);
+                  if(responseApi.audio){
+                    setAudioUrl(responseApi.audio)
+                    setIsTalking(true);
+                  }                  
                   setChat(chat)     
                   localStorage.setItem('catchChats',JSON.stringify(chat))              
                   // console.log(res);
@@ -349,6 +356,16 @@ const Chat = () => {
                   setShowLangs(false)
                   document.addEventListener('click',closeFilter)
                   }} style={{cursor:'pointer'}} src="./icons/Setting.svg" alt="" />
+                {
+                  isSilent?
+                    <img onClick={() => {
+                      setIsSilent(false)
+                    }} style={{marginLeft:'16px',cursor:'pointer',opacity:'60%'}} src="./icons/silentOff.svg" alt="" />
+                  :
+                    <img  onClick={() => {
+                      setIsSilent(true)
+                    }} style={{marginLeft:'16px',cursor:'pointer',opacity:'60%'}} src="./icons/silentOn.svg" alt="" />
+                }
                 {showSetting ?
                   <div id="settingBox" style={{backgroundColor:'#353535',width:'120px',cursor:'pointer',marginLeft:8,borderRadius:4}}>
                     <div onClick={() =>setShowLangs(true)} style={{paddingTop: 5,paddingBottom:5,paddingLeft:8,display:'flex',justifyContent:'start',alignItems:'center'}}>
