@@ -360,11 +360,13 @@ const Chat = () => {
                   isSilent?
                     <img onClick={() => {
                       setIsSilent(false)
-                    }} style={{marginLeft:'16px',cursor:'pointer',opacity:'60%'}} src="./icons/silentOff.svg" alt="" />
+                      setIsTalking(false)
+                    }} style={{marginLeft:'16px',cursor:'pointer',opacity:'60%'}} src="./icons/silentOn.svg" alt="" />
                   :
                     <img  onClick={() => {
                       setIsSilent(true)
-                    }} style={{marginLeft:'16px',cursor:'pointer',opacity:'60%'}} src="./icons/silentOn.svg" alt="" />
+                      setIsTalking(false)
+                    }} style={{marginLeft:'16px',cursor:'pointer',opacity:'60%'}} src="./icons/silentOff.svg" alt="" />
                 }
                 {showSetting ?
                   <div id="settingBox" style={{backgroundColor:'#353535',width:'120px',cursor:'pointer',marginLeft:8,borderRadius:4}}>
