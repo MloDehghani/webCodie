@@ -37,7 +37,7 @@ const Chat = () => {
       {lan: 'German', code: 'de'},
       {lan: 'French', code: 'fr'},
       {lan: 'Persian', code: 'fa'},
-      {lan: 'Turkish', code: '	tu'},
+      {lan: 'Turkish', code: 'tu'},
       {lan: 'Chinese', code: 'zh-cn'},
       {lan: 'Arabic', code: 'ar-AE'},
     ];    
