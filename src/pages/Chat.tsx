@@ -32,12 +32,13 @@ const Chat = () => {
     const BLokedIdList =useRef<string[]>([]);
     const [showSetting,setShowSetting] = useState(false);
     const [showLangs,setShowLangs] = useState(false);
+
     const lnguages = [
       {lan: 'English', code: 'en-US'},
       {lan: 'German', code: 'de'},
       {lan: 'French', code: 'fr'},
       {lan: 'Persian', code: 'fa'},
-      {lan: 'Turkish', code: 'tu'},
+      {lan: 'Turkish', code: 'tr-TR'},
       {lan: 'Chinese', code: 'zh-cn'},
       {lan: 'Arabic', code: 'ar-AE'},
     ];    
@@ -58,10 +59,13 @@ const Chat = () => {
         continuous:window.innerWidth < 500 ? true: false,
         crossBrowser: true,
         timeout:9000,
-        googleCloudRecognitionConfig: {
-          languageCode: selectedLangCode.code
-        },        
-        googleApiKey: 'AIzaSyB904oDQEZb5M1vdJYxVhXOtU3_URla1Nk',
+        speechRecognitionProperties:{
+          lang:selectedLangCode.code
+        },
+        // googleCloudRecognitionConfig: {
+        //   languageCode: 'tr-TR'
+        // },        
+        // googleApiKey: 'AIzaSyB904oDQEZb5M1vdJYxVhXOtU3_URla1Nk',
         // speechRecognitionProperties: { interimResults: true },
         useLegacyResults: false
     });  
