@@ -23,7 +23,7 @@ import Rate from "../api/Rate";
 const Chat = () => {
     const [boxWidth,setBoxWidth] = useState(window.innerWidth);
     const [boxHeight,setBoxHeight] = useState(window.innerHeight);
-    const [isSilent,setIsSilent] = useState(false);
+    const [isSilent,setIsSilent] = useState(true);
     const [audioUrl, setAudioUrl] = useState<string>('');
     const audioRef = useRef<any>()      
     const [isTalking, setIsTalking] = useState(false);    
@@ -358,6 +358,8 @@ const Chat = () => {
                 <img id="settingButton" onClick={() => {
                   setShowSetting(!showSetting)
                   setShowLangs(false)
+                  setIsTalking(false);
+                  setAudioUrl('');
                   document.addEventListener('click',closeFilter)
                   }} style={{cursor:'pointer'}} src="./icons/Setting.svg" alt="" />
                 {
@@ -405,7 +407,10 @@ const Chat = () => {
                               setSelectedlangCode(item)
                               setShowLangs(false)
                               setChat([])
+                              setIsTalking(false);
+                              setAudioUrl('');
                               setShowSetting(false)
+                              setIsLoading(false)
                               localStorage.removeItem('catchChats')
                             }
 
