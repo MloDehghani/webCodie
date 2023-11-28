@@ -34,7 +34,7 @@ const Planing = () => {
         if(name == 'Medical'){
             return './icons/diabet.svg'
         }        
-        return ''
+        return './icons/stethoscope.svg'
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const filterSearch = () => {

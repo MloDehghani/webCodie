@@ -385,9 +385,11 @@ const Chat = () => {
                         const conf = confirm('Are you sure you want to clear history?')
                         if(conf){
                           // setSelectedlangCode(item)
+                          handleStop(chat[chat.length -1].message_key)
                           setShowLangs(false)
                           setChat([])
                           setShowSetting(false)
+                          setIsLoading(false)
                           localStorage.removeItem('catchChats')
                         }                      
                     }} style={{paddingTop: 5,paddingBottom:5,paddingLeft:8,display:'flex',justifyContent:'start',alignItems:'center'}}>
