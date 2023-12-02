@@ -2,7 +2,7 @@ import {
   createHashRouter,
   RouterProvider,
 } from "react-router-dom";
-import { Planing, Login, Chat, JustGoogleLogin, Starting } from './pages';
+import { Planing, Login, Chat, JustGoogleLogin, Starting, AvatarChat } from './pages';
 import './App.css';
 import Register from "./pages/Register";
 import { useEffect, useState } from "react";
@@ -37,6 +37,10 @@ function App() {
     {
       path: "/chat",
       element: <Chat />,
+    },
+    {
+      path:'/AvatarChat',
+      element:<AvatarChat/>
     },
     {
       path: "/googleLogin",

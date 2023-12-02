@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from "react";
-import {WaveVoice,ImageSpinner, Sugesstions, RateComponent, TypeAndRecord, HintComponent} from "../components"
+import {Sugesstions, RateComponent, TypeAndRecord, HintComponent} from "../components"
 // import micIcon from '../assets/mic.svg';
 import useSpeechToText from "react-hook-speech-to-text";
 import { useConstructor } from "../help";
@@ -21,7 +21,7 @@ import Rate from "../api/Rate";
 import Hint from "../api/Hint";
 
 
-const Chat = () => {
+const AvatarChat = () => {
     const [boxWidth,setBoxWidth] = useState(window.innerWidth);
     const [boxHeight,setBoxHeight] = useState(window.innerHeight);
     const [isSilent,setIsSilent] = useState(true);
@@ -331,6 +331,8 @@ const Chat = () => {
             document.removeEventListener('click',closeFilter);
         }
     }    
+    const [talkVido,setTalkVideo] = useState('')
+    const [silentVideo,setSilentVideo] = useState('')
     useConstructor(() => {
       // _test()
       if(localStorage.getItem('catchChats')){
@@ -355,6 +357,9 @@ const Chat = () => {
         setApiKey(localStorage.getItem('ApiKey') as string)
         checkBotId(localStorage.getItem('ApiKey') as string).then(res => {
          const listsSug:Array<any> =[]
+         console.log(res)
+         setTalkVideo(res.videos.during_question[0])
+         setSilentVideo(res.videos.after_question[0])
           res.suggestion_list.forEach((element:string) => {
             listsSug.push({
               text:element
@@ -370,11 +375,12 @@ const Chat = () => {
         <>
          <div className="hiddenScrollBar" style={{backgroundColor:'#121212',position:'relative',width:boxWidth,height:boxHeight,overflowY:'scroll'}}>
             <div style={{marginTop: 50,maxHeight:80,minHeight:80,display:'flex',justifyContent:'center',alignItems:'center'}}>
-                {isRecording ? 
+                <video style={{borderRadius:'100%',width:160,}} muted loop autoPlay src={isTalking? talkVido: silentVideo}></video>
+                {/* {isRecording ? 
                     <WaveVoice />
                 :
                     <ImageSpinner isTalking={isTalking} />
-                }
+                } */}
 
             </div>
             <div style={{width:'100%',position:'absolute',top:16,left:0,display:'flex',justifyContent:'center',alignItems:'center'}}>
@@ -476,7 +482,7 @@ const Chat = () => {
                 <Sugesstions title={SugestionTitle} sugges={suglist} dark handleOfferClick={_handleOfferClick}></Sugesstions>    
               </div>
              :undefined}
-            <div id="chatMessageScrool" className="hiddenScrollBar" style={{height:400,display:'flex',justifyContent:'center',width:'100%',marginTop:32,overflowY:'scroll'}}>
+            <div id="chatMessageScrool" className="hiddenScrollBar" style={{height:400,display:'flex',justifyContent:'center',width:'100%',marginTop:42,overflowY:'scroll'}}>
               <div style={{width:'90%'}}>
                 {
                   chat.map((item:any,index:number) => {
@@ -809,4 +815,4 @@ const Chat = () => {
         </>
     )
 }
-export default Chat
+export default AvatarChat

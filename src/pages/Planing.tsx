@@ -12,6 +12,7 @@ import fiSearch from '../assets/fi_search.svg';
 
 import { MoonLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
+import { checkBotId } from "../api/botId";
 
 const Planing = () => {
     const navigate = useNavigate();    
@@ -373,6 +374,10 @@ const Planing = () => {
                                 // props.setApikey(localApikey);
                                 localStorage.setItem('ApiKey',localApikey)
                                 navigate('/register')
+                                checkBotId(localApikey).then(res => {
+                                    console.log(res)
+                                    localStorage.setItem('chatType',res.chat_type)
+                                })
                                 // checkBotId(localApikey).then(a => {
                                 // console.log(a);
                                 // setTimeout(() => {

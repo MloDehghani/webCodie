@@ -45,7 +45,7 @@ const Sugesstions = (props: any) => {
           fontWeight: '500',
           color: 'white',
         }}>
-        Ask me a question, or try one of these:
+          {props.title ? props.title:'Ask me a question, or try one of these:'}
       </div>
       {sugess.map((item:any) => {
         return (

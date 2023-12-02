@@ -62,7 +62,11 @@ const Login = () => {
       console.log(apikey)
       if(token.length > 0 && apikey.length > 0){
         setTimeout(() => {
-          navigate('/chat')
+          if(localStorage.getItem('chatType') == 'talking_head'){
+            navigate('/AvatarChat')
+          }else{
+            navigate('/chat')
+          }
         }, 300);
       }
     } 
@@ -174,7 +178,11 @@ const Login = () => {
                         setIsLoading(false)
                         setTimeout(() => {
                           localStorage.setItem("accessToken", res.access_token);
-                          navigate("/chat");                          
+                          if(localStorage.getItem('chatType') == 'talking_head'){
+                            navigate('/AvatarChat')
+                          }else{
+                            navigate('/chat')
+                          }                      
                         }, 200);
                       }
                       if(res.has_rated ==false){
@@ -468,7 +476,11 @@ const Login = () => {
                   if (res.access_token) {
                     setIsLoading(false);
                     localStorage.setItem("accessToken", res.access_token);
-                    navigate("/chat");
+                    if(localStorage.getItem('chatType') == 'talking_head'){
+                      navigate('/AvatarChat')
+                    }else{
+                      navigate('/chat')
+                    }
                   }else{
                     toast.error(res,{theme:'colored'})
                     setIsLoading(false);
