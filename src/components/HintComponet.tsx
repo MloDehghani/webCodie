@@ -15,6 +15,8 @@ const HintComponent = (props:HintComponentProps) => {
     const [showHint,setShowHint] = useState(false)
     const [toggleIcon,setToggleIcon] = useState(false)
     const [hints,setHints] = useState([])
+    const [isLoading,setIsLoading] = useState(false)
+    const [spinnerIndex,setSpinnerIndex] = useState(0);
     // const resolveIcon = () => {
     //     setTimeout(() => {
     //         setToggleIcon(!toggleIcon)
@@ -43,16 +45,30 @@ const HintComponent = (props:HintComponentProps) => {
         }
     })
     useEffect(() => {
-        console.log(props.instanceId)
-        Hint.getHints({instanceid:props.instanceId},(res) => {
-            console.log(res);
-            setHints(res.content.replace(/[0-9]/g, '#').split('#.'));
-        })          
-    },[props.instanceId])
+        if(spinnerIndex <= 2){
+            setTimeout(() => {
+                setSpinnerIndex(spinnerIndex +1)
+            }, 300);
+        }else{
+            setSpinnerIndex(0)
+        }
+    })
+    const getHints =() => {
+        if(showHint){
+            setShowHint(false)
+        }else{
+            setIsLoading(true)
+            Hint.getHints({instanceid:props.instanceId},(res) => {
+                setHints(res.content.replace(/[0-9]/g, '#').split('#.'));
+                setIsLoading(false)
+                setShowHint(true)
+            })            
+        }
+    }
     // const [hints,setHints] = useState(['Which one has a higher score?','Which one has a higher score?','Which one has a higher score?'])
     return (
         <>
-            {hints.length > 0 && !props.isloading && !props.isTalking? 
+            {!props.isloading && !props.isTalking? 
                 <div style={{display:'flex',userSelect:'none',justifyContent:'end',height:'34px',alignItems:'center',width:'-webkit-fill-available'}}>
                     {
                         showHint ?
@@ -70,10 +86,31 @@ const HintComponent = (props:HintComponentProps) => {
                             </div>
                         :undefined
                     }
-                    {toggleIcon ?
-                        <img onClick={() => setShowHint(!showHint)} style={{cursor:'pointer',width:32,height:32}} src={hintIcon2} alt="" /> 
-                    :
-                        <img onClick={() => setShowHint(!showHint)} style={{cursor:'pointer',width:32,height:32}} src={hintIcon} alt="" />
+                    {
+                        isLoading ?
+                            <>
+                                <div style={{width:32,height:32,borderRadius:'100%',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',border:'1px solid #007BFF'}}>                 
+                                    <div>
+                                        <div style={{width:6,height:6,borderRadius:'100%',backgroundColor:spinnerIndex == 0?'#007BFF':'white'}}></div>
+                                    </div>
+                                    <div style={{display:'flex',marginTop:3}}>
+                                        <div style={{minWidth:6,minHeight:6,maxWidth:6,maxHeight:6,backgroundColor:spinnerIndex == 1?'#007BFF':'white',borderRadius:'100%'}}></div>
+                                        <div style={{minWidth:6,minHeight:6,maxWidth:6,maxHeight:6,backgroundColor:spinnerIndex == 2?'#007BFF':'white',borderRadius:'100%',marginLeft:6}}></div>
+                                    </div>
+                                </div>
+                            </>
+                        :
+                        <>
+                            {toggleIcon ?
+                                <img onClick={() => {     
+                                    getHints()
+                                }} style={{cursor:'pointer',width:32,height:32}} src={hintIcon2} alt="" /> 
+                            :
+                                <img  onClick={() => {     
+                                    getHints()
+                                }} style={{cursor:'pointer',width:32,height:32}} src={hintIcon} alt="" />
+                            }
+                        </>
                     }
 
                 </div>
