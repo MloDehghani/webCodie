@@ -479,7 +479,9 @@ const AvatarChat = () => {
                 justifyContent: 'center',
                 zIndex: 15,              
               }}>
-                <Sugesstions title={SugestionTitle} sugges={suglist} dark handleOfferClick={_handleOfferClick}></Sugesstions>    
+                <Sugesstions close={() => {
+                    setShowSuggestion(false)
+                  }} title={SugestionTitle} sugges={suglist} dark handleOfferClick={_handleOfferClick}></Sugesstions>    
               </div>
              :undefined}
             <div id="chatMessageScrool" className="hiddenScrollBar" style={{height:400,display:'flex',justifyContent:'center',width:'100%',marginTop:42,overflowY:'scroll'}}>

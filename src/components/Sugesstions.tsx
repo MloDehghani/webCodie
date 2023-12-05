@@ -28,6 +28,11 @@ const Sugesstions = (props: any) => {
         display: 'flex',
         width:resolveWidthBox(),
         alignItems: 'flex-start',
+        backgroundColor:'#1F1F1F87',
+        // opacity:'50%',
+        padding:'16px',
+        paddingTop:'32px',
+        borderRadius:'20px',
         // flexDirection: 'row',
         flexDirection:'column',
         // height: 550,
@@ -35,6 +40,11 @@ const Sugesstions = (props: any) => {
         zIndex: 20,
         justifyContent: 'center',
       }}>
+        <div onClick={() => {
+          props.close()
+        }} style={{position:'absolute',display:'flex',justifyContent:'center',alignItems:'center',cursor:'pointer',backgroundColor:'#353535',width:'30px',height:'30px',borderRadius:'100%',top:12,right:16}}>
+          <img src="./icons/close.svg" alt="" />
+        </div>
       <div
         style={{
           fontSize: 16,
@@ -63,9 +73,10 @@ const Sugesstions = (props: any) => {
                 fontFamily: 'Poppins-Regular',
                 display: 'flex',
                 alignItems: 'center',
+                cursor:'pointer',
                 justifyContent: 'flex-start',
                 color: props.dark ? 'white' : '#333333',
-                backgroundColor: props.dark ? '#313133' : '#FFFFFF',
+                backgroundColor: props.dark ? '#1F1F1F' : '#FFFFFF',
                 // height: 55,
                 padding: 10,
                 fontSize: 14,

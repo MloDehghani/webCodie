@@ -48,10 +48,8 @@ const Chat = () => {
       {lan: 'Chinese', code: 'zh-cn'},
       {lan: 'Arabic', code: 'ar-AE'},
     ];    
-    const [selectedLangCode, setSelectedlangCode] = useState({
-      lan: 'English',
-      code: 'en-US',
-    });    
+    const lang =localStorage.getItem('perLanguage')
+    const [selectedLangCode, setSelectedlangCode] = useState(lang? JSON.parse(lang):{lan: 'English', code: 'en-US'});    
     // const [showTextBox,setShowTextBox] = useState(false);
     // const [text,setText] = useState('');
     // const [showSetting,setShowSetting] = useState(false);
@@ -338,6 +336,7 @@ const Chat = () => {
     const [isGetBotData,setIsGetBotData] = useState(false);
     useConstructor(() => {
       // _test()
+      // getLangSuges(s)
       if(localStorage.getItem('catchChats')){
         const data:string = localStorage.getItem('catchChats') as string
         setChat(JSON.parse(data));
@@ -378,16 +377,26 @@ const Chat = () => {
     })
     const [showExitModal,setShowExitModal] = useState(false);
     const [isfirstChat,setIsFirstChat] = useState(true);
+    useEffect(() => {
+      if(chat.length > 0) {
+        setIsFirstChat(false)
+      }
+    }, [chat.length])
     return (
         <>
         {
           isfirstChat?
-            <StartChat introduction={introduction} isLoading={!isGetBotData} isTalking={isTalking} start={() => {
+            <StartChat setSelectedlangCode={(code:any) => {
+              setSelectedlangCode(code)
+              getLangSuges(code.lan)
+            }} introduction={introduction} isLoading={!isGetBotData} isTalking={isTalking} start={() => {
               if(introduction.voice){
                 setAudioUrl(introduction.voice);
               }else{
                 setIsFirstChat(false)
               }
+              getLangSuges(selectedLangCode.lan)
+              setIsFirstChat(false)
               setIsTalking(true);
             }} cancel={() => {
               setIsFirstChat(false);
@@ -461,6 +470,7 @@ const Chat = () => {
                                 setChat([])
                                 setIsTalking(false);
                                 setAudioUrl('');
+                                localStorage.setItem('perLanguage',JSON.stringify(selectedLangCode))
                                 setShowSetting(false)
                                 setIsLoading(false)
                                 localStorage.removeItem('catchChats')
@@ -498,7 +508,9 @@ const Chat = () => {
                   justifyContent: 'center',
                   zIndex: 15,              
                 }}>
-                  <Sugesstions title={SugestionTitle} sugges={suglist} dark handleOfferClick={_handleOfferClick}></Sugesstions>    
+                  <Sugesstions close={() => {
+                    setShowSuggestion(false)
+                  }} title={SugestionTitle} sugges={suglist} dark handleOfferClick={_handleOfferClick}></Sugesstions>    
                 </div>
               :undefined}
               <div id="chatMessageScrool" className="hiddenScrollBar" style={{height:400,display:'flex',justifyContent:'center',width:'100%',marginTop:32,overflowY:'scroll'}}>

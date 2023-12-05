@@ -24,5 +24,11 @@ class Bots extends Api {
       })
       .catch(err => catc(err));
   }
+
+  static getLangs(data:any,submit:(res:any) => void){
+    this.post('/check_bot_languages',data).then(res => {
+      submit(res)
+    })
+  }
 }
 export default Bots;
