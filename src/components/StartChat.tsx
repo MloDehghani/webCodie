@@ -58,7 +58,7 @@ const StartChat = (props: any) => {
                     {/* } */}
               </div>
             :
-              <SelectedLanguge setIntroduction={props.setIntroduction} apikey={props.apikey} setMarkDown={props.setMarkDown} setIsSelectLang={setIsSelectLang} setSelectedlangCode={props.setSelectedlangCode}></SelectedLanguge>
+              <SelectedLanguge setLangages={props.setLangages} setIntroduction={props.setIntroduction} apikey={props.apikey} setMarkDown={props.setMarkDown} setIsSelectLang={setIsSelectLang} setSelectedlangCode={props.setSelectedlangCode}></SelectedLanguge>
           }
         </>
     )

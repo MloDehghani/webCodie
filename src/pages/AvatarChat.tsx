@@ -37,7 +37,7 @@ const AvatarChat = () => {
     const [showSetting,setShowSetting] = useState(false);
     const [showLangs,setShowLangs] = useState(false);
 
-    const lnguages = [
+    const [lnguages, setLangages] = useState([
       {lan: 'English', code: 'en-US'},
       {lan: 'German', code: 'de'},
       {lan: 'French', code: 'fr'},
@@ -45,7 +45,7 @@ const AvatarChat = () => {
       {lan: 'Turkish', code: 'tr-TR'},
       {lan: 'Chinese', code: 'zh-cn'},
       {lan: 'Arabic', code: 'ar-AE'},
-    ];    
+    ]);     
     const [selectedLangCode, setSelectedlangCode] = useState({
       lan: 'English',
       code: 'en-US',
@@ -290,6 +290,11 @@ const AvatarChat = () => {
       }, 1);
     };       
     useEffect(() => {
+      if(chat.length > 0) {
+        setIsFirstChat(false)
+      }
+    }, [chat.length])    
+    useEffect(() => {
       if(!isRecording){
           console.log('try send')
           sendToApi()
@@ -388,7 +393,7 @@ const AvatarChat = () => {
         <>
         {
           isfirstChat?
-            <StartChat setSelectedlangCode={(code:any) => {
+            <StartChat setLangages={setLangages} setSelectedlangCode={(code:any) => {
               setSelectedlangCode(code)
               getLangSuges(code.lan)
             }} introduction={introduction} setIntroduction={setintroduction} apikey={useApikey} setMarkDown={setMarkDown} isLoading={!isGetBotData} isTalking={isTalking} start={() => {

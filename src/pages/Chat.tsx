@@ -39,7 +39,7 @@ const Chat = () => {
     const [showSetting,setShowSetting] = useState(false);
     const [showLangs,setShowLangs] = useState(false);
 
-    const lnguages = [
+    const [lnguages, setLangages] = useState([
       {lan: 'English', code: 'en-US'},
       {lan: 'German', code: 'de'},
       {lan: 'French', code: 'fr'},
@@ -47,7 +47,7 @@ const Chat = () => {
       {lan: 'Turkish', code: 'tr-TR'},
       {lan: 'Chinese', code: 'zh-cn'},
       {lan: 'Arabic', code: 'ar-AE'},
-    ];    
+    ]);    
     const lang =localStorage.getItem('perLanguage')
     const [selectedLangCode, setSelectedlangCode] = useState(lang? JSON.parse(lang):{lan: 'English', code: 'en-US'});    
     // const [showTextBox,setShowTextBox] = useState(false);
@@ -386,7 +386,7 @@ const Chat = () => {
         <>
         {
           isfirstChat?
-            <StartChat setSelectedlangCode={(code:any) => {
+            <StartChat setLangages={setLangages} setSelectedlangCode={(code:any) => {
               setSelectedlangCode(code)
               getLangSuges(code.lan)
             }} introduction={introduction} setIntroduction={setintroduction} apikey={useApikey} setMarkDown={setMarkDown} isLoading={!isGetBotData} isTalking={isTalking} start={() => {

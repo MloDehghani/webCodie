@@ -13,6 +13,13 @@ const SelectedLanguge = (props:any) => {
     useConstructor(() => {
         Bots.getLangs({apikey:props.apikey},(res) => {
             console.log(res);
+            const newLan = res.map((item: any) => {
+                return {
+                    lan:item.language,
+                    code:item["voice_code "],
+                }
+            })
+            props.setLangages(newLan)
             setLangs(res)
         })
     })
@@ -53,7 +60,6 @@ const SelectedLanguge = (props:any) => {
                                                 code: item["voice_code "],                                                
                                             }))
                                             checkBotId(props.apikey,item.language).then(res => {
-                                                console.log(res)
                                                 props.setIntroduction({
                                                     text:res.introduction_text,
                                                     voice:res.introduction_voice                                                    
