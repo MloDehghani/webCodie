@@ -30,6 +30,7 @@ const Sugesstions = (props: any) => {
         alignItems: 'flex-start',
         backgroundColor:'#1F1F1F87',
         // opacity:'50%',
+        opacity:'100%',
         padding:'16px',
         paddingTop:'32px',
         borderRadius:'20px',
@@ -37,7 +38,7 @@ const Sugesstions = (props: any) => {
         flexDirection:'column',
         // height: 550,
         position: 'relative',
-        zIndex: 20,
+        zIndex: 30,
         justifyContent: 'center',
       }}>
         <div onClick={() => {

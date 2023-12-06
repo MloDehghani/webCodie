@@ -504,7 +504,7 @@ const AvatarChat = () => {
                   :undefined}
                 </div>
               </div>
-              {!isRecording && showSugestion && chat.length ==0 ?
+              {!isRecording && showSugestion && chat.length ==0 && markdown.length < 1?
                 <div style={{ 
                   position: 'absolute',
                   width: '-webkit-fill-available',

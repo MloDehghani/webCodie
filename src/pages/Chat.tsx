@@ -400,6 +400,7 @@ const Chat = () => {
               setIsTalking(true);
             }} cancel={() => {
               setIsFirstChat(false);
+              setMarkDown('');
             }} />
           :
           <div className="hiddenScrollBar" style={{backgroundColor:'#121212',position:'relative',width:boxWidth,height:boxHeight,overflowY:'scroll'}}>
