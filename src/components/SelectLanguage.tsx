@@ -3,6 +3,7 @@ import { useConstructor } from "../help";
 import Bots from "../api/Bots";
 import TikIcon from '../assets/Tik.svg';
 import untick from '../assets/unTick.svg';
+import { checkBotId } from "../api/botId";
 
 const SelectedLanguge = (props:any) => {
     const [boxWidth,setBoxWidth] = useState(window.innerWidth);
@@ -10,7 +11,7 @@ const SelectedLanguge = (props:any) => {
     const [selectedBox, setSelectedBox] = useState(0);   
     const [langs,setLangs] = useState([])
     useConstructor(() => {
-        Bots.getLangs({apikey:'3f072114dc4b4b5a84eee6afc3008c2f'},(res) => {
+        Bots.getLangs({apikey:props.apikey},(res) => {
             console.log(res);
             setLangs(res)
         })
@@ -51,6 +52,14 @@ const SelectedLanguge = (props:any) => {
                                                 lan: item.language,
                                                 code: item["voice_code "],                                                
                                             }))
+                                            checkBotId(props.apikey,item.language).then(res => {
+                                                console.log(res)
+                                                props.setIntroduction({
+                                                    text:res.introduction_text,
+                                                    voice:res.introduction_voice                                                    
+                                                })
+                                                props.setMarkDown(res.introduction_rich_text)
+                                            })
                                             setTimeout(() => {
                                                 props.setIsSelectLang(true)
                                             }, 1000);

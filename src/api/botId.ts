@@ -1,4 +1,4 @@
-const checkBotId = async (apiKey: string) => {
+const checkBotId = async (apiKey: string,lan?:string) => {
   console.log(apiKey);
   const response = await fetch(
     'https://codie-backend.azurewebsites.net/mobile/check_bot_id',
@@ -13,6 +13,7 @@ const checkBotId = async (apiKey: string) => {
       },
       body: JSON.stringify({
         apikey: apiKey,
+        language:lan
       }),
     },
   );

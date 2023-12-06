@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from "react";
-import {Sugesstions, RateComponent, TypeAndRecord, HintComponent} from "../components"
+import {Sugesstions, RateComponent, TypeAndRecord, HintComponent, StartChat} from "../components"
 // import micIcon from '../assets/mic.svg';
 import useSpeechToText from "react-hook-speech-to-text";
 import { useConstructor } from "../help";
@@ -19,9 +19,11 @@ import logOutIcon from '../assets/fi_log-out.svg';
 import { toast } from "react-toastify";
 import Rate from "../api/Rate";
 import Hint from "../api/Hint";
+import MarkdownEditor from "@uiw/react-markdown-editor";
 
 
 const AvatarChat = () => {
+    const [markdown,setMarkDown] = useState('')
     const [boxWidth,setBoxWidth] = useState(window.innerWidth);
     const [boxHeight,setBoxHeight] = useState(window.innerHeight);
     const [isSilent,setIsSilent] = useState(true);
@@ -85,6 +87,7 @@ const AvatarChat = () => {
     // }        
     // const [showSugestions, setShowSuggestions] = useState(false);    
     const [chat, setChat] = useState<Array<any>>([]);   
+    const [isGetBotData,setIsGetBotData] = useState(false);
     const [showSugestion,setShowSuggestion] = useState(false); 
     const [openRate,setOpenRate] = useState(false)
     const sendToApi =() => {
@@ -365,276 +368,279 @@ const AvatarChat = () => {
               text:element
             })
           });
+          setintroduction({
+            text:res.introduction_text,
+            voice:res.introduction_voice
+          })
+          setIsGetBotData(true);          
           setSuglist(listsSug);
           // console.log(res)
         })        
       }
     })
     const [showExitModal,setShowExitModal] = useState(false);
+    const [introduction,setintroduction] =useState({
+      text:'',
+      voice:''
+    })    
+    const [isfirstChat,setIsFirstChat] = useState(true);
     return (
         <>
-         <div className="hiddenScrollBar" style={{backgroundColor:'#121212',position:'relative',width:boxWidth,height:boxHeight,overflowY:'scroll'}}>
-            <div style={{marginTop: 50,maxHeight:80,minHeight:80,display:'flex',justifyContent:'center',alignItems:'center'}}>
-                <video style={{borderRadius:'100%',width:160,}} muted loop autoPlay src={isTalking? talkVido: silentVideo}></video>
-                {/* {isRecording ? 
-                    <WaveVoice />
-                :
-                    <ImageSpinner isTalking={isTalking} />
-                } */}
-
-            </div>
-            <div style={{width:'100%',position:'absolute',top:16,left:0,display:'flex',justifyContent:'center',alignItems:'center'}}>
-              <div style={{width:'90%',display:'flex',justifyContent:'start',alignItems:'self-start'}}>
-                <img id="settingButton" onClick={() => {
-                  setShowSetting(!showSetting)
-                  setShowLangs(false)
-                  setIsTalking(false);
-                  setAudioUrl('');
-                  document.addEventListener('click',closeFilter)
-                  }} style={{cursor:'pointer'}} src="./icons/Setting.svg" alt="" />
-                {
-                  isSilent?
-                    <img onClick={() => {
-                      setIsSilent(false)
-                      setIsTalking(false)
-                    }} style={{marginLeft:'16px',cursor:'pointer',opacity:'60%'}} src="./icons/silentOn.svg" alt="" />
+        {
+          isfirstChat?
+            <StartChat setSelectedlangCode={(code:any) => {
+              setSelectedlangCode(code)
+              getLangSuges(code.lan)
+            }} introduction={introduction} setIntroduction={setintroduction} apikey={useApikey} setMarkDown={setMarkDown} isLoading={!isGetBotData} isTalking={isTalking} start={() => {
+              if(introduction.voice){
+                setAudioUrl(introduction.voice);
+              }else{
+                setIsFirstChat(false)
+              }
+              getLangSuges(selectedLangCode.lan)
+              setIsFirstChat(false)
+              setIsTalking(true);
+            }} cancel={() => {
+              setIsFirstChat(false);
+            }} />
+          :        
+          <div className="hiddenScrollBar" style={{backgroundColor:'#121212',position:'relative',width:boxWidth,height:boxHeight,overflowY:'scroll'}}>
+              <div style={{marginTop: 50,maxHeight:80,minHeight:80,display:'flex',justifyContent:'center',alignItems:'center'}}>
+                  <video style={{borderRadius:'100%',width:160,}} muted loop autoPlay src={isTalking? talkVido: silentVideo}></video>
+                  {/* {isRecording ? 
+                      <WaveVoice />
                   :
-                    <img  onClick={() => {
-                      setIsSilent(true)
-                      setIsTalking(false)
-                    }} style={{marginLeft:'16px',cursor:'pointer',opacity:'60%'}} src="./icons/silentOff.svg" alt="" />
-                }
-                {showSetting ?
-                  <div id="settingBox" style={{backgroundColor:'#353535',width:'120px',cursor:'pointer',marginLeft:8,borderRadius:4}}>
-                    <div onClick={() =>setShowLangs(true)} style={{paddingTop: 5,paddingBottom:5,paddingLeft:8,display:'flex',justifyContent:'start',alignItems:'center'}}>
-                      <img src="./icons/Lang.svg" style={{marginRight:8}} alt="" />
-                      <div style={{color:'white',fontSize:12,fontFamily: 'Poppins-Regular'}}>Language</div>
+                      <ImageSpinner isTalking={isTalking} />
+                  } */}
+
+              </div>
+              <div style={{width:'100%',position:'absolute',top:16,left:0,display:'flex',justifyContent:'center',alignItems:'center'}}>
+                <div style={{width:'90%',display:'flex',justifyContent:'start',alignItems:'self-start'}}>
+                  <img id="settingButton" onClick={() => {
+                    setShowSetting(!showSetting)
+                    setShowLangs(false)
+                    setIsTalking(false);
+                    setAudioUrl('');
+                    document.addEventListener('click',closeFilter)
+                    }} style={{cursor:'pointer'}} src="./icons/Setting.svg" alt="" />
+                  {
+                    isSilent?
+                      <img onClick={() => {
+                        setIsSilent(false)
+                        setIsTalking(false)
+                      }} style={{marginLeft:'16px',cursor:'pointer',opacity:'60%'}} src="./icons/silentOn.svg" alt="" />
+                    :
+                      <img  onClick={() => {
+                        setIsSilent(true)
+                        setIsTalking(false)
+                      }} style={{marginLeft:'16px',cursor:'pointer',opacity:'60%'}} src="./icons/silentOff.svg" alt="" />
+                  }
+                  {showSetting ?
+                    <div id="settingBox" style={{backgroundColor:'#353535',width:'120px',cursor:'pointer',marginLeft:8,borderRadius:4}}>
+                      <div onClick={() =>setShowLangs(true)} style={{paddingTop: 5,paddingBottom:5,paddingLeft:8,display:'flex',justifyContent:'start',alignItems:'center'}}>
+                        <img src="./icons/Lang.svg" style={{marginRight:8}} alt="" />
+                        <div style={{color:'white',fontSize:12,fontFamily: 'Poppins-Regular'}}>Language</div>
+                      </div>
+                      <div style={{width:'100%',height:'1px',backgroundColor:'#FFFFFF61'}}></div>
+                      <div onClick={() => {
+                          const conf = confirm('Are you sure you want to clear history?')
+                          if(conf){
+                            // setSelectedlangCode(item)
+                            handleStop(chat[chat.length -1].message_key)
+                            setShowLangs(false)
+                            setChat([])
+                            setShowSetting(false)
+                            setIsLoading(false)
+                            localStorage.removeItem('catchChats')
+                          }                      
+                      }} style={{paddingTop: 5,paddingBottom:5,paddingLeft:8,display:'flex',justifyContent:'start',alignItems:'center'}}>
+                        <img src="./icons/clear.svg" style={{marginRight:8}} alt="" />
+                        <div style={{color:'white',fontSize:12,fontFamily: 'Poppins-Regular'}}>Clear History</div>
+                      </div>                  
                     </div>
-                    <div style={{width:'100%',height:'1px',backgroundColor:'#FFFFFF61'}}></div>
-                    <div onClick={() => {
-                        const conf = confirm('Are you sure you want to clear history?')
-                        if(conf){
-                          // setSelectedlangCode(item)
-                          handleStop(chat[chat.length -1].message_key)
-                          setShowLangs(false)
-                          setChat([])
-                          setShowSetting(false)
-                          setIsLoading(false)
-                          localStorage.removeItem('catchChats')
-                        }                      
-                    }} style={{paddingTop: 5,paddingBottom:5,paddingLeft:8,display:'flex',justifyContent:'start',alignItems:'center'}}>
-                      <img src="./icons/clear.svg" style={{marginRight:8}} alt="" />
-                      <div style={{color:'white',fontSize:12,fontFamily: 'Poppins-Regular'}}>Clear History</div>
-                    </div>                  
-                  </div>
-                :undefined}
-                {showLangs?
-                  <div id="LangBox" style={{backgroundColor:'#353535',width:'100px',cursor:'pointer',marginLeft:8,borderRadius:4}}>
-                    {lnguages.map((item,index) => {
+                  :undefined}
+                  {showLangs?
+                    <div id="LangBox" style={{backgroundColor:'#353535',width:'100px',cursor:'pointer',marginLeft:8,borderRadius:4}}>
+                      {lnguages.map((item,index) => {
+                        return (
+                          <>
+                            <div onClick={() => {                           
+                              const conf = confirm('Are you sure you want to change language? This causes clear your chat history')
+                              if(conf){
+                                getLangSuges(item.lan)
+                                setSelectedlangCode(item)
+                                setShowLangs(false)
+                                setChat([])
+                                setIsTalking(false);
+                                setAudioUrl('');
+                                setShowSetting(false)
+                                setIsLoading(false)
+                                localStorage.removeItem('catchChats')
+                              }
+
+                            }} style={{display:'flex',textAlign:'left',borderBottomWidth:1,justifyContent:'space-between',paddingLeft:8,paddingRight:8,borderBottom:index < lnguages.length -1 ?'1px solid #FFFFFF61':'none',paddingTop: 4,paddingBottom:4,alignItems:'center'}}>
+                              <div style={{color:'#FFFFFFDE',fontSize:'14px',fontFamily: 'Poppins-Regular'}}>
+                                {item.lan}
+                              </div>
+                              {item.code == selectedLangCode.code ?
+                                <img src="./icons/tik.svg" alt="" />
+                              :
+                                undefined
+                              }
+                            </div>
+                            {/* {index < lnguages.length -1 ?
+                            <div style={{width:'100%',height:'1px',backgroundColor:'#FFFFFF61'}}></div>
+                            :undefined
+                            } */}
+                          </>
+                        )
+                      })}
+                    </div>
+                  :undefined}
+                </div>
+              </div>
+              {!isRecording && showSugestion && chat.length ==0 ?
+                <div style={{ 
+                  position: 'absolute',
+                  width: '-webkit-fill-available',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  flexDirection: 'row',
+                  top: 200,
+                  justifyContent: 'center',
+                  zIndex: 15,              
+                }}>
+                  <Sugesstions close={() => {
+                      setShowSuggestion(false)
+                    }} title={SugestionTitle} sugges={suglist} dark handleOfferClick={_handleOfferClick}></Sugesstions>    
+                </div>
+              :undefined}
+              <div id="chatMessageScrool" className="hiddenScrollBar" style={{height:400,display:'flex',justifyContent:'center',width:'100%',marginTop:42,overflowY:'scroll'}}>
+                <div style={{width:'90%'}}>
+                    <div style={{width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
+                      <div style={{maxWidth:'400px',color:'white'}}>
+                        <MarkdownEditor.Markdown source={markdown} />
+                      </div>
+                    </div>                
+                  {
+                    chat.map((item:any,index:number) => {
                       return (
                         <>
-                          <div onClick={() => {                           
-                            const conf = confirm('Are you sure you want to change language? This causes clear your chat history')
-                            if(conf){
-                              getLangSuges(item.lan)
-                              setSelectedlangCode(item)
-                              setShowLangs(false)
-                              setChat([])
-                              setIsTalking(false);
-                              setAudioUrl('');
-                              setShowSetting(false)
-                              setIsLoading(false)
-                              localStorage.removeItem('catchChats')
-                            }
-
-                          }} style={{display:'flex',textAlign:'left',borderBottomWidth:1,justifyContent:'space-between',paddingLeft:8,paddingRight:8,borderBottom:index < lnguages.length -1 ?'1px solid #FFFFFF61':'none',paddingTop: 4,paddingBottom:4,alignItems:'center'}}>
-                            <div style={{color:'#FFFFFFDE',fontSize:'14px',fontFamily: 'Poppins-Regular'}}>
-                              {item.lan}
-                            </div>
-                            {item.code == selectedLangCode.code ?
-                              <img src="./icons/tik.svg" alt="" />
-                            :
-                              undefined
-                            }
-                          </div>
-                          {/* {index < lnguages.length -1 ?
-                           <div style={{width:'100%',height:'1px',backgroundColor:'#FFFFFF61'}}></div>
-                          :undefined
-                          } */}
-                        </>
-                      )
-                    })}
-                  </div>
-                :undefined}
-              </div>
-            </div>
-            {!isRecording && showSugestion && chat.length ==0 ?
-              <div style={{ 
-                position: 'absolute',
-                width: '-webkit-fill-available',
-                display: 'flex',
-                alignItems: 'flex-start',
-                flexDirection: 'row',
-                top: 200,
-                justifyContent: 'center',
-                zIndex: 15,              
-              }}>
-                <Sugesstions close={() => {
-                    setShowSuggestion(false)
-                  }} title={SugestionTitle} sugges={suglist} dark handleOfferClick={_handleOfferClick}></Sugesstions>    
-              </div>
-             :undefined}
-            <div id="chatMessageScrool" className="hiddenScrollBar" style={{height:400,display:'flex',justifyContent:'center',width:'100%',marginTop:42,overflowY:'scroll'}}>
-              <div style={{width:'90%'}}>
-                {
-                  chat.map((item:any,index:number) => {
-                    return (
-                      <>
-                        <div id={"chatitem"+index}>
-                          {item.from == 'user' ?
-                                    <div
-                                      style={{
-                                        width: '100%',
-                                        display: 'flex',
-                                        alignItems: 'flex-end',
-                                        flexDirection: 'row',
-                                        justifyContent: 'flex-start',
-                                        marginBottom: 32,
-                                      }}>
+                          <div id={"chatitem"+index}>
+                            {item.from == 'user' ?
                                       <div
                                         style={{
-                                          maxWidth: '100%',
-                                          minWidth: '100%',
+                                          width: '100%',
+                                          display: 'flex',
+                                          alignItems: 'flex-end',
+                                          flexDirection: 'row',
+                                          justifyContent: 'flex-start',
+                                          marginBottom: 32,
                                         }}>
                                         <div
                                           style={{
-                                            color: '#FFFFFF',
-                                            // lineHeight: 24,
-                                            paddingLeft: 16,
-                                            fontSize: 16,
-                                            fontFamily: 'Poppins-Regular',
-                                            fontWeight: '400',
+                                            maxWidth: '100%',
+                                            minWidth: '100%',
                                           }}>
-                                          {item.question}
+                                          <div
+                                            style={{
+                                              color: '#FFFFFF',
+                                              // lineHeight: 24,
+                                              paddingLeft: 16,
+                                              fontSize: 16,
+                                              fontFamily: 'Poppins-Regular',
+                                              fontWeight: '400',
+                                            }}>
+                                            {item.question}
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                          :
-                          <>
-                            <div
-                              style={{
-                                // width: '100%',
-                                display: 'flex',
-                                alignItems: 'flex-end',
-                                flexDirection: 'row',
-                                justifyContent: 'flex-start',
-                                backgroundColor: '#2D2D2D',
-                                borderRadius: 4,
-                                paddingTop: 10,
-                                paddingBottom: 16,
-                                paddingLeft: 16,
-                                paddingRight: 16,
-                                marginBottom: 50,
-                              }}>
-                              <div style={{width: '98%'}}>
-                                <div
-                                  style={{
-                                    color: '#FFFFFFDE',
-                                    // lineHeight: 24,
-                                    fontSize: 16,
-                                    fontFamily: 'Poppins-Regular',
-                                    fontWeight: '400',
-                                  }}>
-                                  {item.message}
-                                </div>
-                                {/* <div style={{display:'flex',justifyContent:'end',width:'100%'}}>
-                                  <div style={{cursor:'pointer'}}>
-                                    <img src="./icons/like.svg" alt="" />
+                            :
+                            <>
+                              <div
+                                style={{
+                                  // width: '100%',
+                                  display: 'flex',
+                                  alignItems: 'flex-end',
+                                  flexDirection: 'row',
+                                  justifyContent: 'flex-start',
+                                  backgroundColor: '#2D2D2D',
+                                  borderRadius: 4,
+                                  paddingTop: 10,
+                                  paddingBottom: 16,
+                                  paddingLeft: 16,
+                                  paddingRight: 16,
+                                  marginBottom: 50,
+                                }}>
+                                <div style={{width: '98%'}}>
+                                  <div
+                                    style={{
+                                      color: '#FFFFFFDE',
+                                      // lineHeight: 24,
+                                      fontSize: 16,
+                                      fontFamily: 'Poppins-Regular',
+                                      fontWeight: '400',
+                                    }}>
+                                    {item.message}
                                   </div>
-                                  <div style={{marginLeft: 8,cursor:'pointer'}}>
-                                    <img style={{transform:'rotate(180deg)'}} src="./icons/like.svg" alt="" />
-                                  </div>                                  
-                                </div> */}
-                              </div>
-                            </div>                        
-                          </>}                  
+                                  {/* <div style={{display:'flex',justifyContent:'end',width:'100%'}}>
+                                    <div style={{cursor:'pointer'}}>
+                                      <img src="./icons/like.svg" alt="" />
+                                    </div>
+                                    <div style={{marginLeft: 8,cursor:'pointer'}}>
+                                      <img style={{transform:'rotate(180deg)'}} src="./icons/like.svg" alt="" />
+                                    </div>                                  
+                                  </div> */}
+                                </div>
+                              </div>                        
+                            </>}                  
+                          </div>
+                        </>
+                      )
+                    } )
+                  }
+                  {isLoading ? (
+                      <div
+                        id="loader"
+                        style={{
+                          // width: '100%',
+                          height: 40,
+                          backgroundColor: '#2D2D2D',
+                          borderRadius: 4,
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          paddingLeft: 18,
+                          paddingRight: 20,
+                          justifyContent: 'space-between',
+                        }}>
+                        <div>
+                          <BeatLoader size={10}  color="white" />
                         </div>
-                      </>
-                    )
-                  } )
-                }
-                {isLoading ? (
-                    <div
-                      id="loader"
-                      style={{
-                        // width: '100%',
-                        height: 40,
-                        backgroundColor: '#2D2D2D',
-                        borderRadius: 4,
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        paddingLeft: 18,
-                        paddingRight: 20,
-                        justifyContent: 'space-between',
-                      }}>
-                      <div>
-                        <BeatLoader size={10}  color="white" />
+                        <div onClick={() => {
+                          handleStop(chat[chat.length -1].message_key)
+                        }} style={{color: '#007BFF',
+                                    fontSize: 14,
+                                    cursor:'pointer',
+                                    fontWeight: '500',
+                                    fontFamily: 'Poppins-Regular',}}>
+                          Stop
+                        </div>
                       </div>
-                      <div onClick={() => {
-                        handleStop(chat[chat.length -1].message_key)
-                      }} style={{color: '#007BFF',
-                                  fontSize: 14,
-                                  cursor:'pointer',
-                                  fontWeight: '500',
-                                  fontFamily: 'Poppins-Regular',}}>
-                        Stop
-                      </div>
-                    </div>
-                ) : undefined}      
-              </div>
-            </div>
-            <div
-              style={{
-                width: '100%',
-                position: 'absolute',
-                bottom: 50,
-                display: 'flex',
-                justifyContent:'center',
-                // padding: '0px 16px',
-                alignItems: 'center',
-              }}>
-              {/* {!showSugestions && interimResult === undefined && chat.length === 0 ? (
-                <div
-                  style={{
-                    color: 'white',
-                    fontWeight: '500',
-                    marginBottom: 50,
-                    paddingLeft: 8,
-                    paddingRight: 8,
-                    textAlign: 'center',
-                    fontFamily: 'Poppins-Regular',
-                    fontSize: 15.5,
-                  }}>
-                  To start chatting, simply select either the voice recording
-                  button or the keyboard option
+                  ) : undefined}      
                 </div>
-              ) : undefined} */}
-            </div>
-
-
-            <div
-              style={{
-                width: '100%',
-                position: 'absolute',
-                bottom: 50,
-                display: 'flex',
-                justifyContent:'center',
-                // padding: '0px 16px',
-                alignItems: 'center',
-              }}>
-              {
-                  interimResult?  
+              </div>
+              <div
+                style={{
+                  width: '100%',
+                  position: 'absolute',
+                  bottom: 50,
+                  display: 'flex',
+                  justifyContent:'center',
+                  // padding: '0px 16px',
+                  alignItems: 'center',
+                }}>
+                {/* {!showSugestions && interimResult === undefined && chat.length === 0 ? (
                   <div
                     style={{
                       color: 'white',
@@ -646,106 +652,137 @@ const AvatarChat = () => {
                       fontFamily: 'Poppins-Regular',
                       fontSize: 15.5,
                     }}>
-                    {interimResult}
+                    To start chatting, simply select either the voice recording
+                    button or the keyboard option
                   </div>
-                  :undefined
-              }
-                
-            </div>
-            {/* <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-              {showTextBox ? 
-                <div id="boxInput" style={{position:'absolute',border:'none',outline:'none',width:'90%',bottom:24 ,height: 50,display:'flex',justifyContent:'center',alignItems:'center'}}>
-                  <input value={text} onChange={(event) => setText(event.target.value)} style={{width:'100%',height:37,borderRadius:8,backgroundColor:'#2D2D2D',padding:'0px 12px',paddingRight:40,color:'white',fontFamily:'poppins-Regular'}} />
-                  <img onClick={() => {
-                    setShowTextBox(false);
-                    if(text.length > 0){
-                      _handleOfferClick(text)
-                    }
-                    setText('')
-                  }} style={{position:'absolute',zIndex:20,right:10}} src={SendIcon} />
-                </div>
-              :
-                <div style={{position:'absolute',width:'90%',bottom:24 ,height: 50,display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                    <button id="settingButton" onClick={() => {
-                      setShowSetting(!showSetting)
-                      document.addEventListener('click',closeFilter)
-                      setAudioUrl('')
-                      setIsTalking(false)
-                    }} style={{width:56,height: 56,border:'solid 1px white',backgroundColor:'#121212',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
-                      <img src={SettingIcon} />
-                    </button>
-                    {showSetting ?
-                      <div id="setting" style={{backgroundColor:'#353535',padding:'12px 16px',position:'absolute',top:-60,borderRadius:5}}>
-                        <div onClick={() => {
-                          setIsTalking(false);
-                          setAudioUrl('');
-                          setShowExitModal(true);
-                        }} style={{display:'flex',width:'100%'}}>
-                          <img style={{marginRight:8}} src={LogOutIcom} />
-                          <div style={{color:'#FFFFFFDE',cursor:'pointer'}}>Log out</div>
-                        </div>                      
-                      </div>
-                    :undefined}
-                    <button disabled={isLoading} onClick={isRecording?() => {
-                      stopSpeechToText()
-                      setAudioUrl('');
-                      setIsTalking(false)
-                      sendToApi()   
-                      pageScroll()
-                    }:() => {
-                      startSpeechToText()
-                      setAudioUrl('');
-                      setIsTalking(false)
-                      sendToApi()     
-                      pageScroll()                    
-                    }} style={{width:isRecording? 66: 56,height:isRecording? 66: 56,border:'none',backgroundColor:'#007BFF',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
-                        <img style={{width:isRecording? 35: 30}} src={micIcon} />
-                    </button>
-                    <button id="boxInput-button" onClick={() => {
-                      setShowTextBox(true);
-                      setAudioUrl('');
-                      setIsTalking(false)
-                      document.addEventListener('click',closeFilter)
-                    }} style={{width:56,height: 56,border:'solid 1px white',backgroundColor:'#121212',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
-                      <img src={keybordIcon} />
-                    </button>
-                </div>
-              }
-            </div> */}
-            {chat.length > 0  && chat[chat.length -1].aisles ?
-              <div style={{width:'100%',position:'absolute',bottom:88,display:'flex',justifyContent:'center'}}>
-                <div style={{width:'90%',display:'flex',justifyContent:'end'}}>
-                    <HintComponent isTalking={isTalking} isloading={isLoading} instanceId={chat.filter(item => item.from =='admin')[chat.filter(item => item.from =='admin').length -1].instanceid} send={(text:string) => {
-                      setAudioUrl('');
-                      setIsTalking(false)
-                      _handleOfferClick(text)
-                    }}></HintComponent>
-
-                </div>
+                ) : undefined} */}
               </div>
-            :undefined}
-            {/* new type */}
-            <TypeAndRecord setIsTalking={setIsTalking} onstart={() => {
-              startSpeechToText()
-              setAudioUrl('');
-              setIsTalking(false)
-              sendToApi()     
-              pageScroll()                
-            }}
-            isLoading={isLoading}
-            setShowSugestions={setShowSuggestion}
-            logout={() => {
-              setShowExitModal(true)
-            }}
-            onStop={() => {
-              stopSpeechToText()
-              setAudioUrl('');
-              setIsTalking(false)
-              sendToApi()   
-              pageScroll()             
-            }}
-             isRecording={isRecording} _handleOfferClick={_handleOfferClick}></TypeAndRecord>
-         </div>
+
+
+              <div
+                style={{
+                  width: '100%',
+                  position: 'absolute',
+                  bottom: 50,
+                  display: 'flex',
+                  justifyContent:'center',
+                  // padding: '0px 16px',
+                  alignItems: 'center',
+                }}>
+                {
+                    interimResult?  
+                    <div
+                      style={{
+                        color: 'white',
+                        fontWeight: '500',
+                        marginBottom: 50,
+                        paddingLeft: 8,
+                        paddingRight: 8,
+                        textAlign: 'center',
+                        fontFamily: 'Poppins-Regular',
+                        fontSize: 15.5,
+                      }}>
+                      {interimResult}
+                    </div>
+                    :undefined
+                }
+                  
+              </div>
+              {/* <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                {showTextBox ? 
+                  <div id="boxInput" style={{position:'absolute',border:'none',outline:'none',width:'90%',bottom:24 ,height: 50,display:'flex',justifyContent:'center',alignItems:'center'}}>
+                    <input value={text} onChange={(event) => setText(event.target.value)} style={{width:'100%',height:37,borderRadius:8,backgroundColor:'#2D2D2D',padding:'0px 12px',paddingRight:40,color:'white',fontFamily:'poppins-Regular'}} />
+                    <img onClick={() => {
+                      setShowTextBox(false);
+                      if(text.length > 0){
+                        _handleOfferClick(text)
+                      }
+                      setText('')
+                    }} style={{position:'absolute',zIndex:20,right:10}} src={SendIcon} />
+                  </div>
+                :
+                  <div style={{position:'absolute',width:'90%',bottom:24 ,height: 50,display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                      <button id="settingButton" onClick={() => {
+                        setShowSetting(!showSetting)
+                        document.addEventListener('click',closeFilter)
+                        setAudioUrl('')
+                        setIsTalking(false)
+                      }} style={{width:56,height: 56,border:'solid 1px white',backgroundColor:'#121212',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
+                        <img src={SettingIcon} />
+                      </button>
+                      {showSetting ?
+                        <div id="setting" style={{backgroundColor:'#353535',padding:'12px 16px',position:'absolute',top:-60,borderRadius:5}}>
+                          <div onClick={() => {
+                            setIsTalking(false);
+                            setAudioUrl('');
+                            setShowExitModal(true);
+                          }} style={{display:'flex',width:'100%'}}>
+                            <img style={{marginRight:8}} src={LogOutIcom} />
+                            <div style={{color:'#FFFFFFDE',cursor:'pointer'}}>Log out</div>
+                          </div>                      
+                        </div>
+                      :undefined}
+                      <button disabled={isLoading} onClick={isRecording?() => {
+                        stopSpeechToText()
+                        setAudioUrl('');
+                        setIsTalking(false)
+                        sendToApi()   
+                        pageScroll()
+                      }:() => {
+                        startSpeechToText()
+                        setAudioUrl('');
+                        setIsTalking(false)
+                        sendToApi()     
+                        pageScroll()                    
+                      }} style={{width:isRecording? 66: 56,height:isRecording? 66: 56,border:'none',backgroundColor:'#007BFF',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
+                          <img style={{width:isRecording? 35: 30}} src={micIcon} />
+                      </button>
+                      <button id="boxInput-button" onClick={() => {
+                        setShowTextBox(true);
+                        setAudioUrl('');
+                        setIsTalking(false)
+                        document.addEventListener('click',closeFilter)
+                      }} style={{width:56,height: 56,border:'solid 1px white',backgroundColor:'#121212',display:'flex',justifyContent:'center',cursor:'pointer',alignItems:'center',borderRadius:'100%'}}>
+                        <img src={keybordIcon} />
+                      </button>
+                  </div>
+                }
+              </div> */}
+              {chat.length > 0  && chat[chat.length -1].aisles ?
+                <div style={{width:'100%',position:'absolute',bottom:88,display:'flex',justifyContent:'center'}}>
+                  <div style={{width:'90%',display:'flex',justifyContent:'end'}}>
+                      <HintComponent isTalking={isTalking} isloading={isLoading} instanceId={chat.filter(item => item.from =='admin')[chat.filter(item => item.from =='admin').length -1].instanceid} send={(text:string) => {
+                        setAudioUrl('');
+                        setIsTalking(false)
+                        _handleOfferClick(text)
+                      }}></HintComponent>
+
+                  </div>
+                </div>
+              :undefined}
+              {/* new type */}
+              <TypeAndRecord setIsTalking={setIsTalking} onstart={() => {
+                startSpeechToText()
+                setAudioUrl('');
+                setIsTalking(false)
+                sendToApi()     
+                pageScroll()                
+              }}
+              isLoading={isLoading}
+              setShowSugestions={setShowSuggestion}
+              logout={() => {
+                setShowExitModal(true)
+              }}
+              onStop={() => {
+                stopSpeechToText()
+                setAudioUrl('');
+                setIsTalking(false)
+                sendToApi()   
+                pageScroll()             
+              }}
+              isRecording={isRecording} _handleOfferClick={_handleOfferClick}></TypeAndRecord>
+          </div>
+          }
           {
             showExitModal ?
             <>

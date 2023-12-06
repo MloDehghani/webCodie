@@ -19,9 +19,9 @@ import logOutIcon from '../assets/fi_log-out.svg';
 import { toast } from "react-toastify";
 import Rate from "../api/Rate";
 import Hint from "../api/Hint";
-
-
+import MarkdownEditor from "@uiw/react-markdown-editor";
 const Chat = () => {
+    const [markdown,setMarkDown] = useState('')
     const [boxWidth,setBoxWidth] = useState(window.innerWidth);
     const [boxHeight,setBoxHeight] = useState(window.innerHeight);
     const [introduction,setintroduction] =useState({
@@ -357,7 +357,7 @@ const Chat = () => {
       }, 1500);
       if(localStorage.getItem('ApiKey')!= null){
         setApiKey(localStorage.getItem('ApiKey') as string)
-        checkBotId(localStorage.getItem('ApiKey') as string).then(res => {
+        checkBotId(localStorage.getItem('ApiKey') as string,selectedLangCode.lan).then(res => {
          console.log(res);
          const listsSug:Array<any> =[]
           res.suggestion_list.forEach((element:string) => {
@@ -389,7 +389,7 @@ const Chat = () => {
             <StartChat setSelectedlangCode={(code:any) => {
               setSelectedlangCode(code)
               getLangSuges(code.lan)
-            }} introduction={introduction} isLoading={!isGetBotData} isTalking={isTalking} start={() => {
+            }} introduction={introduction} setIntroduction={setintroduction} apikey={useApikey} setMarkDown={setMarkDown} isLoading={!isGetBotData} isTalking={isTalking} start={() => {
               if(introduction.voice){
                 setAudioUrl(introduction.voice);
               }else{
@@ -497,7 +497,7 @@ const Chat = () => {
                   :undefined}
                 </div>
               </div>
-              {!isRecording && showSugestion && chat.length ==0 ?
+              {!isRecording && showSugestion && chat.length ==0 && markdown.length < 1 ?
                 <div style={{ 
                   position: 'absolute',
                   width: '-webkit-fill-available',
@@ -513,8 +513,14 @@ const Chat = () => {
                   }} title={SugestionTitle} sugges={suglist} dark handleOfferClick={_handleOfferClick}></Sugesstions>    
                 </div>
               :undefined}
+
               <div id="chatMessageScrool" className="hiddenScrollBar" style={{height:400,display:'flex',justifyContent:'center',width:'100%',marginTop:32,overflowY:'scroll'}}>
                 <div style={{width:'90%'}}>
+                  <div style={{width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
+                    <div style={{maxWidth:'400px',color:'white'}}>
+                      <MarkdownEditor.Markdown source={markdown} />
+                    </div>
+                  </div>
                   {
                     chat.map((item:any,index:number) => {
                       return (
