@@ -20,7 +20,8 @@ import { toast } from "react-toastify";
 import Rate from "../api/Rate";
 import Hint from "../api/Hint";
 import MarkdownEditor from "@uiw/react-markdown-editor";
-
+// import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 
 const AvatarChat = () => {
     const [markdown,setMarkDown] = useState('')
@@ -588,6 +589,7 @@ const AvatarChat = () => {
                                     }}>
                                     {item.message}
                                   </div>
+
                                   {/* <div style={{display:'flex',justifyContent:'end',width:'100%'}}>
                                     <div style={{cursor:'pointer'}}>
                                       <img src="./icons/like.svg" alt="" />
@@ -598,6 +600,42 @@ const AvatarChat = () => {
                                   </div> */}
                                 </div>
                               </div>                        
+                              <div className="hiddenScrollBar" style={{width:'100%',overflowX:'scroll',marginTop:'16px',display:'flex',justifyContent:'start',alignItems:'center'}}>
+                                <div id="">
+                                  <img style={{maxWidth:300,height:167,width:'100%',minWidth:300}} src="https://www.valleyplasticsurgery.com.au/wp-content/uploads/2023/03/RG-Rhinoplasty-side-4.jpg" alt="" />
+                                </div>
+                                {/* <div style={{marginLeft:16}}>
+                                    <LiteYouTubeEmbed 
+                                        id="q5qAVmXSecQ&pp=ygUCQWk%3D"
+                                        title="hi"
+                                    />
+                                </div> */}
+                                  <video style={{maxWidth:300,width:'100%',marginLeft:16,minWidth:300}} controls >
+                                        <source src="./noise.mp4" type="video/mp4"/>
+                                  </video>
+                                <div style={{marginLeft:16}}>
+                                  <img style={{maxWidth:300,height:167,width:'100%',minWidth:300}} src="https://www.valleyplasticsurgery.com.au/wp-content/uploads/2023/03/RG-Rhinoplasty-side-4.jpg" alt="" />
+                                </div>
+                                <div style={{marginLeft:16}}>
+                                  <img style={{maxWidth:300,height:167,width:'100%',minWidth:300}} src="https://doctordenton.com/wp-content/uploads/147-Rhinoplasty.jpg" alt="" />
+                                </div>
+                                <div style={{marginLeft:16}}>
+                                  <img style={{maxWidth:300,height:167,width:'100%',minWidth:300}} src="https://www.valleyplasticsurgery.com.au/wp-content/uploads/2023/03/RG-Rhinoplasty-side-4.jpg" alt="" />
+                                </div>
+                                <div style={{marginLeft:16}}>
+                                  <img style={{maxWidth:300,height:167,width:'100%',minWidth:300}} src="https://www.valleyplasticsurgery.com.au/wp-content/uploads/2023/03/RG-Rhinoplasty-side-4.jpg" alt="" />
+                                </div>                                                                                                                                                
+                              </div>   
+                              {/* <div style={{display:'flex',justifyContent:'center',alignItems:'center',width:'100%',marginTop:'8px',marginBottom:'30px'}}>
+                                <div style={{backgroundColor:'#303030',width:'80px',alignItems:'center',padding:'0px 16px',height:20,justifyContent:'space-between',borderRadius:'100px',display:'flex'}}>
+                                  <div style={{width:8,height:8,borderRadius:'100%',backgroundColor:'blue'}}></div>
+                                  <div style={{width:8,height:8,borderRadius:'100%',backgroundColor:'white'}}></div>
+                                  <div style={{width:8,height:8,borderRadius:'100%',backgroundColor:'white'}}></div>
+                                  <div style={{width:8,height:8,borderRadius:'100%',backgroundColor:'white'}}></div>
+                                  <div style={{width:8,height:8,borderRadius:'100%',backgroundColor:'white'}}></div>
+                                  <div style={{width:8,height:8,borderRadius:'100%',backgroundColor:'white'}}></div>
+                                </div>
+                              </div>                              */}
                             </>}                  
                           </div>
                         </>

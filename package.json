@@ -21,6 +21,7 @@
     "react-dom": "^18.2.0",
     "react-hook-speech-to-text": "^0.8.0",
     "react-icons": "^4.11.0",
+    "react-lite-youtube-embed": "^2.4.0",
     "react-markdown": "^9.0.1",
     "react-router-dom": "^6.15.0",
     "react-speech-recognition": "^3.10.0",
