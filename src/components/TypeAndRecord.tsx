@@ -65,6 +65,7 @@ const TypeAndRecord:React.FC<TypeAndRecordProps> = (
                         isTalking={false}
                         onStart={onstart}
                         onStop={onStop}
+                        onTalkingClick={onStop}
                     ></VoiceRecorder>
                     {/* <div style={{width:'100%',backgroundColor:'#2D2D2D',height:window.innerHeight / 3,borderRadius:'100%'}}></div> */}
                 </>
@@ -89,6 +90,7 @@ const TypeAndRecord:React.FC<TypeAndRecordProps> = (
                                 <>
                                     <VoiceRecorder
                                         isLoading={isLoading}
+                                        onTalkingClick={onStop}
                                         isRecording={isRecording}
                                         isTalking={isTalking}
                                         onStart={onstart}

@@ -3,13 +3,19 @@ import React, { useState } from "react";
 interface Props {
   suggestions: string[];
   theme?: string;
+  onVSelectItem: (item: string | null) => void;
 }
 
-const Suggestions: React.FC<Props> = ({ suggestions, theme }) => {
+const Suggestions: React.FC<Props> = ({
+  suggestions,
+  theme,
+  onVSelectItem,
+}) => {
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
   const handleItemClick = (item: string) => {
     setSelectedItem(item);
+    onVSelectItem(item);
   };
 
   return (
@@ -32,9 +38,9 @@ const Suggestions: React.FC<Props> = ({ suggestions, theme }) => {
           </ul>
         </div>
       )}
-      {selectedItem && (
+      {/* {selectedItem && (
         <p className={`${theme}-Suggestions-selected`}> {selectedItem}</p>
-      )}
+      )} */}
     </>
   );
 };

@@ -28,6 +28,9 @@ const Sugesstions = (props: any) => {
         display: 'flex',
         width:resolveWidthBox(),
         alignItems: 'flex-start',
+        backgroundColor:'#EBEBEB',
+        padding:'16px',
+        boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
         // flexDirection: 'row',
         flexDirection:'column',
         // height: 550,
@@ -35,6 +38,11 @@ const Sugesstions = (props: any) => {
         zIndex: 20,
         justifyContent: 'center',
       }}>
+        <div onClick={() => {
+          props.close()
+        }} style={{position:'absolute',cursor:'pointer',right:'16px',top:'16px'}}>
+          <img src="./Acord/cross.svg" alt="" />
+        </div>
       <div
         style={{
           fontSize: 16,

@@ -2,14 +2,16 @@ import {
   createHashRouter,
   RouterProvider,
 } from "react-router-dom";
-import { EmChat, ResumeChat } from './pages';
+// import { EmChat } from './pages';
 import './App.css';
 // import Register from "./pages/Register";
 import { useEffect, useState } from "react";
 import { ToastContainer} from 'react-toastify';
 // import Welcome from "./pages/Welcome";
 import 'react-toastify/dist/ReactToastify.css';
-import './DefaultTheme.scss';
+// import './DefaultTheme.scss';
+import './Themes/index.scss';
+import ResumeChat2 from "./pages/ResumeChat2";
 
 function App() {
   const [boxWidth,setBoxWidth] = useState(window.innerWidth);
@@ -17,12 +19,12 @@ function App() {
   const router = createHashRouter([
     {
       path: "/",
-      element: <EmChat/>,
+      element: <ResumeChat2/>,
     },
-    {
-      path: "/resume",
-      element: <ResumeChat/>,
-    },    
+    // {
+    //   path: "/resume",
+    //   element: <ResumeChat2/>,
+    // },    
     // {
     //   path: "/hotel",
     //   element: <Starting />,

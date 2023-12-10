@@ -50,3 +50,6 @@
 .Acord-VoiceRecorder-Wave4 {
   animation: waves 2.5s linear 1.9s infinite;
 }
+.settingIcon {
+  @apply bg-[url('./Acord/setting.svg')] w-[25px]   h-[25px]  z-[20]  absolute top-4 right-4 cursor-pointer;
+}

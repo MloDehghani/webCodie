@@ -18,11 +18,13 @@ import { checkBotId } from "../api/botId";
 // import translateIcon from '../assets/translate.svg';
 // import LogOutIcom from '../assets/logOut.svg';
 import { toast } from "react-toastify";
+import { Setting } from "../Acord";
 // import Rate from "../api/Rate";
 
 
-const ResumeChat = () => {
+const ResumeChat2 = () => {
     const [boxWidth,setBoxWidth] = useState(window.innerWidth);
+    const [showSetting, setShowSetting] = useState(false);    
     const [boxHeight,setBoxHeight] = useState(window.innerHeight);
     const videoRef = useRef<any>();
     const [videourl,setvideourl] = useState('./images/02.mp4')    
@@ -32,7 +34,7 @@ const ResumeChat = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [useApikey, setApiKey] = useState('');
     const BLokedIdList =useRef<string[]>([]);
-    const [_showSetting,setShowSetting] = useState(false);
+    // const [_showSetting,setShowSetting] = useState(false);
     const [_showLangs,setShowLangs] = useState(false);
     useEffect(() => {
         if(videoRef.current ){
@@ -194,6 +196,8 @@ const ResumeChat = () => {
     // };    
     const _handleOfferClick = (offer: string) => {
       // console.log(offer.substring(0, 6));
+      setAudioUrl('')
+      setIsTalking(false)
       setShowSuggestion(false)
       // setShowSuggestions(false);
       const adminChats = chat.filter(item => item.from === 'admin');
@@ -316,7 +320,7 @@ const ResumeChat = () => {
     useConstructor(() => {
       // _test()
       localStorage.setItem("accessToken",'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZDgwMmZmMzFhIiwiaWF0IjoxNjk5NzYzODk4LCJuYmYiOjE2OTk3NjM4OTgsImp0aSI6ImI2YTYxNGNlLWY1ZWYtNDQ0ZS04ZDJkLTVkYTk2MGEyOWM4ZCIsImV4cCI6MjQ3NzM2Mzg5OCwidHlwZSI6ImFjY2VzcyIsImZyZXNoIjpmYWxzZX0.3xZr9feGtVsxuLpOrfE_Z5vlDRMCpURGog4i7jmco5s')
-      localStorage.setItem("ApiKey",'9c3ddc2fa88c49c593cba1d642f8f2fa')
+      localStorage.setItem("ApiKey",'0e218a19f41b4eb689003fa634889a19')
       // if(localStorage.getItem('catchChats')){
       //   const data:string = localStorage.getItem('catchChats') as string
       //   setChat(JSON.parse(data));
@@ -334,7 +338,7 @@ const ResumeChat = () => {
       }      
       setTimeout(() => {
         setShowSuggestion(true)
-      }, 1500);
+      }, 500);
       if(localStorage.getItem('ApiKey')!= null){
         setApiKey(localStorage.getItem('ApiKey') as string)
         checkBotId(localStorage.getItem('ApiKey') as string).then(res => {
@@ -344,16 +348,20 @@ const ResumeChat = () => {
               text:element
             })
           });
+          setAudioUrl(res.introduction_voice)
+          setIsTalking(true)
           setSuglist(listsSug);
           // console.log(res)
         })        
       }
     })
     const [_showExitModal,setShowExitModal] = useState(false);
+    const settingRef = useRef<HTMLDivElement>(null);
+    
     return (
         <>
          <div className="hiddenScrollBar" style={{backgroundColor:'white',position:'relative',width:boxWidth,height:boxHeight,overflowY:'scroll'}}>
-            <div style={{backgroundColor:'#253343',overflowY:'visible',position:'relative',top:'0px',height:'187px',width:'100%'}}>
+            {/* <div style={{backgroundColor:'#253343',overflowY:'visible',position:'relative',top:'0px',height:'187px',width:'100%'}}>
                 <div style={{backgroundColor:'#FECA06',display:'flex',justifyContent:'center',alignItems:'start',width:'32px',height:'143px',position:'absolute',bottom:'0px',left:'16px'}}>
                     <div>
                         <img style={{marginTop:'8px'}} src="./icons/Vector.svg" alt="" />
@@ -380,8 +388,40 @@ const ResumeChat = () => {
                     <div style={{backgroundColor:'#FECA06',width:'150px',textAlign:'center',color:'#253343',fontSize:'13px',fontWeight:'600'}}>Dr. Farzin Azami</div>
                     <div style={{color:'white',fontSize:'12px',textAlign:'center',marginTop:'8px',fontWeight:'500'}}>CoFounder and CEO</div>
                 </div>
-            </div>
-            <div style={{display:'flex',zIndex:20,top:100,justifyContent:'center',width:'100%',position:'absolute'}}>
+            </div> */}
+            {/* <Setting 
+                onChangeLanguage={() => {}}
+                onClearHistory={() => {}}
+                onLogout={() => {}}
+                settingRef={settingRef}
+            ></Setting> */}
+            {showSetting && (
+              <Setting
+                settingRef={settingRef}
+                onChangeLanguage={(lan) => {
+                  _setSelectedlangCode(lan)
+                  const newChats:Array<any> = []
+                  setChat(newChats)
+                }}
+                onClearHistory={() => {
+                  // localStorage.removeItem('chats')
+                  const newChats:Array<any> = []
+                  setChat(newChats)
+                }}
+                onLogout={() => {}}
+              />
+            )}
+            {/* <div className="Acord-Setting-logoutIcon " /> */}
+            <div
+              onClick={() => {
+                setShowSetting((prev) => !prev);
+                setAudioUrl('')
+                setIsTalking(false)
+              }}
+              className='settingIcon'
+              style={{zIndex:50}}
+            />            
+            <div style={{display:'flex',zIndex:20,top:20,justifyContent:'center',width:'100%',position:'absolute'}}>
                 <video id="dragAbleAi" ref={videoRef} height={'138px'} style={{borderRadius:'100%'}} className="pk_video" preload="auto" width={'138px'} autoPlay loop muted >
                     <source id="videoPlayer" key={videourl}  src={videourl} type="video/mp4"></source>
                 </video> 
@@ -400,10 +440,52 @@ const ResumeChat = () => {
                 justifyContent: 'center',
                 zIndex: 15,              
               }}>
-                <Sugesstions sugges={suglist} dark handleOfferClick={_handleOfferClick}></Sugesstions>    
+                <Sugesstions close={() => {
+                  setIsTalking(false)
+                  setAudioUrl('')
+                  setShowSuggestion(false)
+                }} sugges={suglist} dark handleOfferClick={_handleOfferClick}></Sugesstions>    
               </div>
              :undefined}
-            <div id="chatMessageScrool" className="hiddenScrollBar" style={{height:360,display:'flex',justifyContent:'center',width:'100%',marginTop:64,overflowY:'scroll'}}>
+             <div style={{display:'flex',width:'100%',position:'absolute',top:'200px',zIndex:12,justifyContent:'center'}}>
+               <div style={{backgroundColor:'#EBEBEB',maxWidth:'432px',width:'100%',minHeight:'215px',paddingBottom:'16px',maxHeight:'315px',position:'relative'}}>
+                  <div style={{backgroundColor:'#FBAD37',zIndex:2,width:'102px',height:'45px',position:'absolute',left:'0px',top:40}}></div>
+                  <div style={{backgroundColor:'#253343',zIndex:1,width:'3px',height:'156px',position:'absolute',left:'66px',top:0}}></div>
+                  <div style={{color:'#253343',fontSize:'22px',fontWeight:400,marginTop:'34px',fontFamily:'Poppins-Regular',marginLeft:'120px'}}>
+                    <div style={{whiteSpace:'pre-line',width:'40px',lineHeight:'27px'}}>Farzin Azami</div>
+                  </div>
+                  <div style={{display:'flex',justifyContent:'start',alignItems:'center'}}>
+                    <div style={{color:'#445A74',fontSize:'16px',width:'500px',fontFamily:'Poppins-Regular',marginLeft:'120px'}}>Founder of Codie</div>
+                    <div style={{backgroundColor:'#445A74',width:'-webkit-fill-available',height:4,right:'0px'}}></div>
+                  </div>
+                  <div style={{width:'100%',display:'flex',justifyContent:'end'}}>
+                    <div>
+                      <div onClick={() => {
+                        window.open('https://www.Codie.ai')
+                      }} style={{display:'flex',justifyContent:'start',marginRight:24}}>
+                        <img style={{width:'16px'}}  src="./global.svg" alt="" />
+                        <div style={{color:'#253343',marginLeft:'8px',textDecoration:'underline',cursor:'pointer',fontSize:'12px',fontFamily:'Poppins-Regular'}}>www.Codie.ai</div>
+                      </div>
+                      <div style={{display:'flex',justifyContent:'start',marginTop:'4px',marginRight:24}}>
+                        <img src="./call.svg" alt="" />
+                        <div style={{color:'#253343',marginLeft:'8px',cursor:'pointer',fontSize:'12px',fontFamily:'Poppins-Regular'}}>07882959722</div>
+                      </div>
+                      <div onClick={() => {
+                        window.open("mailto:Azami@codie.ai?cc=&subject=");
+                      }} style={{display:'flex',justifyContent:'start',marginTop:'4px',marginRight:24}}>
+                        <img  src="./email.svg" alt="" />
+                        <div style={{color:'#253343',marginLeft:'8px',textDecoration:'underline',cursor:'pointer',fontSize:'12px',fontFamily:'Poppins-Regular'}}>Azami@codie.ai</div>
+                      </div>
+                      <div style={{display:'flex',justifyContent:'start',marginTop:'4px',marginRight:24}}>
+                        <img src="./linkdin.svg" alt="" />
+                        <div style={{color:'#253343',marginLeft:'8px',cursor:'pointer',fontSize:'12px',fontFamily:'Poppins-Regular'}}>Linkedin</div>
+                      </div>                                                                  
+                    </div>
+                  </div>
+               </div>
+             </div>
+
+            <div id="chatMessageScrool" className="hiddenScrollBar" style={{height:140,display:'flex',justifyContent:'center',width:'100%',marginTop:420,overflowY:'scroll'}}>
               <div style={{width:'100%'}}>
                 {
                   chat.map((item:any,index:number) => {
@@ -736,4 +818,4 @@ const ResumeChat = () => {
         </>
     )
 }
-export default ResumeChat
+export default ResumeChat2
