@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { ToastContainer} from 'react-toastify';
 import Welcome from "./pages/Welcome";
 import 'react-toastify/dist/ReactToastify.css';
+import CvAvatar from "./pages/CvAvatar";
 
 function App() {
   const [boxWidth,setBoxWidth] = useState(window.innerWidth);
@@ -38,6 +39,10 @@ function App() {
       path: "/chat",
       element: <Chat />,
     },
+    {
+      path: "/resume",
+      element: <CvAvatar />,
+    },    
     {
       path:'/AvatarChat',
       element:<AvatarChat/>

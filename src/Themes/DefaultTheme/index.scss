@@ -1,0 +1,17 @@
+:root {
+  --Acord-voiceRecorder-width: 65px;
+  --Acord-HorizontalSuggestions-width: 50px;
+}
+@import "Button";
+@import "Checkbox";
+@import "HelloWorld";
+@import "HorizontalSuggestions";
+@import "Suggestions";
+@import "TextField";
+@import "VoiceRecorder";
+@import "ChatTextInput";
+@import "ChatSection";
+@import "Setting";
+@import "LanguageModal";
+@import "LogoutModal";
+@import "ChatInformation";
