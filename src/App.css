@@ -50,3 +50,7 @@
 .Acord-VoiceRecorder-Wave4 {
   animation: waves 2.5s linear 1.9s infinite;
 }
+.wmde-markdown{
+  background-color: #2D2D2D !important;
+  padding: 16px !important;
+}

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from "react";
-import {Sugesstions, RateComponent, TypeAndRecord, HintComponent, StartChat} from "../components"
+import {Sugesstions, RateComponent, HintComponent, StartChat} from "../components"
 // import micIcon from '../assets/mic.svg';
 import useSpeechToText from "react-hook-speech-to-text";
 import { useConstructor } from "../help";
@@ -58,9 +58,7 @@ const CvAvatar = () => {
     const {
         interimResult,
         isRecording,
-        results,
-        startSpeechToText,
-        stopSpeechToText
+        results
     } = useSpeechToText({
         continuous:window.innerWidth < 500 ? true: false,
         crossBrowser: true,
