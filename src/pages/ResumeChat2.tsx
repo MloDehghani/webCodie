@@ -412,7 +412,7 @@ const ResumeChat2 = () => {
               />
             )}
             {/* <div className="Acord-Setting-logoutIcon " /> */}
-            <div
+            {/* <div
               onClick={() => {
                 setShowSetting((prev) => !prev);
                 setAudioUrl('')
@@ -420,7 +420,14 @@ const ResumeChat2 = () => {
               }}
               className='settingIcon'
               style={{zIndex:50}}
-            />            
+            />             */}
+            <img onClick={() => {
+                setShowSetting((prev) => !prev);
+                setAudioUrl('')
+                setIsTalking(false)
+              }}
+              className='settingIcon'
+              style={{zIndex:50}} src="./Acord/setting.svg" alt="" />
             <div style={{display:'flex',zIndex:20,top:20,justifyContent:'center',width:'100%',position:'absolute'}}>
                 <video id="dragAbleAi" ref={videoRef} height={'138px'} style={{borderRadius:'100%'}} className="pk_video" preload="auto" width={'138px'} autoPlay loop muted >
                     <source id="videoPlayer" key={videourl}  src={videourl} type="video/mp4"></source>

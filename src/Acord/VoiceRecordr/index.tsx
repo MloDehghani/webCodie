@@ -58,7 +58,8 @@ const VoiceRecorder: React.FC<RecordProps> = ({
       ) : isLoading ? (
         <BeatLoader color="white" size={8}></BeatLoader>
       ) : (
-        <div className={`${theme}-VoiceRecorder-icon`} />
+        // <div className={`${theme}-VoiceRecorder-icon`} />
+        <img src="./Acord/Record.svg" />
       )}
       {isRecording ? (
         <>
