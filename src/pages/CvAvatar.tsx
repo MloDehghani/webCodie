@@ -411,7 +411,7 @@ const CvAvatar = () => {
           :        
           <div className="hiddenScrollBar" style={{backgroundColor:'white',position:'relative',width:boxWidth,height:boxHeight,overflowY:'scroll'}}>
               <div style={{marginTop: 50,maxHeight:80,minHeight:80,display:'flex',justifyContent:'center',alignItems:'center'}}>
-                  <video style={{borderRadius:'100%',width:160,}} muted loop autoPlay src={isTalking? talkVido: silentVideo}></video>
+                  <video playsInline style={{borderRadius:'100%',width:160,}} muted loop autoPlay src={isTalking? talkVido: silentVideo}></video>
                   {/* {isRecording ? 
                       <WaveVoice />
                   :
