@@ -518,9 +518,13 @@ const Chat = () => {
               <div id="chatMessageScrool" className="hiddenScrollBar" style={{height:400,display:'flex',justifyContent:'center',width:'100%',marginTop:32,overflowY:'scroll'}}>
                 <div style={{width:'90%'}}>
                   <div style={{width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
-                    <div style={{maxWidth:'400px',color:'white'}}>
-                      <MarkdownEditor.Markdown source={markdown} />
-                    </div>
+                    {
+                      markdown.length > 0 ?
+                        <div style={{maxWidth:'400px',color:'white'}}>
+                          <MarkdownEditor.Markdown source={markdown} />
+                        </div>
+                      :undefined
+                    }
                   </div>
                   {
                     chat.map((item:any,index:number) => {
