@@ -190,9 +190,9 @@ const AvatarChat = () => {
               });
             }
           });
-          console.log(res.content.replace(/[0-9]/g, '#').split('#.'));
+          // console.log(res.content.replace(/[0-9]/g, '#').split('#.'));
           setSugestionTitle(res.title);
-          setSuglist(arr);
+          setSuglist(res.content);
         },
       );
     };    

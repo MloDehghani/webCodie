@@ -59,7 +59,7 @@ const HintComponent = (props:HintComponentProps) => {
         }else{
             setIsLoading(true)
             Hint.getHints({instanceid:props.instanceId},(res) => {
-                setHints(res.content.replace(/[0-9]/g, '#').split('#.'));
+                setHints(res.content);
                 setIsLoading(false)
                 setShowHint(true)
             })            

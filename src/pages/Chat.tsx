@@ -179,18 +179,19 @@ const Chat = () => {
           apikey: useApikey,
         },
         res => {
-          const a = res.content.replace(/[0-9]/g, '#').split('#.');
-          const arr: Array<any> = [];
-          a?.forEach((element: string) => {
-            if (element !== '') {
-              arr.push({
-                text: element,
-              });
-            }
-          });
-          console.log(res.content.replace(/[0-9]/g, '#').split('#.'));
+          console.log(res)
+          // const a = res.content.replace(/[0-9]/g, '#').split('#.');
+          // const arr: Array<any> = [];
+          // a?.forEach((element: string) => {
+          //   if (element !== '') {
+          //     arr.push({
+          //       text: element,
+          //     });
+          //   }
+          // });
+          // console.log(res.content.replace(/[0-9]/g, '#').split('#.'));
           setSugestionTitle(res.title);
-          setSuglist(arr);
+          setSuglist(res.content);
         },
       );
     };    
