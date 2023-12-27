@@ -59,7 +59,7 @@ const HintComponent = (props:HintComponentProps) => {
         }else{
             setIsLoading(true)
             Hint.getHints({instanceid:props.instanceId},(res) => {
-                setHints(res.content);
+                setHints(res);
                 setIsLoading(false)
                 setShowHint(true)
             })            

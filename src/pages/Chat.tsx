@@ -180,18 +180,18 @@ const Chat = () => {
         },
         res => {
           console.log(res)
-          // const a = res.content.replace(/[0-9]/g, '#').split('#.');
-          // const arr: Array<any> = [];
-          // a?.forEach((element: string) => {
-          //   if (element !== '') {
-          //     arr.push({
-          //       text: element,
-          //     });
-          //   }
-          // });
+          const a = res.content;
+          const arr: Array<any> = [];
+          a?.forEach((element: string) => {
+            if (element !== '') {
+              arr.push({
+                text: element,
+              });
+            }
+          });
           // console.log(res.content.replace(/[0-9]/g, '#').split('#.'));
           setSugestionTitle(res.title);
-          setSuglist(res.content);
+          setSuglist(arr);
         },
       );
     };    
