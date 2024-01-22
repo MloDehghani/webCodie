@@ -338,6 +338,7 @@ const Chat = () => {
     useConstructor(() => {
       // _test()
       // getLangSuges(s)
+      console.log('chat is chat')
       if(localStorage.getItem('catchChats')){
         const data:string = localStorage.getItem('catchChats') as string
         setChat(JSON.parse(data));
@@ -353,9 +354,11 @@ const Chat = () => {
           navigate('/plan');
         }, 200);
       }      
-      setTimeout(() => {
-        setShowSuggestion(true)
-      }, 1500);
+      // setTimeout(() => {
+      //   if(markdown.length < 1){
+      //     setShowSuggestion(true)
+      //   }
+      // }, 200);
       if(localStorage.getItem('ApiKey')!= null){
         setApiKey(localStorage.getItem('ApiKey') as string)
         checkBotId(localStorage.getItem('ApiKey') as string,selectedLangCode.lan).then(res => {
@@ -371,11 +374,18 @@ const Chat = () => {
             voice:res.introduction_voice
           })
           setIsGetBotData(true);
-          setSuglist(listsSug);
+          // setSuglist(listsSug);
           // console.log(res)
         })        
       }
     })
+    // useEffect(() => {
+    //   if(!isTalking){
+    //     setTimeout(() => {
+    //         setShowSuggestion(true)
+    //     }, 100000);
+    //   }
+    // },[isTalking,chat])
     const [showExitModal,setShowExitModal] = useState(false);
     const [isfirstChat,setIsFirstChat] = useState(true);
     useEffect(() => {
@@ -392,7 +402,9 @@ const Chat = () => {
               getLangSuges(code.lan)
             }} introduction={introduction} setIntroduction={setintroduction} apikey={useApikey} setMarkDown={setMarkDown} isLoading={!isGetBotData} isTalking={isTalking} start={() => {
               if(introduction.voice){
-                setAudioUrl(introduction.voice);
+                setTimeout(() => {
+                  setAudioUrl(introduction.voice);
+                }, 1000);
               }else{
                 setIsFirstChat(false)
               }
@@ -499,7 +511,7 @@ const Chat = () => {
                   :undefined}
                 </div>
               </div>
-              {!isRecording && showSugestion && chat.length ==0 && markdown.length < 1 ?
+              {!isRecording && showSugestion && chat.length ==0  ?
                 <div style={{ 
                   position: 'absolute',
                   width: '-webkit-fill-available',
@@ -827,6 +839,10 @@ const Chat = () => {
                   setAudioUrl('')
                   setIsTalking(false)
                   setIsFirstChat(false)
+                  setTimeout(() => {
+                    setShowSuggestion(true)
+                  }, 10000);
+
                   // props.setVideoEnded(true)
                   // console.log('end')
                   // setvideourl(avatar=='ava1'?'https://codieappstorage.blob.core.windows.net/codievoice/Videos/V2_.mp4':'https://codieappstorage.blob.core.windows.net/codievoice/Videos/V1_.mp4')
