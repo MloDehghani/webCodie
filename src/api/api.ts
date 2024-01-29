@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 class Api {
-  protected static baseUrl = 'https://vercel-backend-pi-nine.vercel.app/mobile';
+  protected static baseUrl = 'https://vercel-backend-one-roan.vercel.app/mobile';
 
   protected static async post(url: string, data: any) {
     const response = await fetch(this.baseUrl + url, {

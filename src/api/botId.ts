@@ -1,7 +1,7 @@
 const checkBotId = async (apiKey: string,lan?:string) => {
   console.log(apiKey);
   const response = await fetch(
-    'https://vercel-backend-pi-nine.vercel.app/mobile/check_bot_id',
+    'https://vercel-backend-one-roan.vercel.app/mobile/check_bot_id',
     {
       method: 'POST',
       mode: 'cors', // no-cors, *cors, same-origin
