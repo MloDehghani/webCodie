@@ -5,7 +5,7 @@ import Api from "./api";
 class Flow extends Api {
     static async chat(data: any) {
         let response = await fetch(
-        'https://codie-backend.azurewebsites.net/mobile/flow_uni',
+        'https://vercel-backend-pi-nine.vercel.app/mobile/flow_uni',
         {
             method: 'POST',
             mode: 'cors', // no-cors, *cors, same-origin
