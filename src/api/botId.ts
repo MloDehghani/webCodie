@@ -6,7 +6,7 @@ const checkBotId = async (apiKey: string,lan?:string) => {
       method: 'POST',
       mode: 'cors', // no-cors, *cors, same-origin
       headers: {
-        // 'Content-Type': 'application/json',
+        'Content-Type': 'application/json',
         // 'Access-Control-Allow-Credentials': 'true',
         // 'Access-Control-Allow-Origin': '*',
         // 'Content-Type': 'application/x-www-form-urlencoded',
