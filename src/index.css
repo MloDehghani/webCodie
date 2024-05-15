@@ -132,11 +132,11 @@ button {
   /* transition: border-color 0.25s; */
 }
   .under-image {
-    width: 440px !important;
+    width: 500px !important;
     padding-top: 2px !important;
   }
   .under-image2 {
-    width: 350px !important;
+    width: 420px !important;
     padding-top: 2px !important;
   }  
 input::placeholder {
@@ -186,7 +186,7 @@ input[type="checkbox"] {
 } */
   .canterbury {
     font-size: 24px !important;
-    line-height: 36px !important;
+    line-height: 30px !important;
   }
   .leftContainer {
     position: absolute !important;
@@ -216,7 +216,7 @@ input[type="checkbox"] {
     padding-bottom: 10px !important;
   }
   .under-image {
-    width: 420px !important;
+    width: 310px !important;
     padding-top: 2px !important;
   }
   .under-image2 {
@@ -248,7 +248,7 @@ input[type="checkbox"] {
    
   }
   .under-image {
-    width: 250px !important;
+    width: 300px !important;
     padding-top: 2px !important;
   }  
   .under-image2 {

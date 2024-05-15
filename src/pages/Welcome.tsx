@@ -48,7 +48,8 @@ const Welcome = () => {
               style={{
                 whiteSpace: "pre-line",
                 lineHeight: "72px",
-                fontSize: "44px",
+                marginTop:'12px',
+                fontSize: "35px",
                 fontWeight: "500",
                 width:'100%',
               }}
@@ -57,12 +58,12 @@ const Welcome = () => {
               Transforming Your Documents into an 
             </p>
             <p
-              className="welcomeday"
+              className="canterbury"
               style={{
                 lineHeight: "54px",
-                fontSize: "32px",
+                fontSize: "35px",
                 fontWeight: "500",
-                marginTop: "32px",
+                marginTop: "0px",
               }}
             >
               Inteligent Multilingual Assistant
