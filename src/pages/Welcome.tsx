@@ -53,7 +53,8 @@ const Welcome = () => {
                 width:'100%',
               }}
             >
-              Canterbury Christ Church University
+              {/* Canterbury Christ Church University */}
+              Transforming Your Documents into an 
             </p>
             <p
               className="welcomeday"
@@ -64,7 +65,7 @@ const Welcome = () => {
                 marginTop: "32px",
               }}
             >
-              Answering Day
+              Inteligent Multilingual Assistant
             </p>
             <div className="under-image" style={{ marginTop:window.innerWidth< 500?'-20px' :"0px" }}>
               <img className="under-image"

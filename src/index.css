@@ -132,7 +132,7 @@ button {
   /* transition: border-color 0.25s; */
 }
   .under-image {
-    width: 220px !important;
+    width: 440px !important;
     padding-top: 2px !important;
   }
   .under-image2 {
@@ -216,7 +216,7 @@ input[type="checkbox"] {
     padding-bottom: 10px !important;
   }
   .under-image {
-    width: 220px !important;
+    width: 420px !important;
     padding-top: 2px !important;
   }
   .under-image2 {
@@ -248,7 +248,7 @@ input[type="checkbox"] {
    
   }
   .under-image {
-    width: 140px !important;
+    width: 250px !important;
     padding-top: 2px !important;
   }  
   .under-image2 {
