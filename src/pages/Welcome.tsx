@@ -49,7 +49,7 @@ const Welcome = () => {
                 whiteSpace: "pre-line",
                 lineHeight: "72px",
                 marginTop:'12px',
-                fontSize: "35px",
+                fontSize: "30px",
                 fontWeight: "500",
                 width:'100%',
               }}
@@ -61,14 +61,14 @@ const Welcome = () => {
               className="canterbury"
               style={{
                 lineHeight: "54px",
-                fontSize: "35px",
+                fontSize: "30px",
                 fontWeight: "500",
                 marginTop: "0px",
               }}
             >
               Inteligent Multilingual Assistant
             </p>
-            <div className="under-image" style={{ marginTop:window.innerWidth< 500?'-20px' :"0px" }}>
+            <div className="under-image" style={{ marginTop:window.innerWidth< 500?'0px' :"0px" }}>
               <img className="under-image"
                 src="/images/under_blue.svg"
                 alt=""
